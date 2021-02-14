@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorAccent" format="color" />
+    <attr name="colorPrimary" format="color" />
+    <attr name="colorPrimaryDark" format="color" />
+    <attr name="colorButtonDisabled" format="color" />
+    <attr name="colorButtonEnabled" format="color" />
+    <attr name="colorCardBackgroundLight" format="color" />
+    <attr name="colorCardBackgroundDark" format="color" />
+    <attr name="colorIcons" format="color" />
+    <attr name="colorBluetooth" format="color" />
+</resources>

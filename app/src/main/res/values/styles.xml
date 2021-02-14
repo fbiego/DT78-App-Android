@@ -1,0 +1,64 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryGreen</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreen</item>
+        <item name="colorAccent">@color/colorAccentGreen</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+        <!--  -->
+        <item name="colorIcons">@color/colorIconsGreen</item>
+        <item name="colorButtonDisabled">@color/colorButtonDisabledGreen</item>
+        <item name="colorButtonEnabled">@color/colorButtonEnabledGreen</item>
+        <item name="colorCardBackgroundDark">@color/colorCardBackgroundDarkGreen</item>
+        <item name="colorCardBackgroundLight">@color/colorCardBackgroundLightGreen</item>
+        <item name="colorBluetooth">@color/colorBluetooth</item>
+    </style>
+
+    <style name="RedTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryRed</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkRed</item>
+        <item name="colorAccent">@color/colorAccentRed</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+
+        <!--  -->
+        <item name="colorIcons">@color/colorIconsRed</item>
+        <item name="colorButtonDisabled">@color/colorButtonDisabledRed</item>
+        <item name="colorButtonEnabled">@color/colorButtonEnabledRed</item>
+        <item name="colorCardBackgroundDark">@color/colorCardBackgroundDarkRed</item>
+        <item name="colorCardBackgroundLight">@color/colorCardBackgroundLightRed</item>
+        <item name="colorBluetooth">@color/colorBluetooth</item>
+    </style>
+
+    <style name="PurpleTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryPurple</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
+        <item name="colorAccent">@color/colorAccentPurple</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+
+        <!--  -->
+        <item name="colorIcons">@color/colorIconsPurple</item>
+        <item name="colorButtonDisabled">@color/colorButtonDisabledPurple</item>
+        <item name="colorButtonEnabled">@color/colorButtonEnabledPurple</item>
+        <item name="colorCardBackgroundDark">@color/colorCardBackgroundDarkPurple</item>
+        <item name="colorCardBackgroundLight">@color/colorCardBackgroundLightPurple</item>
+        <item name="colorBluetooth">@color/colorBluetooth</item>
+    </style>
+
+    <style name="BlueTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryBlue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkBlue</item>
+        <item name="colorAccent">@color/colorAccentBlue</item>
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+
+        <!--  -->
+        <item name="colorIcons">@color/colorIconsBlue</item>
+        <item name="colorButtonDisabled">@color/colorButtonDisabledBlue</item>
+        <item name="colorButtonEnabled">@color/colorButtonEnabledBlue</item>
+        <item name="colorCardBackgroundDark">@color/colorCardBackgroundDarkBlue</item>
+        <item name="colorCardBackgroundLight">@color/colorCardBackgroundLightBlue</item>
+        <item name="colorBluetooth">@color/colorBluetooth</item>
+    </style>
+
+</resources>

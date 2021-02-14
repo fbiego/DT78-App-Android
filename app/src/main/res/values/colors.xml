@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="colorWindowBackground">#cfcfcf</color>
+    <color name="colorTransparent">#0fff</color>
+    <color name="colorCardBackground">#fff</color>
+
+    <color name="colorPrimaryGreen">#2abf34</color>
+    <color name="colorPrimaryDarkGreen">#18731e</color>
+    <color name="colorAccentGreen">#45d94f</color>
+    <color name="colorButtonDisabledGreen">#a5f9af</color>
+    <color name="colorButtonEnabledGreen">#45d94f</color>
+    <color name="colorCardBackgroundLightGreen">#95f99f</color><!--#95f99f-->
+    <color name="colorCardBackgroundDarkGreen">#55c95f</color>
+    <color name="colorIconsGreen">#18631e</color>
+    <color name="colorBluetooth">#00a</color>
+
+    <color name="colorPrimaryRed">#bf2a34</color>
+    <color name="colorPrimaryDarkRed">#73181e</color>
+    <color name="colorAccentRed">#d9454f</color>
+    <color name="colorButtonDisabledRed">#f9a5af</color>
+    <color name="colorButtonEnabledRed">#d9454f</color>
+    <color name="colorCardBackgroundLightRed">#f9959f</color><!--#95f99f-->
+    <color name="colorCardBackgroundDarkRed">#c9555f</color>
+    <color name="colorIconsRed">#bf2a34</color>
+
+    <color name="colorPrimaryPurple">#bf34ba</color>
+    <color name="colorPrimaryDarkPurple">#731e78</color>
+    <color name="colorAccentPurple">#d94fd5</color>
+    <color name="colorButtonDisabledPurple">#f9aff5</color>
+    <color name="colorButtonEnabledPurple">#d94fd5</color>
+    <color name="colorCardBackgroundLightPurple">#f995f9</color><!--#95f99f-->
+    <color name="colorCardBackgroundDarkPurple">#c955f6</color>
+    <color name="colorIconsPurple">#bf34ba</color>
+
+    <color name="colorPrimaryBlue">#342abf</color>
+    <color name="colorPrimaryDarkBlue">#1e1873</color>
+    <color name="colorAccentBlue">#4f45d9</color>
+    <color name="colorButtonDisabledBlue">#afa5f9</color>
+    <color name="colorButtonEnabledBlue">#4f45d9</color>
+    <color name="colorCardBackgroundLightBlue">#9f95f9</color><!--#95f99f-->
+    <color name="colorCardBackgroundDarkBlue">#5f55c9</color>
+    <color name="colorIconsBlue">#342abf</color>
+
+
+</resources>
