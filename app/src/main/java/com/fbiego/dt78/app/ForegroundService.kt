@@ -263,7 +263,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         val txt = if (convert){
             FontConverter().greek2English(text)
         } else {
-            text
+            text 
         }
         val msg = if (capitalize){
             txt.toUpperCase(Locale.getDefault())

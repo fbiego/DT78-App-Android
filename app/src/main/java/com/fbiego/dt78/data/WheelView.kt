@@ -63,7 +63,7 @@ class WheelView(context: Context, attrs: AttributeSet?) : ScrollView(context, at
     }
     private var scrollerTask: Runnable? = null
 
-    private var offset = OFF_SET_DEFAULT // 偏移量（需要在最前面和最后面补全）
+    var offset = OFF_SET_DEFAULT // 偏移量（需要在最前面和最后面补全）
     private var displayItemCount  = 0
     private var currentIndex = 1
     private var initialY = 0
