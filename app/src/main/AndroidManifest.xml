@@ -84,7 +84,8 @@
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
-        </service> <!-- Foreground service -->
+        </service>
+        <!-- Foreground service -->
         <service
             android:name=".app.ForegroundService"
             android:exported="false" />

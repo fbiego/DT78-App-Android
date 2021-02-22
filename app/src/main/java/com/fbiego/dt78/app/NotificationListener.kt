@@ -6,12 +6,10 @@ import android.os.Build
 import android.os.Bundle
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.text.SpannableString
 import androidx.annotation.RequiresApi
-import com.fbiego.dt78.app.ForegroundService.Companion.dt78
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.fbiego.dt78.data.Channel
-import com.fbiego.dt78.data.Watch
 import com.fbiego.dt78.data.isFiltered
 import com.fbiego.dt78.data.parseApps
 import timber.log.Timber
@@ -46,9 +44,7 @@ class NotificationListener : NotificationListenerService() {
         val notification = sbn.notification
         val ticker = notification?.tickerText
         val bundle: Bundle? = notification?.extras
-        val titleObj = bundle?.get("android.title")
-        val title: String
-        title = when (titleObj) {
+        val title: String = when (val titleObj = bundle?.get("android.title")) {
             is String -> titleObj
             is SpannableString -> titleObj.toString()
             else -> null.toString()
@@ -100,9 +96,7 @@ class NotificationListener : NotificationListenerService() {
         val notification = sbn.notification
         val ticker = notification?.tickerText
         val bundle: Bundle? = notification?.extras
-        val titleObj = bundle?.get("android.title")
-        val title: String
-        title = when (titleObj) {
+        val title: String = when (val titleObj = bundle?.get("android.title")) {
             is String -> titleObj
             is SpannableString -> titleObj.toString()
             else -> "undefined"

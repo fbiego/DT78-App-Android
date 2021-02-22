@@ -41,7 +41,7 @@ class HealthAdapter(healthData: ArrayList<HealthData>): RecyclerView.Adapter<Hea
         private val mDate: TextView = itemView.findViewById(R.id.date)
         private val mTime: TextView = itemView.findViewById(R.id.time)
         private val mValue: TextView = itemView.findViewById(R.id.value)
-        private val card: CardView = itemView.findViewById(R.id.cardView)
+        //private val card: CardView = itemView.findViewById(R.id.cardView)
 
         @SuppressLint("DefaultLocale")
         fun bind (health: HealthData){

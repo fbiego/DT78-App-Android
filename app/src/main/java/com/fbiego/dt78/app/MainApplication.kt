@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.multidex.MultiDexApplication
 import android.util.Log
-import timber.log.Timber
 import com.fbiego.dt78.BuildConfig
+import timber.log.Timber
 
 /**
  *

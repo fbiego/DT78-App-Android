@@ -4,9 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothManager
-import android.bluetooth.BluetoothProfile
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -32,7 +29,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import com.db.williamchart.data.DonutDataPoint
 import com.db.williamchart.data.Scale
 import com.db.williamchart.view.DonutChartView
 import com.fbiego.dt78.app.ConnectionListener
@@ -40,15 +36,11 @@ import com.fbiego.dt78.app.ConnectionReceiver
 import com.fbiego.dt78.app.MainApplication
 import com.fbiego.dt78.app.RootUtil
 import com.fbiego.dt78.data.*
-import com.hadiidbouk.charts.BarData
-import com.hadiidbouk.charts.ChartProgressBar
 import kotlinx.android.synthetic.main.activity_main.*
 import no.nordicsemi.android.ble.data.Data
 import timber.log.Timber
-import java.lang.reflect.Method
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.roundToInt
 import com.fbiego.dt78.app.ForegroundService as FG
 import com.fbiego.dt78.app.SettingsActivity as ST
 
