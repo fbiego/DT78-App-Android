@@ -1,7 +1,6 @@
 # DT78-App-Android
 Alternative app for the DT78 Smartwatch. Also works with DT92 &amp; DT66. May work with watches that use the WearFit 2.0 app.
 
-DT78-App-v${defaultConfig.versionName}.apk
 
 ## Source Code (Dev branch)
 
