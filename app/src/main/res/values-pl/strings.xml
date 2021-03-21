@@ -5,10 +5,10 @@
     <string name="age">Wiek</string>
     <string name="alarm">Alarm</string>
     <string name="alarms">Alarmy</string>
-    <string name="bat_charging">[ Ładuje ]</string>
+    <string name="bat_charging">[_________Ładuje________]</string>
     <string name="bat_notifs">Ostrzerzenie o baterii</string>
-    <string name="bat_phone">[ Bateria telefonu ]</string>
-    <string name="bat_unplugged">[ Rozłączony ]</string>
+    <string name="bat_phone">[___Bateria telefonu____]</string>
+    <string name="bat_unplugged">[______Rozłączony_______]</string>
     <string name="battery">Bateria</string>
     <string name="battery_icon">Ikona baterii</string>
     <string name="bph">Ciśnienie krwi</string>
@@ -156,7 +156,7 @@
         <item>45 mins</item>
         <item>1 hour</item>
     </string-array>
-    <string name="quiet_active">Aktywne godziny snu</string>
+    <string name="quiet_active">[__Aktywne godziny snu__]</string>
     <string name="custom_watchface">Wybrana tarcza zegarka</string>
     <string name="upload_image">Wysyłanie obrazu</string>
     <string name="select_image">Wybierz obraz</string>
@@ -229,4 +229,5 @@
     <string name="call">Zadzwoń</string>
     <string name="sms">SMS</string>
     <string name="set_screen_lock">Najpierw ustaw blokadę ekranu</string>
+    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
 </resources>
