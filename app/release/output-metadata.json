@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.fbiego.dt78",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 32,
+      "versionName": "3.1",
+      "enabled": true,
+      "outputFile": "DT78-App-v3.1.apk"
+    }
+  ]
+}
