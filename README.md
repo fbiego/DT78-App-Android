@@ -59,11 +59,9 @@ Changes:
 + Converted `WheelView` to `Kotlin`
 
 Extract as follows:
-> `~/your-folder/DT78-App-Android-master`
+> `~/your-folder/DT78-App-Android-dev`
 
 > `~/your-folder/Android-BLE-Library`
 
 You may need to delete the `.idea` folder before syncing the project
-
-## Source Code (Dev branch)
 
