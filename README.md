@@ -19,7 +19,7 @@
 
 Released on `Sunday, 21 March 2021 19:20 Greenwich Mean Time (GMT)`
 
-[Changelog](https://github.com/fbiego/DT78-App-Android/blob/master/app/release/changeLog.md):
+[Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
 >+ Added Italian language
 >+ Added Polish language
 
@@ -55,7 +55,7 @@ Join the telegram group [`DT78 Smartwatch`](https://t.me/dt78app)
 ## Source Code (Dev branch)
 Changes:
 + Migrated project to `androidx`
-+ Included [`Android-BLE-Library`](https://github.com/fbiego/DT78-App-Android/blob/master/Android-BLE-Library.zip) as a zip file
++ Included [`Android-BLE-Library`](https://github.com/fbiego/DT78-App-Android/blob/dev/Android-BLE-Library.zip) as a zip file
 + Converted `WheelView` to `Kotlin`
 
 Extract as follows:
