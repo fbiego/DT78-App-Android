@@ -49,9 +49,9 @@ The camera may not work on some devices and on others only the back camera may w
 
 ### Screenshots
 
-![1](dt78_app6.jpg?raw=true "3")
+![1](dt78_app6.png?raw=true "3")
 
-![2](dt78_app7.jpg?raw=true "2")
+![2](dt78_app7.png?raw=true "2")
 
 
 ## Source Code (Dev branch)
