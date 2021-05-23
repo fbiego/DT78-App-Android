@@ -43,7 +43,9 @@ The camera may not work on some devices and on others only the back camera may w
 
 #### Telegram
 
-Join the telegram group [`DT78 Smartwatch`](https://t.me/dt78app)
+[<img src="telegram_.png?raw=true" width=100 align=left>](https://t.me/dt78app)
+
+<br><br><br><br>
 
 ### Screenshots
 
