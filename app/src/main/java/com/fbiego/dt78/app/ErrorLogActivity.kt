@@ -80,11 +80,12 @@ class ErrorLogActivity : AppCompatActivity() {
 
     }
 
-    fun plotData(day: Int){
+    private fun plotData(day: Int){
         val dbHandler = MyDBHandler(this, null, null, 1)
 
         errorToday.clear()
         errorToday = dbHandler.getErrorDay(errorList[day].year, errorList[day].month, errorList[day].day)
+        errorToday.reverse()
 
         val sleepAdapter = ErrorAdapter(errorToday, this)
         errorRecycler.apply {

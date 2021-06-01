@@ -85,6 +85,7 @@ class SettingsActivity : AppCompatActivity() {
         const val PREF_DND_UNLOCK = "unlocked"
         const val PREF_DND_SCREEN = "screen_on"
         const val PREF_CAMERA = "camera"
+        const val PREF_BRIGHT = "brightness"
         lateinit var btAdapter: BluetoothAdapter
 
         var curLock = false

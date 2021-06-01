@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.SeekBar
 import android.widget.Toast
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_setings.*
@@ -80,6 +81,22 @@ class SettingsWatchActivity : AppCompatActivity() {
             FG().updateQuiet(current)
         }
 
+
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x01, 0x01, p1))
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                setPref.edit().putInt(ST.PREF_BRIGHT, p0!!.progress).apply()
+            }
+
+        })
+
     }
 
     override fun onResume() {
@@ -94,6 +111,8 @@ class SettingsWatchActivity : AppCompatActivity() {
         val values = Watch(dt78).lang.int
         var timeout = setPref.getInt(ST.PREF_TIMEOUT, 10)
         val display = setPref.getBoolean(ST.PREF_DISPLAY_OFF, false)
+
+        seekBar.progress = setPref.getInt(ST.PREF_BRIGHT, 100)
 
 
 
@@ -279,6 +298,10 @@ class SettingsWatchActivity : AppCompatActivity() {
         } else {
             linearLayout2.visibility = View.GONE
         }
+        if (dt78 != ESP32){
+            linearLayout3.visibility = View.GONE
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         var watch: TextView? = null
         var bt: ImageView? = null
         var per: ImageView? = null
+        var chrg: ImageView? = null
         var step: TextView? = null
         var cal: TextView? = null
         var dis: TextView? = null
@@ -175,6 +176,7 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         bt = findViewById(R.id.connect)
         per = findViewById(R.id.batIcon)
         step = findViewById(R.id.stepsText)
+        chrg = findViewById(R.id.charging)
         cal = findViewById(R.id.caloriesText)
         dis = findViewById(R.id.distanceText)
         progress = findViewById(R.id.targetSteps)
@@ -615,6 +617,13 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
             if (data.size() == 8) {
                 if (data.getByte(4) == (0x91).toByte()) {
                     FG.bat = data.getByte(7)!!.toPInt()
+                    val chg = (data.getByte(6)!!.toPInt() == 1)
+
+                    if (chg){
+                        chrg?.visibility = View.VISIBLE
+                    } else {
+                        chrg?.visibility = View.GONE
+                    }
                     Timber.w("Battery: ${FG.bat}%")
                     bat?.text = "${FG.bat}%"
                     watch?.text = FG.deviceName
@@ -647,6 +656,8 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
             setIcon(FG.connected)
             if (FG.connected){
                 watch?.text = FG.deviceName
+            } else {
+                chrg?.visibility = View.GONE
             }
 
 

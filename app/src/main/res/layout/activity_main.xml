@@ -64,6 +64,14 @@
                 android:src="@drawable/ic_bt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="#AAA" />
+            <ImageView
+                android:id="@+id/charging"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_charge"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="?attr/colorIcons" />
 
             <ImageView
                 android:id="@+id/batIcon"
