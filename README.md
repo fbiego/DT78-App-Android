@@ -23,6 +23,8 @@ Released on `Saturday, 26 June 2021 05:00 Greenwich Mean Time (GMT)`
 >+ Added Charging status
 >+ Added DND when charging
 >+ Updated translations
+>+ Added animated heart rate measurement
+>+ Added 'Measure all' option
 
 The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
