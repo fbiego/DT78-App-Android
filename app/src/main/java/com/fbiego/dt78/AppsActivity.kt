@@ -23,10 +23,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SwitchCompat
 import com.fbiego.dt78.app.MainApplication
@@ -135,26 +132,53 @@ class AppsActivity : AppCompatActivity() {
             FG.smsShow = state
             editor.putBoolean(ST.PREF_SHOW_SMS, !state).apply()
         }
-        screenOn.setOnCheckedChangeListener { _, b ->
-            dndIcon.imageTintList = dndColor(b || pref.getBoolean(ST.PREF_DND_UNLOCK, false))
-            FG.unlocked = b
-            editor.putBoolean(ST.PREF_DND_SCREEN, b).apply()
-        }
-        unlocked.setOnCheckedChangeListener { com, b ->
-            var state = b
-            if (b){
-                if (isScreenLockSet(this)){
-                    state = true
-                } else if (com.isPressed) {
-                    Toast.makeText(this, R.string.set_screen_lock, Toast.LENGTH_SHORT).show()
-                    state = false
-                    unlocked.isChecked = state
-                }
-            }
-            dndIcon.imageTintList = dndColor(state || pref.getBoolean(ST.PREF_DND_SCREEN, false))
-            FG.screenOn = state
-            editor.putBoolean(ST.PREF_DND_UNLOCK, state).apply()
 
+
+        dndLayout.setOnClickListener {
+            val alert = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val editLayout = inflater.inflate(R.layout.dnd_layout, null)
+            val cUnlock = editLayout.findViewById<CheckBox>(R.id.unlocked)
+            val cScreen = editLayout.findViewById<CheckBox>(R.id.screenOn)
+            val cCharge = editLayout.findViewById<CheckBox>(R.id.charge)
+
+            cUnlock.isChecked = (pref.getBoolean(ST.PREF_DND_UNLOCK, false) && isScreenLockSet(this))
+            cScreen.isChecked = pref.getBoolean(ST.PREF_DND_SCREEN, false)
+            cCharge.isChecked = pref.getBoolean(ST.PREF_DND_CHARGE, false)
+            alert.setTitle("DND mode")
+
+            cScreen.setOnCheckedChangeListener { _, b ->
+                dndIcon.imageTintList = dndColor(b || pref.getBoolean(ST.PREF_DND_UNLOCK, false) || pref.getBoolean(ST.PREF_DND_CHARGE, false))
+                FG.unlocked = b
+                editor.putBoolean(ST.PREF_DND_SCREEN, b).apply()
+            }
+            cCharge.setOnCheckedChangeListener{ _, b ->
+                dndIcon.imageTintList = dndColor(b || pref.getBoolean(ST.PREF_DND_UNLOCK, false) || pref.getBoolean(ST.PREF_DND_SCREEN, false))
+                FG.charging = b
+                editor.putBoolean(ST.PREF_DND_CHARGE, b).apply()
+            }
+            cUnlock.setOnCheckedChangeListener { com, b ->
+                var state = b
+                if (b){
+                    if (isScreenLockSet(this)){
+                        state = true
+                    } else if (com.isPressed) {
+                        Toast.makeText(this, R.string.set_screen_lock, Toast.LENGTH_SHORT).show()
+                        state = false
+                        cUnlock.isChecked = state
+                    }
+                }
+                dndIcon.imageTintList = dndColor(state || pref.getBoolean(ST.PREF_DND_SCREEN, false) || pref.getBoolean(ST.PREF_DND_CHARGE, false))
+                FG.screenOn = state
+                editor.putBoolean(ST.PREF_DND_UNLOCK, state).apply()
+
+            }
+
+            alert.setView(editLayout)
+            alert.setNegativeButton(getString(R.string.cancel)){_, _ ->
+
+            }
+            alert.show()
         }
 
 
@@ -177,9 +201,8 @@ class AppsActivity : AppCompatActivity() {
         smsState.isChecked = pref.getBoolean(ST.PREF_SMS, false) && smsCheck()
         dndSms.imageTintList = dndColor(pref.getBoolean(ST.PREF_SHOW_SMS, false))
         dndCall.imageTintList = dndColor(pref.getBoolean(ST.PREF_SHOW_CALL, false))
-        dndIcon.imageTintList = dndColor((pref.getBoolean(ST.PREF_DND_UNLOCK, false) && isScreenLockSet(this) )|| pref.getBoolean(ST.PREF_DND_SCREEN, false))
-        unlocked.isChecked = (pref.getBoolean(ST.PREF_DND_UNLOCK, false) && isScreenLockSet(this))
-        screenOn.isChecked = pref.getBoolean(ST.PREF_DND_SCREEN, false)
+        dndIcon.imageTintList = dndColor((pref.getBoolean(ST.PREF_DND_UNLOCK, false) && isScreenLockSet(this) )|| pref.getBoolean(ST.PREF_DND_SCREEN, false) || pref.getBoolean(ST.PREF_DND_CHARGE, false))
+
 
     }
 

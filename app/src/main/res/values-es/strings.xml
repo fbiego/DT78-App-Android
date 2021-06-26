@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DT78</string>
     <string name="add_contact">Agregar contacto</string>
@@ -8,7 +7,7 @@
     <string name="bat_charging">[_________Carga_________]</string>
     <string name="bat_notifs">Notificaciones de la batería</string>
     <string name="bat_phone">[__Batería de teléfono__]</string>
-    <string name="bat_unplugged">[_____Desenchufado____]</string>
+    <string name="bat_unplugged">[_____ Desenchufado ____]</string>
     <string name="battery">Batería</string>
     <string name="battery_icon">icono de la batería</string>
     <string name="bph">Presión arterial</string>
@@ -51,7 +50,9 @@
     <string name="hrm">Ritmo cardiaco</string>
     <string name="icon_set">conjunto de iconos</string>
     <string name="imperial">unidades imperiales</string>
-    <string name="info_once">Pulse una vez para seleccionar un contacto de SOS \ prensa Nlong para eliminar un contacto \ nPulsa el botón de sincronización de arriba para cargar los contactos</string>
+    <string name="info_once">Pulse una vez para seleccionar un contacto de SOS
+ prensa Nlong para eliminar un contacto
+Pulsa el botón de sincronización de arriba para cargar los contactos</string>
     <string name="kcal">kcal</string>
     <string name="kg">kg</string>
     <string name="km">km</string>
@@ -62,7 +63,7 @@
     <string name="log_deleted">archivo de registro borrado</string>
     <string name="loss_link">eslabón perdido a</string>
     <string name="mac_addr">Dirección MAC</string>
-    <string name="mac_format_error">Formato debe ser A1:BB:3C:44:DE:9F</string>
+    <string name="mac_format_error">Formato debe ser A1: BB: 3C: 44: DE: 9F</string>
     <string name="metric">Unidades metricas</string>
     <string name="miles">millas</string>
     <string name="mmHg">mmHg</string>
@@ -89,6 +90,7 @@
     <string name="quiet">Horas tranquilas</string>
     <string name="raise_wake">Aumento a raíz</string>
     <string name="reminder">recordatorios</string>
+    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="remote_mac_address">dirección MAC remota</string>
     <string name="reset_info">Esto restablecerá todos los datos de vigilancia. ¿Estás seguro?</string>
     <string name="reset_watch">reloj de reposición</string>
@@ -130,7 +132,7 @@
     <string name="thur">jue</string>
     <string name="tu">T</string>
     <string name="tue">tu</string>
-    <string name="turn_on_bt">Por favor, active Bluetooth</string>
+    <string name="turn_on_bt">Por favor</string>
     <string name="unable_load">No se puede cargar el archivo de error</string>
     <string name="unable_sync">Incapaz de datos de sincronización</string>
     <string name="units">Unidades metricas</string>
@@ -143,20 +145,13 @@
     <string name="weight">Peso</string>
     <string name="years">años</string>
     <string name="yes">si</string>
-    <string name="custom_alarm">alarma personalizada</string>
     <string name="self_test_ok">Ok auto prueba</string>
     <string name="self_test_fail">Auto reprobación de prueba</string>
-    <string-array name="alarm_options">
-        <item>Una vez</item>
-        <item>Todos los días</item>
-        <item>Lunes - Viernes</item>
-        <item>alarma personalizada</item>
-    </string-array>
-    <string-array name="sedentaryInterval">
-        <item>45 mins</item>
-        <item>1 hour</item>
-    </string-array>
-    <string name="quiet_active">horas de silencio activo_</string>
+    <string name="alarm_once">Una vez</string>
+    <string name="alarm_everyday">Todos los días</string>
+    <string name="alarm_mon_fri">Lunes - Viernes</string>
+    <string name="custom_alarm">alarma personalizada</string>
+    <string name="quiet_active">Las horas de silencio act</string>
     <string name="custom_watchface">su esfera personalizada</string>
     <string name="upload_image">subir Image</string>
     <string name="select_image">Seleccionar imagen</string>
@@ -211,7 +206,6 @@
     <string name="rotate_disp">Rotación de la visualización</string>
     <string name="screen_off">Apagar la pantalla</string>
     <string name="timeout">Tiempo de espera de la notificación</string>
-    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="ignore_optimize">No haga caso de la optimización</string>
     <string name="request_optimize">Solicitar a ignorar optimizaciones de la batería</string>
     <string name="never_ask">Nunca preguntes</string>
@@ -219,7 +213,7 @@
     <string name="accent">Acento</string>
     <string name="choose_theme">Elija su color preferido acento y el tema</string>
     <string name="clear_data">Borrar datos</string>
-    <string name="clear_data_info">Esto eliminará todos los datos de registro de errores. ¿Estás seguro?</string>
+    <string name="clear_data_info">Esto eliminará todos los datos de registro de errores. ¿Está seguro?</string>
     <string name="sleep_txt">Dormir</string>
     <string name="not_rooted">El dispositivo no arraigada</string>
     <string name="dnd_mode">El modo No Molestar</string>
@@ -230,4 +224,16 @@
     <string name="call">Llamada</string>
     <string name="sms">SMS</string>
     <string name="set_screen_lock">Establecer un bloqueo de pantalla primero</string>
+    <string name="dnd_charge">Cargar</string>
+    <string name="measure_all">Medir todo</string>
+    <string-array name="alarm_options">
+        <item>Una vez</item>
+        <item>Todos los días</item>
+        <item>Lunes - Viernes</item>
+        <item>alarma personalizada</item>
+    </string-array>
+    <string-array name="sedentaryInterval">
+        <item>45 mins</item>
+        <item>1 hour</item>
+    </string-array>
 </resources>

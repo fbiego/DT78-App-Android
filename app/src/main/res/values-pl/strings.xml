@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DT78</string>
     <string name="add_contact">Dodaj kontakt</string>
     <string name="age">Wiek</string>
     <string name="alarm">Alarm</string>
     <string name="alarms">Alarmy</string>
-    <string name="bat_charging">[_________Ładuje________]</string>
+    <string name="bat_charging">[________ Ładuje _______]</string>
     <string name="bat_notifs">Ostrzerzenie o baterii</string>
-    <string name="bat_phone">[___Bateria telefonu____]</string>
-    <string name="bat_unplugged">[______Rozłączony_______]</string>
+    <string name="bat_phone">[___ Bateria telefonu __]</string>
+    <string name="bat_unplugged">[______ Rozłączony _____]</string>
     <string name="battery">Bateria</string>
     <string name="battery_icon">Ikona baterii</string>
     <string name="bph">Ciśnienie krwi</string>
@@ -31,15 +30,15 @@
     <string name="disconnected">Rozłączono</string>
     <string name="disconnecting">Rozłączanie</string>
     <string name="distance">odległość</string>
-    <string name="enable_lock">Włącz aplikację, by zablokować telefon</string>
+    <string name="enable_lock">Włącz aplikację</string>
     <string name="error_log">Rejestr błędów</string>
     <string name="everyday">Codziennie</string>
-    <string name="filter_info">Wciśnij Enter, aby dodać kolejny filtr. Przytrzymaj długo pozycję, aby ją usunąć</string>
+    <string name="filter_info">Wciśnij Enter</string>
     <string name="find_phone">Znajdź telefon</string>
     <string name="find_w">Znajdź zegarek</string>
     <string name="find_watch">Szukam zegarka</string>
     <string name="flip_vertically">Obróć ekran pionowo</string>
-    <string name="flip_vertically_summary">Włącz, aby obrócić ekran pionowo</string>
+    <string name="flip_vertically_summary">Włącz</string>
     <string name="fr">P</string>
     <string name="frequent">Częste kontakty</string>
     <string name="fri">Pt</string>
@@ -51,7 +50,7 @@
     <string name="hrm">Puls</string>
     <string name="icon_set">Zestaw ikon</string>
     <string name="imperial">Jednostki brytyjskie</string>
-    <string name="info_once">Dotknij raz, aby wybrać kontakt SOS\nNaciśnij i przytrzymaj, aby skasować kontakt\nNaciśnij Synchronizuj, aby załadować kontakty</string>
+    <string name="info_once">Dotknij raz</string>
     <string name="kcal">kcal</string>
     <string name="kg">kg</string>
     <string name="km">km</string>
@@ -71,15 +70,15 @@
     <string name="mon_fri">Pon - Pt</string>
     <string name="no_errors">Brak błędów</string>
     <string name="not_connect">Zegarek nie połączony</string>
-    <string name="not_disconnect">Powiadomienia, gdy zegarek utracił połączenie</string>
+    <string name="not_disconnect">Powiadomienia</string>
     <string name="not_enable">Wyłączono</string>
     <string name="not_list">Lista powiadamianych</string>
     <string name="not_paired">Brak zegarka na liście? Sparuj urządzenie w ustawieniach BT telefonu</string>
     <string name="nothing">Nic do skasowania</string>
     <string name="notification_access">Dostęp do powiadomień</string>
     <string name="notification_access_summary">Przyznaj dostęp do powiadomień</string>
-    <string name="notifications">Powiadomienia, gdy zegarek utracił połączenie</string>
-    <string name="notify_disconnect">Powiadom, gdy rozłączony</string>
+    <string name="notifications">Powiadomienia</string>
+    <string name="notify_disconnect">Powiadom</string>
     <string name="once">Jeden raz</string>
     <string name="optimize_app">Optymalizacja</string>
     <string name="phone_bat">Akumulator telefonu</string>
@@ -89,6 +88,7 @@
     <string name="quiet">Godziny snu</string>
     <string name="raise_wake">Podnieś rękę aby wybudzić zegarek</string>
     <string name="reminder">Przypomnienia</string>
+    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="remote_mac_address">MAC adres zegarka</string>
     <string name="reset_info">Resetowanie ustawień zegarka. Jesteś pewien?</string>
     <string name="reset_watch">Resetuj zegarek</string>
@@ -103,7 +103,7 @@
     <string name="self_test_notif">Powiadomienie o testowaniu</string>
     <string name="send">Wyślij</string>
     <string name="service_name">DT78 Serwis</string>
-    <string name="service_stopped">Serwis zatrzymany, gdy zmieniasz ustawienia. Wróć do ekranu głównego, a serwis ponownie się uruchomi</string>
+    <string name="service_stopped">Serwis zatrzymany</string>
     <string name="settings">Ustawienia</string>
     <string name="setup_desc">Ustaw MAC adres zegarka w ustawieniach</string>
     <string name="setup_now">Ustaw teraz</string>
@@ -111,12 +111,12 @@
     <string name="sleep">Pora snu</string>
     <string name="sp02">Natlenienie krwi</string>
     <string name="start_at_boot">Uruchom przy starcie</string>
-    <string name="start_measure">Dotknij, aby zmierzyć</string>
+    <string name="start_measure">Dotknij</string>
     <string name="start_service">Uruchamianie serwisu</string>
-    <string name="start_service_at_boot">Włącz, aby automatycznie uruchomić serwis przy starcie systemu</string>
+    <string name="start_service_at_boot">Włącz</string>
     <string name="step_len">Długość kroku</string>
     <string name="steps">kroki</string>
-    <string name="stop_measure">Dotknij, aby zatrzymać pomiar</string>
+    <string name="stop_measure">Dotknij</string>
     <string name="stop_service">Zatrzymywanie serwisu</string>
     <string name="su">N</string>
     <string name="sun">Nie</string>
@@ -143,19 +143,12 @@
     <string name="weight">Waga</string>
     <string name="years">lat</string>
     <string name="yes">Tak</string>
-    <string name="custom_alarm">Ustawienie alarmu</string>
     <string name="self_test_ok">Przetestowano OK</string>
     <string name="self_test_fail">Błąd testowania</string>
-    <string-array name="alarm_options">
-        <item>Jeden raz</item>
-        <item>Codziennie</item>
-        <item>Pon-Pt</item>
-        <item>Ustawienie alarmu</item>
-    </string-array>
-    <string-array name="sedentaryInterval">
-        <item>45 mins</item>
-        <item>1 hour</item>
-    </string-array>
+    <string name="alarm_once">Jeden raz</string>
+    <string name="alarm_everyday">Codziennie</string>
+    <string name="alarm_mon_fri">Pon-Pt</string>
+    <string name="custom_alarm">Ustawienie alarmu</string>
     <string name="quiet_active">[__Aktywne godziny snu__]</string>
     <string name="custom_watchface">Wybrana tarcza zegarka</string>
     <string name="upload_image">Wysyłanie obrazu</string>
@@ -229,5 +222,16 @@
     <string name="call">Zadzwoń</string>
     <string name="sms">SMS</string>
     <string name="set_screen_lock">Najpierw ustaw blokadę ekranu</string>
-    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
+    <string name="dnd_charge">Oglądaj ładowanie</string>
+    <string name="measure_all">Działać na wszystkich</string>
+    <string-array name="alarm_options">
+        <item>Jeden raz</item>
+        <item>Codziennie</item>
+        <item>Pon-Pt</item>
+        <item>Ustawienie alarmu</item>
+    </string-array>
+    <string-array name="sedentaryInterval">
+        <item>45 mins</item>
+        <item>1 hour</item>
+    </string-array>
 </resources>

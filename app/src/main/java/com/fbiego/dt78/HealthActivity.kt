@@ -1,18 +1,22 @@
 package com.fbiego.dt78
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.Transformation
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fbiego.dt78.app.DataListener
 import com.fbiego.dt78.app.DataReceiver
 import com.fbiego.dt78.app.SettingsActivity
@@ -24,12 +28,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 import com.fbiego.dt78.app.ForegroundService as FG
 
+
 class HealthActivity : AppCompatActivity(), DataListener {
 
     private var healthList = ArrayList<HealthData>()
     private var healthAdapter = HealthAdapter(healthList)
 
+    var rate = 0L
     var measuring = false
+
     companion object {
         lateinit var healthRecycler: RecyclerView
 
@@ -80,6 +87,10 @@ class HealthActivity : AppCompatActivity(), DataListener {
                 sp02Card.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundLight))
                 dbHandler.getSp02()
             }
+            3 -> {
+                allCard.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundLight))
+                dbHandler.getHeart()
+            }
             else -> {
                 hrmCard.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundLight))
                 dbHandler.getHeart()
@@ -97,14 +108,37 @@ class HealthActivity : AppCompatActivity(), DataListener {
         if (measuring){
             stopMeasure()
             progressBar.visibility = View.GONE
+            heart_beat.visibility = View.GONE
             tapInfo.text = getString(R.string.start_measure)
             measuring = false
         } else {
             if (startMeasure()){
-                progressBar.visibility = View.VISIBLE
-                tapInfo.text = getString(R.string.stop_measure)
                 measuring = true
-                valueHealth.text = "--"
+                tapInfo.text = getString(R.string.stop_measure)
+                progressBar.visibility = View.VISIBLE
+                if (viewH == 3){
+                    val duration : Long = 60 * 1000
+                    progressBar.isIndeterminate = false
+                    progressBar.max = 100
+                    progressBar.progress = 100
+                    valueHealth.text = "-- --/-- --"
+                    val anim = ProgressBarAnimation(progressBar, 100f, 0f)
+                    anim.duration = duration
+                    progressBar.startAnimation(anim)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        stopMeasure()
+                        progressBar.visibility = View.GONE
+                        heart_beat.visibility = View.GONE
+                        progressBar.isIndeterminate = true
+                        tapInfo.text = getString(R.string.start_measure)
+                        measuring = false
+                    }, duration)
+                } else {
+                    progressBar.isIndeterminate = true
+                    heart_beat.visibility = View.VISIBLE
+                    rate = 0
+                    valueHealth.text = "--"
+                }
             } else{
                 Toast.makeText(this, R.string.not_connect, Toast.LENGTH_LONG).show()
             }
@@ -115,13 +149,20 @@ class HealthActivity : AppCompatActivity(), DataListener {
     private fun startMeasure(): Boolean{
         return when (viewH){
             0 -> {
+                heart_beat.setImageResource(R.drawable.ic_heart_beat)
                 FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x0A, 0x01))
             }
             1 -> {
+                heart_beat.setImageResource(R.drawable.ic_b_pressure)
                 FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x22, 0x01))
             }
             2 -> {
+                heart_beat.setImageResource(R.drawable.ic_b_oxygen)
                 FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x12, 0x01))
+            }
+            3 -> {
+                heart_beat.setImageResource(R.drawable.ic_b_oxygen)
+                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x01))
             }
             else -> false
         }
@@ -138,10 +179,59 @@ class HealthActivity : AppCompatActivity(), DataListener {
             2 -> {
                 FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x12, 0x00))
             }
+            3 -> {
+                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x00))
+            }
         }
         if (measuring){
+            rate = 0L
             progressBar.visibility = View.GONE
+            heart_beat.visibility = View.GONE
         }
+    }
+
+    private val scaleUp : Animator.AnimatorListener = object : Animator.AnimatorListener{
+        override fun onAnimationStart(p0: Animator?) {
+
+        }
+
+        override fun onAnimationEnd(p0: Animator?) {
+            heart_beat.animate().scaleXBy(-0.2f).scaleYBy(-0.2f).setDuration(rate)
+                .setListener(scaleDown)
+        }
+
+        override fun onAnimationCancel(p0: Animator?) {
+
+        }
+
+        override fun onAnimationRepeat(p0: Animator?) {
+
+        }
+
+    }
+
+    private val scaleDown : Animator.AnimatorListener = object : Animator.AnimatorListener{
+        override fun onAnimationStart(p0: Animator?) {
+
+        }
+
+        override fun onAnimationEnd(p0: Animator?) {
+            if (measuring) {
+                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
+                    .setListener(scaleUp)
+            } else {
+                heart_beat.animate().cancel()
+            }
+        }
+
+        override fun onAnimationCancel(p0: Animator?) {
+
+        }
+
+        override fun onAnimationRepeat(p0: Animator?) {
+
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -170,6 +260,12 @@ class HealthActivity : AppCompatActivity(), DataListener {
                 viewH = 2
                 sp02Card.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundLight))
                 dbHandler.getSp02()
+            }
+            R.id.allCard -> {
+                viewH = 3
+                allCard.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundLight))
+
+                dbHandler.getHeart()
             }
             else -> {
                 viewH = 0
@@ -218,6 +314,13 @@ class HealthActivity : AppCompatActivity(), DataListener {
                     runOnUiThread {
                         if (measuring){
                             valueHealth.text = "$bp "+getString(R.string.bpm)
+                            if (rate == 0L) {
+                                rate = ((60000 / bp) / 2).toLong()
+                                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
+                                    .setListener(scaleUp)
+                            } else {
+                                rate = ((60000 / bp) / 2).toLong()
+                            }
                         }
                     }
                     dbHandler.insertHeart(
@@ -234,6 +337,11 @@ class HealthActivity : AppCompatActivity(), DataListener {
                     runOnUiThread {
                         if (measuring){
                             valueHealth.text = "$sp %"
+                            if (rate == 0L) {
+                                rate = 350L
+                                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
+                                    .setListener(scaleUp)
+                            }
                         }
                     }
                     dbHandler.insertSp02(
@@ -251,6 +359,11 @@ class HealthActivity : AppCompatActivity(), DataListener {
                     runOnUiThread {
                         if (measuring){
                             valueHealth.text = "$bpl/$bph "+getString(R.string.mmHg)
+                            if (rate == 0L) {
+                                rate = 350L
+                                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
+                                    .setListener(scaleUp)
+                            }
                         }
                     }
                     dbHandler.insertBp(
@@ -258,6 +371,35 @@ class HealthActivity : AppCompatActivity(), DataListener {
                             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl)
                     )
                 }
+            }
+        }
+        if (data.getByte(4) == (0x32).toByte()){
+            val bp = data.getByte(6)!!.toPInt()
+            val sp = data.getByte(7)!!.toPInt()
+            val bph = data.getByte(8)!!.toPInt()
+            val bpl = data.getByte(9)!!.toPInt()
+
+            runOnUiThread {
+                valueHealth.text = "$bp "+getString(R.string.bpm) + " | $bpl/$bph "+getString(R.string.mmHg) + " | $sp %"
+            }
+
+            if (bp != 0){
+                dbHandler.insertHeart(
+                    HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp)
+                )
+            }
+            if (bph != 0 ){
+                dbHandler.insertBp(
+                    PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl)
+                )
+            }
+            if (sp != 0){
+                dbHandler.insertSp02(
+                    OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp)
+                )
             }
         }
 
@@ -278,5 +420,18 @@ class HealthActivity : AppCompatActivity(), DataListener {
 
         healthAdapter.update(healthList)
 
+    }
+
+    class ProgressBarAnimation(
+        private val progressBar: ProgressBar,
+        private val from: Float,
+        private val to: Float
+    ) :
+        Animation() {
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+            super.applyTransformation(interpolatedTime, t)
+            val value = from + (to - from) * interpolatedTime
+            progressBar.progress = value.toInt()
+        }
     }
 }

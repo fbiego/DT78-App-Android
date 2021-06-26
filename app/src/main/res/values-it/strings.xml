@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DT78</string>
     <string name="add_contact">Aggiungi contatto</string>
     <string name="age">Età</string>
     <string name="alarm">Sveglia</string>
     <string name="alarms">Sveglie</string>
-    <string name="bat_charging">[_______In carica_______]</string>
+    <string name="bat_charging">[______ In carica ______]</string>
     <string name="bat_notifs">Notifiche della Batteria</string>
-    <string name="bat_phone">[___Batteria telefono___]</string>
-    <string name="bat_unplugged">[_______Scollegato______]</string>
+    <string name="bat_phone">[__ Batteria telefono __]</string>
+    <string name="bat_unplugged">[______ Scollegato _____]</string>
     <string name="battery">Batteria</string>
     <string name="battery_icon">Icona batteria</string>
     <string name="bph">Pressione del sangue</string>
@@ -51,7 +50,7 @@
     <string name="hrm">Battiti cuore</string>
     <string name="icon_set">Set icone</string>
     <string name="imperial">Unità di misura imperiali</string>
-    <string name="info_once">Tocca una volta per selezionare il contatto SOS\nPremi a lungo per rimuovere un contatto\nPremi il bottone di sincronizzazione in alto per caricare i contatti</string>
+    <string name="info_once">Tocca una volta per selezionare il contatto SOS \nPremi a lungo per rimuovere un contatto\nPremi il bottone di sincronizzazione in alto per caricare i contatti</string>
     <string name="kcal">kcal</string>
     <string name="kg">kg</string>
     <string name="km">km</string>
@@ -89,6 +88,7 @@
     <string name="quiet">Modalità silenziosa</string>
     <string name="raise_wake">Solleva per accendere lo schermo</string>
     <string name="reminder">Promemoria</string>
+    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="remote_mac_address">Indirizzo MAC remoto</string>
     <string name="reset_info">Questa operazione eliminerà tutti i dati dell\'orologio. Sei sicuro?</string>
     <string name="reset_watch">Resetta l\'orologio</string>
@@ -143,20 +143,13 @@
     <string name="weight">Peso</string>
     <string name="years">anni</string>
     <string name="yes">Si</string>
-    <string name="custom_alarm">Sveglia personalizzata</string>
     <string name="self_test_ok">Test automatico Ok</string>
     <string name="self_test_fail">Test automatico Fallito</string>
-    <string-array name="alarm_options">
-        <item>Una volta</item>
-        <item>Ogni giorno</item>
-        <item>Lun - Ven</item>
-        <item>Sveglia personalizzata</item>
-    </string-array>
-    <string-array name="sedentaryInterval">
-        <item>45 mins</item>
-        <item>1 hour</item>
-    </string-array>
-    <string name="quiet_active">[Modalità riposo attiva_]</string>
+    <string name="alarm_once">Una volta</string>
+    <string name="alarm_everyday">Ogni giorno</string>
+    <string name="alarm_mon_fri">Lun - Ven</string>
+    <string name="custom_alarm">Sveglia personalizzata</string>
+    <string name="quiet_active">[_Modalità riposo attiva]</string>
     <string name="custom_watchface">Sfondo personalizzato</string>
     <string name="upload_image">Caricamento immagine</string>
     <string name="select_image">Seleziona l\'immagine</string>
@@ -229,5 +222,16 @@
     <string name="call">Chiama</string>
     <string name="sms">SMS</string>
     <string name="set_screen_lock">Imposta prima il blocco schermo</string>
-    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
+    <string name="dnd_charge">Guarda la ricarica</string>
+    <string name="measure_all">Misura tutto</string>
+    <string-array name="alarm_options">
+        <item>Una volta</item>
+        <item>Ogni giorno</item>
+        <item>Lun - Ven</item>
+        <item>Sveglia personalizzata</item>
+    </string-array>
+    <string-array name="sedentaryInterval">
+        <item>45 mins</item>
+        <item>1 hour</item>
+    </string-array>
 </resources>

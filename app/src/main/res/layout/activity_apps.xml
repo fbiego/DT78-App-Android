@@ -126,6 +126,7 @@
             android:background="?android:attr/listDivider" />
 
         <LinearLayout
+            android:id="@+id/dndLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10">
@@ -147,30 +148,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_weight="5"
+                android:layout_weight="9"
                 android:gravity="left|center_vertical"
                 android:text="@string/dnd_mode"
                 android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/screenOn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/screen_on" />
-
-                <CheckBox
-                    android:id="@+id/unlocked"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/unlocked" />
-            </LinearLayout>
 
 
 

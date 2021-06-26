@@ -168,7 +168,11 @@ class ErrorLogActivity : AppCompatActivity() {
             R.id.delete -> {
                 val cachePath = this.cacheDir
                 val file = File(cachePath, "error.txt")
+                val data = File(cachePath, "data.txt")
 
+                if (data.exists()){
+                    data.delete()
+                }
                 if (file.exists()){
 
                     val alert = AlertDialog.Builder(this)
@@ -192,7 +196,7 @@ class ErrorLogActivity : AppCompatActivity() {
             }
             R.id.share -> {
                 val cachePath = this.cacheDir
-                val file = File(cachePath, "error.txt")
+                val file = File(cachePath, "data.txt")
 
                 if (file.exists()){
                     val contentUri = FileProvider.getUriForFile(this, "com.fbiego.dt78.fileprovider", file)
@@ -202,7 +206,7 @@ class ErrorLogActivity : AppCompatActivity() {
                     intent.type = "*/*"
                     intent.putExtra(Intent.EXTRA_STREAM, contentUri)
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    intent.putExtra(Intent.EXTRA_TEXT, "Share error log")
+                    intent.putExtra(Intent.EXTRA_TEXT, "Share data log")
                     intent.putExtra(Intent.EXTRA_SUBJECT,"Send")
                     startActivity(Intent.createChooser(intent, "Share"))
                 } else {

@@ -373,6 +373,7 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         Timber.d("onResume")
 
         setIcon(FG.connected)
+        setCharge(FG.watchCharge)
 
 
         if (FG.camera){
@@ -617,13 +618,9 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
             if (data.size() == 8) {
                 if (data.getByte(4) == (0x91).toByte()) {
                     FG.bat = data.getByte(7)!!.toPInt()
-                    val chg = (data.getByte(6)!!.toPInt() == 1)
+                    FG.watchCharge = (data.getByte(6)!!.toPInt() == 1)
 
-                    if (chg){
-                        chrg?.visibility = View.VISIBLE
-                    } else {
-                        chrg?.visibility = View.GONE
-                    }
+                    setCharge(FG.watchCharge)
                     Timber.w("Battery: ${FG.bat}%")
                     bat?.text = "${FG.bat}%"
                     watch?.text = FG.deviceName
@@ -657,7 +654,9 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
             if (FG.connected){
                 watch?.text = FG.deviceName
             } else {
-                chrg?.visibility = View.GONE
+
+                FG.watchCharge = false
+                setCharge(false)
             }
 
 
@@ -801,6 +800,14 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         }
 
 
+    }
+
+    private fun setCharge(state: Boolean){
+        if (state){
+            chrg?.visibility = View.VISIBLE
+        } else {
+            chrg?.visibility = View.GONE
+        }
     }
 
     private fun setIcon(state: Boolean){

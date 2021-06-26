@@ -5,11 +5,14 @@ import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
 import com.fbiego.dt78.app.DataReceiver
-import com.fbiego.dt78.app.RootUtil
 import com.fbiego.dt78.data.byteArrayOfInts
+import com.fbiego.dt78.data.toPInt
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.BleManagerCallbacks
+import no.nordicsemi.android.ble.data.Data
 import timber.log.Timber
+import java.io.File
+import java.io.IOException
 import java.util.*
 
 /**
@@ -299,47 +302,6 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
         }
     }
 
-//    private fun writeData(bytes: ByteArray): Boolean{
-//
-//        return if (isConnected && isReady && dt78TxCharacteristic != null) {
-//            requestMtu(MTU).enqueue()
-//
-//            if (bytes.size <= 12){
-//                writeCharacteristic(dt78TxCharacteristic, bytes).enqueue()
-//            } else {
-//                val msg0 = bytes.slice(0 until 12)
-//                val send = start + len + type + msg0
-//                writeCharacteristic(dt78TxCharacteristic, send).enqueue()
-//                Timber.d("Loop = start & Length = ${send.size}")
-//
-//                val rem = msgByte.size - 12
-//                val lp = rem/19
-//                val rm = rem%19
-//                val sub = msgByte.slice(12 until msgByte.size)
-//                for (i in 0 until lp){
-//                    val st = sub.slice(i*19 until (i*19)+19)
-//                    val send1 = byteArrayOfInts(i) + st
-//                    writeCharacteristic(dt78TxCharacteristic, send1).enqueue()
-//                    Timber.d("Loop = $i & Length = ${send1.size}")
-//                }
-//                if (rm != 0){
-//                    val st = sub.slice(lp*19 until sub.size)
-//                    val send2 = byteArrayOfInts(lp) + st
-//                    writeCharacteristic(dt78TxCharacteristic, send2).enqueue()
-//                    Timber.d("Loop = $lp & Length = ${send2.size}")
-//                }
-//
-//                Timber.d("Msg = $msg & Length = ${len-5}")
-//                Timber.d("Send type 1")
-//            }
-//            true
-//        } else {
-//
-//            false
-//        }
-//
-//    }
-
     /**
      * Returns whether to connect to the remote device just once (false) or to add the address to white list of devices
      * that will be automatically connect as soon as they become available (true). In the latter case, if
@@ -444,6 +406,8 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
 
                     DataReceiver().getData(data)
 
+                    logData(data)
+
 
                 }
             enableNotifications(dt78RxCharacteristic)
@@ -470,6 +434,36 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
         override fun onDeviceDisconnected() {
             dt78RxCharacteristic = null
             dt78TxCharacteristic = null
+        }
+    }
+
+
+    private fun logData(data: Data){
+
+        var str = "["+Calendar.getInstance(Locale.getDefault()).time+"] "
+        for (x in 0 until data.size()){
+            str += if(x == 0){
+                String.format("%02X", data.getByte(x)!!.toPInt())
+            } else {
+                String.format("-%02X", data.getByte(x)!!.toPInt())
+            }
+        }
+
+        try {
+            val directory = context.cacheDir
+
+            if (!directory.exists())
+                directory.mkdirs()
+
+
+            val file = File(directory, "data.txt")
+
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+            file.appendText("$str\n")
+        } catch (e: IOException){
+            Timber.e("Failed to write data file")
         }
     }
 

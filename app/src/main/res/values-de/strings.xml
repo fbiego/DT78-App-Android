@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DT78</string>
     <string name="add_contact">Kontakt hinzufügen</string>
@@ -19,7 +18,7 @@
     <string name="capitalize">Uhr Benachrichtigungen aktivieren</string>
     <string name="channel_desc">Verbindungsstatus-Benachrichtigungen</string>
     <string name="choose_app">Apps auswählen</string>
-    <string name="choose_apps">Tippen, um Apps auszuwählen</string>
+    <string name="choose_apps">Tippen</string>
     <string name="cm">cm</string>
     <string name="colored">Farb-Symbole</string>
     <string name="connect_set">Verbinde Uhr für einmaligen Alarm</string>
@@ -31,10 +30,10 @@
     <string name="disconnected">Getrennt von</string>
     <string name="disconnecting">Trennen von</string>
     <string name="distance">Entfernung</string>
-    <string name="enable_lock">Aktiviere die App, um das Telefon zu sperren</string>
+    <string name="enable_lock">Aktiviere die App</string>
     <string name="error_log">Fehlerprotokoll</string>
     <string name="everyday">Täglich</string>
-    <string name="filter_info">Drücken für anderen Filter hinzufügen. Lange drücken für Inhalt löschen</string>
+    <string name="filter_info">Drücken um einen anderen Filter hinzuzufügen. Lange drücken für Inhalt löschen</string>
     <string name="find_phone">Telefon finden</string>
     <string name="find_w">Uhr finden</string>
     <string name="find_watch">Uhr suchen</string>
@@ -51,7 +50,7 @@
     <string name="hrm">Pulsschlag</string>
     <string name="icon_set">Icon-Set</string>
     <string name="imperial">imperiale Einheiten</string>
-    <string name="info_once">Einmal tippen, um SOS-Kontakt auszuwählen \n Lang gedrückt halten, um Kontakt zu löschen \n Klicke den Sync-Button oben für Upload Kontakte</string>
+    <string name="info_once">Einmal tippen</string>
     <string name="kcal">kcal</string>
     <string name="kg">kg</string>
     <string name="km">km</string>
@@ -71,7 +70,7 @@
     <string name="mon_fri">MO - FR</string>
     <string name="no_errors">Keine Fehler gefunden</string>
     <string name="not_connect">Uhr nicht verbunden</string>
-    <string name="not_disconnect">Benachrichtigung anzeigen, wenn Gerät nicht verbunden ist</string>
+    <string name="not_disconnect">Benachrichtigung anzeigen</string>
     <string name="not_enable">Nicht aktiviert</string>
     <string name="not_list">Benachrichtigungsliste</string>
     <string name="not_paired">Gerät nicht auf der Liste? Fürs Verbinden gehe zunächst in den Bluetooth Einstellungen des Telefons</string>
@@ -89,21 +88,22 @@
     <string name="quiet">Nicht stören</string>
     <string name="raise_wake">Bewegen für Aufwachen</string>
     <string name="reminder">Erinnerungen</string>
+    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="remote_mac_address">Remote-MAC-Adresse</string>
-    <string name="reset_info">Dadurch werden alle Daten der Uhr zurückgesetzt. Sind Sie sicher, um Fortzufahren?</string>
+    <string name="reset_info">Dadurch werden alle Daten der Uhr zurückgesetzt. Sind Sie sicher</string>
     <string name="reset_watch">Reset-Uhr</string>
     <string name="run_as_service">Als Dienst ausführen</string>
     <string name="run_as_service_summary">Anwendung im Hintergrund weiter ausführen</string>
     <string name="sa">S</string>
     <string name="sat">Sa</string>
     <string name="save">Speichern</string>
-    <string name="scan">Scannenâ€¦</string>
+    <string name="scan">Scannen</string>
     <string name="sedentary">Zu wenig Bewegung</string>
     <string name="self_test">Selbsttest</string>
     <string name="self_test_notif">Selbsttest Benachrichtigung</string>
     <string name="send">Senden</string>
     <string name="service_name">DT78-Service</string>
-    <string name="service_stopped">Dienst wird beendet, wenn Änderungen vorgenommen werden. Gehen Sie zum Hauptbildschirm zurück, um den Dienst automatisch neu zu starten.</string>
+    <string name="service_stopped">Dienst wird beendet</string>
     <string name="settings">Einstellungen</string>
     <string name="setup_desc">Uhr MAC-Adresse in den Einstellungen</string>
     <string name="setup_now">Jetzt einrichten</string>
@@ -113,7 +113,7 @@
     <string name="start_at_boot">Start beim Hochfahren</string>
     <string name="start_measure">Tippen für Messung starten</string>
     <string name="start_service">Dienst starten</string>
-    <string name="start_service_at_boot">Aktivieren, um automatisch den Dienst nach dem Betriebssystemstart zu starten</string>
+    <string name="start_service_at_boot">Aktivieren</string>
     <string name="step_len">Schrittlänge</string>
     <string name="steps">Schritte</string>
     <string name="stop_measure">Tippen für Messung stoppen</string>
@@ -125,7 +125,7 @@
     <string name="target">Zielschritte</string>
     <string name="test">Test</string>
     <string name="test_notification">Test-Benachrichtigung</string>
-    <string name="test_notification_desc">Sende eine Test-Benachrichtigung an die Uhr. Wähle ein Symbol, das mit dem Text angezeigt wird.</string>
+    <string name="test_notification_desc">Sende eine Test-Benachrichtigung an die Uhr. Wähle ein Symbol</string>
     <string name="th">D</string>
     <string name="thur">Do</string>
     <string name="tu">D</string>
@@ -143,21 +143,14 @@
     <string name="weight">Gewicht</string>
     <string name="years">Jahre</string>
     <string name="yes">Ja</string>
-    <string name="custom_alarm">Benutzerdefinierter Alarm</string>
     <string name="self_test_ok">Selbsttest Ok</string>
     <string name="self_test_fail">Selbsttest fehlgeschlagen</string>
-    <string-array name="alarm_options">
-        <item>Einmal</item>
-        <item>Täglich</item>
-        <item>MO - FR</item>
-        <item>Benutzerdefinierter Alarm</item>
-    </string-array>
-    <string-array name="sedentaryInterval">
-        <item>45 mins</item>
-        <item>1 hour</item>
-    </string-array>
-    <string name="quiet_active">[_____Ruhe-Zeit aktiv___]</string>
-    <string name="custom_watchface">Benutzerdefiniertes Zifferblatt</string>
+    <string name="alarm_once">Einmal</string>
+    <string name="alarm_everyday">Täglich</string>
+    <string name="alarm_mon_fri">MO - FR</string>
+    <string name="custom_alarm">Benutzerdefinierter Alarm</string>
+    <string name="quiet_active">[____Ruhe-Zeit aktiv____]</string>
+    <string name="custom_watchface">Benutzerdefiniertes Ziffernblatt</string>
     <string name="upload_image">Bild Hochladen</string>
     <string name="select_image">Bild auswählen</string>
     <string name="image_cropped">Bild zuschneiden</string>
@@ -175,7 +168,7 @@
     <string name="february">Februar</string>
     <string name="march">März</string>
     <string name="april">April</string>
-    <string name="may">Kann</string>
+    <string name="may">Mai</string>
     <string name="june">Juni</string>
     <string name="july">Juli</string>
     <string name="august">August</string>
@@ -193,7 +186,6 @@
     <string name="daily">Täglich</string>
     <string name="weekly">Wöchentlich</string>
     <string name="monthly">Monatlich</string>
-    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="re_enable">Möchten Sie Benachrichtigung Zugriff wieder aktivieren?</string>
     <string name="copied">In die Zwischenablage kopiert</string>
     <string name="watch_info">Uhr-Info</string>
@@ -203,10 +195,10 @@
     <string name="convert_greek">Konvertieren griechische Schrift</string>
     <string name="no_data">Keine Daten</string>
     <string name="today">Heute</string>
-    <string name="steps_history">Step Geschichte</string>
-    <string name="sleep_history">Schlaf-Geschichte</string>
+    <string name="steps_history">Laufübersicht</string>
+    <string name="sleep_history">Schlafverlauf</string>
     <string name="deep_sleep">Tief</string>
-    <string name="light_sleep">Licht</string>
+    <string name="light_sleep">Leicht</string>
     <string name="total_sleep">Gesamt</string>
     <string name="flip_disp">Flip-Anzeige</string>
     <string name="rotate_disp">Drehen Anzeige</string>
@@ -219,15 +211,27 @@
     <string name="accent">Akzent</string>
     <string name="choose_theme">Wählen Sie Ihre bevorzugte Akzentfarbe und Thema</string>
     <string name="clear_data">Daten löschen</string>
-    <string name="clear_data_info">Dadurch werden alle Fehlerprotokolldaten entfernen. Bist du sicher?</string>
+    <string name="clear_data_info">Dadurch werden alle Fehlerprotokolldaten entfernt. Bist du sicher?</string>
     <string name="sleep_txt">Schlaf</string>
-    <string name="not_rooted">Gerät nicht verwurzelt</string>
-    <string name="dnd_mode">Do not disturb-Modus</string>
-    <string name="dnd_text">Störe nicht</string>
+    <string name="not_rooted">Gerät nicht gerootet</string>
+    <string name="dnd_mode">Nicht stören-Modus</string>
+    <string name="dnd_text">Nicht stören</string>
     <string name="ext_camera">Ext. Kamera</string>
     <string name="screen_on">Bildschirm An</string>
     <string name="unlocked">entsperrt</string>
     <string name="call">Anruf</string>
     <string name="sms">SMS</string>
     <string name="set_screen_lock">Stellen Sie eine Bildschirmsperre zuerst</string>
+    <string name="dnd_charge">Aufladung ansehen</string>
+    <string name="measure_all">Messen Sie alles</string>
+    <string-array name="alarm_options">
+        <item>Einmal</item>
+        <item>Täglich</item>
+        <item>MO - FR</item>
+        <item>Benutzerdefinierter Alarm</item>
+    </string-array>
+    <string-array name="sedentaryInterval">
+        <item>45 mins</item>
+        <item>1 hour</item>
+    </string-array>
 </resources>

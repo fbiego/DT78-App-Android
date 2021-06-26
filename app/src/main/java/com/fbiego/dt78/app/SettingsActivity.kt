@@ -84,6 +84,7 @@ class SettingsActivity : AppCompatActivity() {
         const val PREF_SHOW_SMS = "show_sms"
         const val PREF_DND_UNLOCK = "unlocked"
         const val PREF_DND_SCREEN = "screen_on"
+        const val PREF_DND_CHARGE = "dnd_charge"
         const val PREF_CAMERA = "camera"
         const val PREF_BRIGHT = "brightness"
         lateinit var btAdapter: BluetoothAdapter

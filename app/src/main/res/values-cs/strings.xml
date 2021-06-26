@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DT78</string>
     <string name="add_contact">Přidat kontakt</string>
@@ -16,7 +15,7 @@
     <string name="bt_settings">BT nastavení</string>
     <string name="camera">Fotoaparát</string>
     <string name="cancel">Ukončení</string>
-    <string name="capitalize">Velká písmena oznámení hodinek</string>
+    <string name="capitalize">Přepnout velká písmena oznámení hodinek</string>
     <string name="channel_desc">Oznámení o stavu připojení</string>
     <string name="choose_app">Výbět aplikací</string>
     <string name="choose_apps">Klepnutím vyberte aplikace</string>
@@ -43,7 +42,7 @@
     <string name="fr">Fr</string>
     <string name="frequent">Časté kontakty</string>
     <string name="fri">Pátek</string>
-    <string name="grant_notification">Zdá se, že nejprve musíte této aplikaci udělit přístup k oznámení. Chcete pokračovat?</string>
+    <string name="grant_notification">Zdá se</string>
     <string name="health">Zdraví</string>
     <string name="height">Výška</string>
     <string name="hourly">Hodinová měření</string>
@@ -51,7 +50,9 @@
     <string name="hrm">Tepová frekvence</string>
     <string name="icon_set">Nastavení ikon</string>
     <string name="imperial">Národní jednotky</string>
-    <string name="info_once">Jedním klepnutím vyberte kontakt SOS \ Dlouhým stisknutím kontakt odstraníte \ Kliknutím na tlačítko synchronizace výše nahrajete kontakty</string>
+    <string name="info_once">Jedním klepnutím vyberte kontakt SOS
+ Dlouhým stisknutím kontakt odstraníte
+ Kliknutím na tlačítko synchronizace výše nahrajete kontakty</string>
     <string name="kcal">kcal</string>
     <string name="kg">kg</string>
     <string name="km">km</string>
@@ -71,7 +72,7 @@
     <string name="mon_fri">Po - Pá</string>
     <string name="no_errors">Žádné chyby k zobrazení</string>
     <string name="not_connect">Hodinky nejsou připojeny</string>
-    <string name="not_disconnect">Zobrazovat upozornění, když zařízení ztratí spojení</string>
+    <string name="not_disconnect">Zobrazovat upozornění</string>
     <string name="not_enable">Není povoleno</string>
     <string name="not_list">Seznam oznámení</string>
     <string name="not_paired">Zařízení není na seznamu? Spárujte telefon nejprve v nastavení Bluetooth</string>
@@ -89,16 +90,17 @@
     <string name="quiet">Noční klid</string>
     <string name="raise_wake">Při zvednutí probudit</string>
     <string name="reminder">Připomenutí</string>
+    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
     <string name="remote_mac_address">Vzdálená adresa MAC</string>
     <string name="reset_info">Vymaže všechna data hodinek. Jsi si jistý?</string>
     <string name="reset_watch">Resetovat hodinky</string>
     <string name="run_as_service">Spustit jako službu</string>
-    <string name="run_as_service_summary">Spustit tuto aplikaci jako službu, aniž byste ji nechali otevřenou</string>
+    <string name="run_as_service_summary">Spustit tuto aplikaci jako službu</string>
     <string name="sa">Sat</string>
     <string name="sat">Sobota</string>
     <string name="save">Uložit</string>
     <string name="scan">Hledej</string>
-    <string name="sedentary">Sedavý</string>
+    <string name="sedentary">Výstraha bez pohybu</string>
     <string name="self_test">Vlastní test</string>
     <string name="self_test_notif">Oznámení vlastního testu</string>
     <string name="send">Poslat</string>
@@ -125,7 +127,7 @@
     <string name="target">Cílový počet kroků</string>
     <string name="test">Test</string>
     <string name="test_notification">Oznámení test</string>
-    <string name="test_notification_desc">Odešlete do hodinek oznámení o testu. Vyberte ikonu, která se zobrazí s textem</string>
+    <string name="test_notification_desc">Odešlete do hodinek oznámení o testu. Vyberte ikonu</string>
     <string name="th">Th</string>
     <string name="thur">Čtvrtek</string>
     <string name="tu">Tu</string>
@@ -141,21 +143,14 @@
     <string name="we">St</string>
     <string name="wed">Středa</string>
     <string name="weight">Hmotnost</string>
-    <string name="years">Věk</string>
+    <string name="years">Let</string>
     <string name="yes">Ano</string>
-    <string name="custom_alarm">Vlastní alarm</string>
     <string name="self_test_ok">Autotest OK</string>
     <string name="self_test_fail">Selhání autotestu</string>
-    <string-array name="alarm_options">
-        <item>Jednou</item>
-        <item>Každý den</item>
-        <item>Po - Pá</item>
-        <item>Vlastní alarm</item>
-    </string-array>
-    <string-array name="sedentaryInterval">
-        <item>45 mins</item>
-        <item>1 hour</item>
-    </string-array>
+    <string name="alarm_once">Jednou</string>
+    <string name="alarm_everyday">Každý den</string>
+    <string name="alarm_mon_fri">Po - Pá</string>
+    <string name="custom_alarm">Vlastní alarm</string>
     <string name="quiet_active">[____Ztišení aktivní____]</string>
     <string name="custom_watchface">Uživatelský ciferník</string>
     <string name="upload_image">Nahrávání obrázku</string>
@@ -215,19 +210,30 @@
     <string name="request_optimize">Žádost o ignorování optimalizace baterie</string>
     <string name="never_ask">Nikdy se neptej</string>
     <string name="theme">Téma</string>
-    <string name="accent">Přízvuk</string>
+    <string name="accent">Schéma</string>
     <string name="choose_theme">Vyberte preferovanou barvu a motiv zvýraznění</string>
     <string name="clear_data">Vyčistit data</string>
     <string name="clear_data_info">Tím odstraníte všechna data protokolu chyb. Jste si jisti?</string>
     <string name="sleep_txt">Spát</string>
     <string name="not_rooted">Zařízení není kořeny</string>
-    <string name="dnd_mode">Nerušit režimu</string>
+    <string name="dnd_mode">Režim nerušit</string>
     <string name="dnd_text">Nerušit</string>
     <string name="ext_camera">Ext. Fotoaparát</string>
-    <string name="screen_on">Screen On</string>
+    <string name="screen_on">Obrazovka On</string>
     <string name="unlocked">Odemčený</string>
     <string name="call">Volání</string>
     <string name="sms">SMS</string>
     <string name="set_screen_lock">Nastavit zámek obrazovky nejprve</string>
-    <string name="remote_mac_address_default">00:00:00:00:00:00</string>
+    <string name="dnd_charge">Sledujte nabíjení</string>
+    <string name="measure_all">Změřte vše.</string>
+    <string-array name="alarm_options">
+        <item>Jednou</item>
+        <item>Každý den</item>
+        <item>Po - Pá</item>
+        <item>Vlastní alarm</item>
+    </string-array>
+    <string-array name="sedentaryInterval">
+        <item>45 mins</item>
+        <item>1 hour</item>
+    </string-array>
 </resources>

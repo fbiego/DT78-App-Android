@@ -76,6 +76,8 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         var watchVersion = ""
 
         var connected = false
+        var charging = false
+        var watchCharge = false
         var icSet = 1
         var capitalize = false
         var convert = false
@@ -256,7 +258,8 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
 
     private fun shouldNotify(): Boolean{
         isQuiet = isQuietA(quietHours)
-        return !isQuiet
+        val chargeDND = charging && watchCharge
+        return !isQuiet && !chargeDND
     }
 
     fun sendNotification(text: String, app: Int, show: Boolean): Boolean{
@@ -276,7 +279,14 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                     (bleManager as LEManager).writeNotification(msg, app)
                 }
                 app == 20 -> {
-                    (bleManager as LEManager).writeNotification(getString(R.string.quiet_active)+msg, app)
+                    if (!(charging && watchCharge)) {
+                        (bleManager as LEManager).writeNotification(
+                            getString(R.string.quiet_active) + msg,
+                            app
+                        )
+                    } else {
+                        (bleManager as LEManager).writeNotification("Watch is charging"+msg, app)
+                    }
                 }
                 else -> {
                     false
@@ -573,6 +583,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         unlocked = (setPref.getBoolean(ST.PREF_DND_UNLOCK, false) && isScreenLockSet(this))
         screenOn = setPref.getBoolean(ST.PREF_DND_SCREEN, false)
         ext_camera = setPref.getBoolean(ST.PREF_CAMERA, false)
+        charging = setPref.getBoolean(ST.PREF_DND_CHARGE, false)
 
 
         alarmManager()
@@ -595,6 +606,8 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 isUnlocked(this)
             } else if (screenOn) {
                 isScreenOn(this)
+            } else if(charging){
+                watchCharge
             } else {
                 false
             }
@@ -1044,6 +1057,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         if (data.size() == 8){
             if (data.getByte(4) == (0x91).toByte()){
                 bat = data.getByte(7)!!.toPInt()
+                watchCharge = (data.getByte(6)!!.toPInt() == 1)
                 Timber.w("Battery: $bat%")
                 notify(getString(R.string.connected)+" $deviceName", false, bat, SERVICE_ID)
             }
