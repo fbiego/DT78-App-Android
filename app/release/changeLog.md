@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.2
++ Added Charging status
++ Added DND when charging
++ Updated translations
+
 ## 3.1
 + Added Italian language
 + Added Polish language

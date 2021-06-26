@@ -15,13 +15,14 @@
 
 ### App Install
 
-[`DT78-App-v3.1.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.1.apk)
+[`DT78-App-v3.2.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.2.apk)
 
-Released on `Sunday, 21 March 2021 19:20 Greenwich Mean Time (GMT)`
+Released on `Saturday, 26 June 2021 05:00 Greenwich Mean Time (GMT)`
 
 [Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
->+ Added Italian language
->+ Added Polish language
+>+ Added Charging status
+>+ Added DND when charging
+>+ Updated translations
 
 The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
