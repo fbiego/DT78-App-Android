@@ -6,12 +6,7 @@
 + [`Notification test`](https://youtu.be/2429i_2OC2A)
 + [`DT66 Customized watchface`](https://youtu.be/CJ8nM-tDxSM)
 
-#### Implemented
-
-* Almost all features
-* Notifications upto 125 characters to the watch
-* Watch battery percentage on the ongoing notification
-* Tested on DT78, DT92 & DT66
+[`Tested Watches`](https://github.com/fbiego/DT78-App-Android/blob/dev/watches.md)
 
 ### App Install
 
