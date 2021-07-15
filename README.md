@@ -40,9 +40,9 @@ Released on `Thursday, 15 July 2021 06:00 Greenwich Mean Time (GMT)`
 
 ### Screenshots
 
-![1](dt78_app6.png?raw=true "3")
+![1](dt78_app1.png?raw=true "3")
 
-![2](dt78_app7.png?raw=true "2")
+![2](dt78_app2.png?raw=true "2")
 
 
 ## Source Code (Dev branch)
