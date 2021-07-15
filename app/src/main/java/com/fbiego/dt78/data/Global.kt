@@ -53,6 +53,31 @@ const val LINK_LOSS =           5
 const val WATCH_ERROR   =       6
 const val WATCH_RECONNECT   =   7
 const val WATCH_ERROR_133 =     8
+const val MEASURE_TRIGGERED =   9
+const val M_SERVICE_STOPPED =   10  //service not running
+const val M_MEASURE_START =     11  //start measurement
+const val M_MEASURE_END =       12  //end measurement
+const val M_MEASURE_DISC =      13  //watch disconnected
+const val M_MEASURE_RECEIVED =  14  //measurement values received
+const val M_MEASURE_NULL    =   15  //measurement zero values received
+const val M_MEASURE_FAIL    =   16  //measurement failed, watch not reconnected in time
+
+// health data types
+const val H_OLD = 0       // existing data
+const val H_WATCH = 1     //measurement from watch
+const val H_APP = 2       //measurement from app
+const val H_HOURLY = 3    //measurement from hourly data (received with hourly steps)
+const val H_TIMED = 4     //measurement from scheduled interval
+
+fun healthIcon(type: Int): Int{
+    return when(type){
+        H_WATCH -> R.drawable.ic_h_watch
+        H_APP -> R.drawable.ic_h_app
+        H_HOURLY -> R.drawable.ic_h_hourly
+        H_TIMED -> R.drawable.ic_h_scheduled
+        else -> R.drawable.ic_h_old
+    }
+}
 
 fun getErrorName(id: Int): String{
     return when(id){
@@ -65,7 +90,15 @@ fun getErrorName(id: Int): String{
         LINK_LOSS -> "LOST_LINK"
         WATCH_RECONNECT -> "WATCH_RECONNECTED"
         WATCH_ERROR_133 -> "WATCH_ERROR_133"
-        else -> "UNDEFINED"
+        MEASURE_TRIGGERED -> "MEASURE TRIGGERED"
+        M_SERVICE_STOPPED -> "MEASURE FAILED, SERVICE STOPPED"
+        M_MEASURE_START -> "MEASURE START"
+        M_MEASURE_END -> "MEASURE END"
+        M_MEASURE_RECEIVED -> "MEASUREMENT RECEIVED"
+        M_MEASURE_NULL -> "MEASURE RECEIVE NULL"
+        M_MEASURE_DISC -> "MEASURE WATCH DISCONNECTED"
+        M_MEASURE_FAIL -> "MEASURE FAILED, WATCH NOT RECONNECTED"
+        else -> "NO DATA"
     }
 }
 
@@ -80,6 +113,8 @@ fun getErrorIcon(id: Int): Int{
         LINK_LOSS -> R.drawable.ic_loss
         WATCH_RECONNECT -> R.drawable.ic_sync
         WATCH_ERROR_133 -> R.drawable.ic_info
+        MEASURE_TRIGGERED, M_SERVICE_STOPPED, M_MEASURE_RECEIVED, M_MEASURE_NULL,
+        M_MEASURE_START, M_MEASURE_END, M_MEASURE_DISC-> R.drawable.ic_h_hourly
         else -> R.drawable.ic_watch
     }
 }
@@ -265,7 +300,7 @@ fun appName(id: Int): String{
         0 -> "Message"
         1 -> "WhatsApp"
         2 -> "Twitter"
-        4 -> "Twitter"
+        4 -> "Instagram"
         5 -> "Facebook"
         6 -> "Messenger"
         7 -> "Skype"

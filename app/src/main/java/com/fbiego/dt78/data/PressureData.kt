@@ -7,7 +7,8 @@ class PressureData(
     var hour: Int,
     var minute: Int,
     var bpHigh: Int,
-    var bpLow: Int
+    var bpLow: Int,
+    var type: Int
 ) {
     var id: Long = 0
 

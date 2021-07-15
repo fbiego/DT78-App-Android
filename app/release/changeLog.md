@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.3
++ Improved data sync time
++ Added Scheduled Measurement
++ Added health data source (app, watch, hourly, scheduled)
+
 ## 3.2
 + Added Charging status
 + Added DND when charging

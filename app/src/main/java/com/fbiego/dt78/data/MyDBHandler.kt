@@ -16,7 +16,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
 
     companion object {
         private const val DATABASE_NAME = "watch_data"
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 7
         const val STEPS_TABLE = "stepsData"
         const val HRM_TABLE = "heartRate"
         const val BP_TABLE = "bloodPressure"
@@ -62,13 +62,13 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
                 + COLUMN_STEPS + " INTEGER," + COLUMN_CALORIES + " INTEGER" + ")"  )
         val createHrmTable = ("CREATE TABLE " + HRM_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_YEAR + " INTEGER," + COLUMN_MONTH + " INTEGER," + COLUMN_DAY + " INTEGER," + COLUMN_HOUR + " INTEGER,"
-                + COLUMN_MIN + " INTEGER," + COLUMN_BPM + " INTEGER" + ")"  )
+                + COLUMN_MIN + " INTEGER," + COLUMN_BPM + " INTEGER" + ", $COLUMN_TYPE INTEGER)"  )
         val createBpTable = ("CREATE TABLE " + BP_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_YEAR + " INTEGER," + COLUMN_MONTH + " INTEGER," + COLUMN_DAY + " INTEGER," + COLUMN_HOUR + " INTEGER,"
-                + COLUMN_MIN + " INTEGER," + COLUMN_BPH + " INTEGER," + COLUMN_BPL + " INTEGER" + ")"  )
+                + COLUMN_MIN + " INTEGER," + COLUMN_BPH + " INTEGER," + COLUMN_BPL + " INTEGER" + ", $COLUMN_TYPE INTEGER)"  )
         val createSp02Table = ("CREATE TABLE " + SP02_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_YEAR + " INTEGER," + COLUMN_MONTH + " INTEGER," + COLUMN_DAY + " INTEGER," + COLUMN_HOUR + " INTEGER,"
-                + COLUMN_MIN + " INTEGER," + COLUMN_SP02 + " INTEGER" + ")"  )
+                + COLUMN_MIN + " INTEGER," + COLUMN_SP02 + " INTEGER" + ", $COLUMN_TYPE INTEGER)"  )
         val createSleepTable = ("CREATE TABLE " + SLEEP_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_YEAR + " INTEGER," + COLUMN_MONTH + " INTEGER," + COLUMN_DAY + " INTEGER," + COLUMN_HOUR + " INTEGER,"
                 + COLUMN_MIN + " INTEGER," + COLUMN_TYPE + " INTEGER," + COLUMN_DURATION + " INTEGER" + ")"  )
@@ -110,6 +110,13 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         val createContactsTable = ("CREATE TABLE IF NOT EXISTS $CONTACTS_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_NAME TEXT, $COLUMN_NUMBER TEXT)")
         val createErrorTable = ("CREATE TABLE IF NOT EXISTS $ERROR_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_YEAR INTEGER, $COLUMN_MONTH INTEGER, " +
                 "$COLUMN_DAY  INTEGER, $COLUMN_HOUR INTEGER, $COLUMN_MIN  INTEGER, $COLUMN_SEC  INTEGER, $COLUMN_ERROR  INTEGER, $COLUMN_STATE INTEGER)" )
+
+        if (p1 < 7){
+            p0?.execSQL("ALTER TABLE $HRM_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
+            p0?.execSQL("ALTER TABLE $SP02_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
+            p0?.execSQL("ALTER TABLE $BP_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
+        }
+
         p0?.execSQL(createAlarmTable)
         p0?.execSQL(createUserTable)
         p0?.execSQL(createSetTable)
@@ -142,7 +149,56 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         values.put(COLUMN_MIN, errorData.minute)
         values.put(COLUMN_SEC, errorData.second)
         values.put(COLUMN_ERROR, errorData.error)
-        values.put(COLUMN_STATE, 0)
+        values.put(COLUMN_STATE, -1)
+
+        val db = this.writableDatabase
+        db.replace(ERROR_TABLE, null, values)
+        db.close()
+    }
+
+    fun getMeasure(id: Int): Int{
+        val cal = Calendar.getInstance(Locale.getDefault())
+        val dy = cal.get(Calendar.DAY_OF_MONTH)
+        val mt = cal.get(Calendar.MONTH)+1
+        val yr = cal.get(Calendar.YEAR)-2000
+        var qr = -1
+
+        val query = "SELECT * FROM $ERROR_TABLE WHERE $COLUMN_DAY = $dy AND $COLUMN_MONTH = $mt AND $COLUMN_YEAR = $yr AND $COLUMN_STATE = $id"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            qr = cursor.getInt(7)
+        }
+        cursor.close()
+        db.close()
+
+
+        return qr
+    }
+
+    fun writeMeasure(cal: Calendar, error: Int, id: Int){
+        val errorData = ErrorData(
+            cal.get(Calendar.YEAR)-2000,
+            cal.get(Calendar.MONTH)+1,
+            cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE),
+            cal.get(Calendar.SECOND),
+            error
+        )
+        Timber.e("${getErrorName(error)} on [Alarm $id] at ${cal.time}")
+
+        val values = ContentValues()
+        values.put(COLUMN_ID, errorData.id)
+        values.put(COLUMN_YEAR, errorData.year)
+        values.put(COLUMN_MONTH, errorData.month)
+        values.put(COLUMN_DAY, errorData.day)
+        values.put(COLUMN_HOUR, errorData.hour)
+        values.put(COLUMN_MIN, errorData.minute)
+        values.put(COLUMN_SEC, errorData.second)
+        values.put(COLUMN_ERROR, errorData.error)
+        values.put(COLUMN_STATE, id)
 
         val db = this.writableDatabase
         db.replace(ERROR_TABLE, null, values)
@@ -223,6 +279,21 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
             it.id
         }
         return qr
+    }
+
+    fun getLastSteps(): StepsData? {
+        var steps : StepsData? = null
+        val query = "SELECT * FROM $STEPS_TABLE ORDER BY $COLUMN_ID DESC LIMIT 1"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.moveToFirst()){
+            steps = StepsData(cursor.getString(1).toInt(), cursor.getString(2).toInt(), cursor.getString(3).toInt(),
+                cursor.getString(4).toInt(), 0, 0)
+        }
+        cursor.close()
+        db.close()
+        return steps
     }
 
     fun getSteps(): ArrayList<StepsData>{
@@ -661,6 +732,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         values.put(COLUMN_HOUR, data.hour)
         values.put(COLUMN_MIN, data.minute)
         values.put(COLUMN_BPM, data.bpm)
+        values.put(COLUMN_TYPE, data.type)
 
         val db = this.writableDatabase
         db.replace(HRM_TABLE, null, values)
@@ -691,7 +763,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
 
         while (cursor.moveToNext()){
             val hrm = cursor.getString(6)+" "+cnt.resources.getString(R.string.bpm)
-            qr.add(HealthData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), hrm))
+            qr.add(HealthData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), hrm, cursor.getInt(7)))
 
         }
         cursor.close()
@@ -713,6 +785,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         values.put(COLUMN_MIN, data.minute)
         values.put(COLUMN_BPH, data.bpHigh)
         values.put(COLUMN_BPL, data.bpLow)
+        values.put(COLUMN_TYPE, data.type)
 
         val db = this.writableDatabase
         db.replace(BP_TABLE, null, values)
@@ -746,7 +819,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
 
         while (cursor.moveToNext()){
             val bp = cursor.getString(7)+"/"+cursor.getString(6)+" "+cnt.resources.getString(R.string.mmHg)
-            qr.add(HealthData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), bp))
+            qr.add(HealthData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), bp, cursor.getInt(8)))
 
         }
         cursor.close()
@@ -767,6 +840,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         values.put(COLUMN_HOUR, data.hour)
         values.put(COLUMN_MIN, data.minute)
         values.put(COLUMN_SP02, data.sp02)
+        values.put(COLUMN_TYPE, data.type)
 
         val db = this.writableDatabase
         db.replace(SP02_TABLE, null, values)
@@ -796,7 +870,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
 
         while (cursor.moveToNext()){
             val sp = cursor.getString(6)+" %"
-            qr.add(HealthData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), sp))
+            qr.add(HealthData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), sp, cursor.getInt(7)))
 
         }
         cursor.close()

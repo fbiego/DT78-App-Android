@@ -15,32 +15,26 @@
 
 ### App Install
 
-[`DT78-App-v3.2.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.2.apk)
+[`DT78-App-v3.3.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.3.apk)
 
-Released on `Saturday, 26 June 2021 05:00 Greenwich Mean Time (GMT)`
+Released on `Thursday, 15 July 2021 05:40 Greenwich Mean Time (GMT)`
 
 [Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
->+ Added Charging status
->+ Added DND when charging
->+ Updated translations
+>+ Improved data sync time
+>+ Added Scheduled Measurement
+>+ Added health data source (app, watch, hourly, scheduled)
 
-The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
+> The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
 
 #### Translate
 
 [`DT78 app translations`](https://docs.google.com/spreadsheets/d/1crHcLgeA30y7-kiXHY95TBrc7-_znlTKFR2QMc66zT4/edit?usp=sharing) on Google Sheets
-+ Czech
-+ English
-+ German
-+ Greek
-+ Indonesian
-+ Italian
-+ Polish
-+ Portuguese
-+ Russian
-+ Spanish
-+ Vietnamese
+
+| Czech | English | German |
+| Greek | Indonesian | Italian |
+| Polish | Portuguese | Russian |
+|Spanish | Vietnamese | |
 
 #### Telegram
 
@@ -67,4 +61,10 @@ Extract as follows:
 > `~/your-folder/Android-BLE-Library`
 
 You may need to delete the `.idea` folder before syncing the project
+
+## Firmware
+
+Reverse engineering the watch
+
+[`Repository`](https://github.com/fbiego/dt78)
 

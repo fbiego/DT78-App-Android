@@ -6,7 +6,8 @@ class HeartData(
     var day: Int,
     var hour: Int,
     var minute: Int,
-    var bpm: Int
+    var bpm: Int,
+    var type: Int
 ) {
     var id: Long = 0
 

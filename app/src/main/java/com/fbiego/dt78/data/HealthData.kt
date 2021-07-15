@@ -6,7 +6,8 @@ class HealthData(
     var day: Int,
     var hour: Int,
     var minute: Int,
-    var value: String
+    var value: String,
+    var type: Int
 ) {
     var id: Long = 0
 

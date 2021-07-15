@@ -11,10 +11,7 @@ import android.content.*
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.BatteryManager
-import android.os.Build
-import android.os.Handler
-import android.os.IBinder
+import android.os.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -26,6 +23,7 @@ import com.fbiego.dt78.ble.LEManager
 import com.fbiego.dt78.ble.LeManagerCallbacks
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_apps.*
+import kotlinx.android.synthetic.main.activity_health.*
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.data.Data
 import timber.log.Timber
@@ -37,7 +35,7 @@ import com.fbiego.dt78.app.SettingsActivity as ST
 /**
  *
  */
-class ForegroundService : Service(), MessageListener, PhonecallListener, DataListener, ChargeListener {
+class ForegroundService : Service(), MessageListener, PhonecallListener, DataListener, ChargeListener, MeasureListener {
 
     companion object {
 
@@ -55,13 +53,14 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         var deviceName = ""
         var bat = 0
         var steps = 0
-        var lst_sync = 0L
+        //var lst_sync = 0L
         var findPhone = false
         var unit = 1
         var dt78 = 0
         var lockPhone = false
         var notify = 0
         var icon = 20
+        var hourly = false
 
         var serviceRunning = false
         var call = false
@@ -72,6 +71,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         var unplug = false
         var camera = false
         var ext_camera = false
+        var healthRun = false
 
         var watchVersion = ""
 
@@ -83,6 +83,8 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         var convert = false
         var prt = 0
         var acc = 0
+        var msIcon = 0
+        var sendWatch = false
 
         var smsShow = true
         var phoneShow = true
@@ -93,6 +95,9 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         var quietHours : ArrayList<Int> = arrayListOf(2, 22, 0, 7, 0, 0, 0)
         var isQuiet = false
         var selfTest = false
+
+        var pendingMeasure = false
+        var pendingId = -1
 
 
     }
@@ -167,6 +172,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         SMSReceiver.bindListener(this)
         DataReceiver.bindListener(this)
         ChargeStateReceiver.bindListener(this)
+        MeasureReceiver.bindListener(this)
 
     }
 
@@ -256,6 +262,13 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         }
     }
 
+    private fun writeMessage(msg: String, app: Int): Boolean{
+        return if (bleManager != null) {
+            (bleManager as LEManager).writeNotification(msg, app)
+        } else {
+            false
+        }
+    }
     private fun shouldNotify(): Boolean{
         isQuiet = isQuietA(quietHours)
         val chargeDND = charging && watchCharge
@@ -276,16 +289,16 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         return if (bleManager != null && !dndOn(!show)) {
             when {
                 shouldNotify() -> {
-                    (bleManager as LEManager).writeNotification(msg, app)
+                    writeMessage(msg, app)
                 }
                 app == 20 -> {
                     if (!(charging && watchCharge)) {
-                        (bleManager as LEManager).writeNotification(
+                        writeMessage(
                             getString(R.string.quiet_active) + msg,
                             app
                         )
                     } else {
-                        (bleManager as LEManager).writeNotification("Watch is charging"+msg, app)
+                        writeMessage(getString(R.string.watch_charging)+ " "+msg, app)
                     }
                 }
                 else -> {
@@ -298,9 +311,9 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         }
     }
 
-    fun syncData(): Boolean{
+    fun syncData(steps: StepsData?): Boolean{
         return if (bleManager != null){
-            (bleManager as LEManager).syncData(lst_sync - (3600000 * 6))
+            (bleManager as LEManager).syncData(steps)
         } else {
             false
         }
@@ -337,6 +350,11 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         sendData(hr12)
     }
 
+    fun updateHourly(state: Boolean){
+        val hourly = byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x78, 0x80, if (state) 1 else 0)
+        sendData(hourly)
+    }
+
     private fun updateBat(percentage: Int){
         val bat = byteArrayOfInts(0xAB, 0x00, 0x05, 0xFF, 0x91, 0x80, 0x00, percentage)
         sendData(bat)
@@ -359,8 +377,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         updateUser(user, unit)
         val setPref =  PreferenceManager.getDefaultSharedPreferences(this)
         update12hr(setPref.getBoolean(ST.PREF_12H, false))
-        val hrl = byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x78, 0x80, if (setPref.getBoolean(ST.PREF_HOURLY, false)) 1 else 0)
-        sendData(hrl)
+        updateHourly(hourly)
         val disp = byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x23, 0x80, if (setPref.getBoolean(ST.PREF_DISPLAY_OFF, false)) 1 else 0)
         sendData(disp)
         val timeout = byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x7B, 0x80, setPref.getInt(ST.PREF_TIMEOUT, 10))
@@ -407,6 +424,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         if (quiet.isNotEmpty()){
             updateQuiet(quiet)
         }
+        updateHourly(hourly)
 
     }
 
@@ -417,6 +435,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         connected = false
         ringDisconnect(false)
         ChargeStateReceiver.unBindListener()
+        MeasureReceiver.unBindListener()
         isReconnect = false
 
 
@@ -574,7 +593,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         bat_ic = setPref.getInt(ST.PREF_BAT_IC, 0)
         plug = setPref.getBoolean(ST.PREF_PLUG, false)
         unplug = setPref.getBoolean(ST.PREF_UNPLUG, false)
-        lst_sync = setPref.getLong(ST.PREF_SYNC, System.currentTimeMillis() - 604800000)
+        //lst_sync = setPref.getLong(ST.PREF_SYNC, System.currentTimeMillis() - 604800000)
         convert = setPref.getBoolean(ST.PREF_CONVERT_EL, Locale.getDefault().language == "el")
         watchVersion = setPref.getString(ST.PREF_VERSION, "").toString()
         smsShow = !setPref.getBoolean(ST.PREF_SHOW_SMS, false)
@@ -584,6 +603,9 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         screenOn = setPref.getBoolean(ST.PREF_DND_SCREEN, false)
         ext_camera = setPref.getBoolean(ST.PREF_CAMERA, false)
         charging = setPref.getBoolean(ST.PREF_DND_CHARGE, false)
+        hourly = setPref.getBoolean(ST.PREF_HOURLY, false)
+        msIcon = setPref.getInt(ST.PREF_SEND_ICON, 0)
+        sendWatch = setPref.getBoolean(ST.PREF_SEND_WATCH, false)
 
 
         alarmManager()
@@ -669,13 +691,13 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 if (!shouldNotify()){
                     msg += context.getString(R.string.quiet_active)
                 }
-                (bleManager as LEManager).writeNotification(msg,app)
+                writeMessage(msg,app)
 
             } else {
                 if (!shouldNotify()){
                     msg = context.getString(R.string.quiet_active)+msg
                 }
-                (bleManager as LEManager).writeNotification(msg,app)
+                writeMessage(msg,app)
             }
 
         } else {
@@ -727,9 +749,18 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 (bleManager as LEManager).setTime()
                 (bleManager as LEManager).batRequest()
                 checkUpdate()
+                updateHourly(hourly)
             }
 
-            //val calendar = Calendar.getInstance(Locale.getDefault())
+            val dbHandler = MyDBHandler(context, null, null, 1)
+            val cal = Calendar.getInstance(Locale.getDefault())
+            if (pendingMeasure){
+                if (pendingId == cal.get(Calendar.HOUR_OF_DAY) && cal.get(Calendar.MINUTE) <= 30){
+                    retryMeasure(dbHandler, true)
+                } else {
+                    retryMeasure(dbHandler, false)
+                }
+            }
             //Timber.e("Device ${device.name} ready at ${calendar.time}")
 
             ConnectionReceiver().notifyStatus(true)
@@ -1101,7 +1132,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                         (0x00).toByte() -> {
 
                             try {
-                                val p1 = Runtime.getRuntime().exec("su -c input keyevent 85")
+                                Runtime.getRuntime().exec("su -c input keyevent 85")
 
                             } catch (e: Exception){
 
@@ -1110,14 +1141,14 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                         }
                         (0x01).toByte() -> {
                             try {
-                                val su = Runtime.getRuntime().exec("su -c input keyevent 87")
+                                Runtime.getRuntime().exec("su -c input keyevent 87")
                             } catch (e: Exception){
 
                             }
                         }
                         (0x02).toByte() -> {
                             try {
-                                val su = Runtime.getRuntime().exec("su -c input keyevent 88")
+                                Runtime.getRuntime().exec("su -c input keyevent 88")
                             } catch (e: Exception){
 
                             }
@@ -1127,7 +1158,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
 
                 if (data.getByte(4) == (0x79).toByte() && data.getByte(6) == (0x01).toByte() && ext_camera){
                     try {
-                        val su = Runtime.getRuntime().exec("su -c input keyevent 24")
+                        Runtime.getRuntime().exec("su -c input keyevent 24")
                         //su.waitFor()
                     } catch (e: Exception){
 
@@ -1226,22 +1257,22 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 val bpl = data.getByte(19)!!.toPInt()
                 if (bp != 0){
                     dbHandler.insertHeart(HeartData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bp))
+                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bp, H_HOURLY))
                 }
                 if (sp != 0){
                     dbHandler.insertSp02(OxygenData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), sp))
+                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), sp, H_HOURLY))
                 }
                 if (bph != 0 ){
                     dbHandler.insertBp(PressureData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bph, bpl))
+                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bph, bpl, H_HOURLY))
                 }
             }
             if (data.getByte(5) == (0x11).toByte()){
                 val bp = data.getByte(11)!!.toPInt()
                 if (bp != 0){
                     dbHandler.insertHeart(HeartData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bp))
+                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bp, H_WATCH))
                 }
             }
 
@@ -1249,7 +1280,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 val sp = data.getByte(11)!!.toPInt()
                 if (sp != 0){
                     dbHandler.insertSp02(OxygenData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), sp))
+                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), sp, H_WATCH))
                 }
             }
 
@@ -1258,7 +1289,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 val bpl = data.getByte(12)!!.toPInt()
                 if (bph != 0 ){
                     dbHandler.insertBp(PressureData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bph, bpl))
+                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bph, bpl, H_WATCH))
                 }
             }
         }
@@ -1271,6 +1302,65 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                         data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(),
                             data.getByte(11)!!.toPInt(), dur)
                 )
+            }
+        }
+
+        if (!healthRun){
+            if (data.getByte(4) == (0x32).toByte()){
+                val bp = data.getByte(6)!!.toPInt()
+                val sp = data.getByte(7)!!.toPInt()
+                val bph = data.getByte(8)!!.toPInt()
+                val bpl = data.getByte(9)!!.toPInt()
+
+                val calendar = Calendar.getInstance(Locale.getDefault())
+                dbHandler.writeMeasure(calendar, M_MEASURE_RECEIVED, calendar.get(Calendar.HOUR_OF_DAY))
+
+                var isNull = true
+
+                if (bp != 0){
+                    dbHandler.insertHeart(
+                        HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp, H_TIMED)
+                    )
+                    isNull = false
+                }
+                if (bph != 0 ){
+                    dbHandler.insertBp(
+                        PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl, H_TIMED)
+                    )
+                    isNull = false
+                }
+                if (sp != 0){
+                    dbHandler.insertSp02(
+                        OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp, H_TIMED)
+                    )
+                    isNull = false
+                }
+                val s = context.getString(R.string.scheduled)
+                val title = if (s.length > 25)  s.substring(0,25) else s
+                var msg = " ".repeat(125)
+                msg = msg.replaceRange(0, title.length, title)
+                if (isNull){
+                    dbHandler.writeMeasure(calendar, M_MEASURE_NULL, calendar.get(Calendar.HOUR_OF_DAY))
+                    if (sendWatch){
+                        val txt = context.getString(R.string.zero_values)
+                        msg = msg.replaceRange(25, txt.length, txt)
+                        writeMessage(msg, msIcon)
+                    }
+
+                } else {
+                    if (sendWatch){
+                        val hrm = "$bp "+ context.getString(R.string.bpm)
+                        val pressure = "$bpl/$bph "+ context.getString(R.string.mmHg)
+                        val o2 = "$sp %"
+                        msg = msg.replaceRange(25, hrm.length, hrm)
+                        msg = msg.replaceRange(50, pressure.length, pressure)
+                        msg = msg.replaceRange(75, o2.length, o2)
+                        writeMessage(msg, msIcon)
+                    }
+                }
             }
         }
 
@@ -1542,6 +1632,44 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         }
     }
 
+    override fun onMeasureStart(id: Int) {
+        val dbHandler = MyDBHandler(this, null, null, 1)
+        val cal = Calendar.getInstance(Locale.getDefault())
+        if (sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x01))){
+            dbHandler.writeMeasure(cal, M_MEASURE_START, id)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x00))
+                val cal2 = Calendar.getInstance(Locale.getDefault())
+                dbHandler.writeMeasure(cal2, M_MEASURE_END, id)
+            }, 60000)
+        } else {
+            dbHandler.writeMeasure(cal, M_MEASURE_DISC, id)
+            pendingMeasure = true
+            pendingId = id
+        }
+    }
+
+    private fun retryMeasure(dbHandler: MyDBHandler, status: Boolean){
+        val cal = Calendar.getInstance(Locale.getDefault())
+        pendingMeasure = false
+        pendingId = -1
+        if (status) {
+            if (sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x01))) {
+                dbHandler.writeMeasure(cal, M_MEASURE_START, pendingId)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x00))
+                    val cal2 = Calendar.getInstance(Locale.getDefault())
+                    dbHandler.writeMeasure(cal2, M_MEASURE_END, pendingId)
+                }, 60000)
+            } else {
+                dbHandler.writeMeasure(cal, M_MEASURE_FAIL, pendingId)
+            }
+        } else {
+            dbHandler.writeMeasure(cal, M_MEASURE_FAIL, pendingId)
+        }
+    }
 
 
 }

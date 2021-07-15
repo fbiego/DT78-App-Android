@@ -89,18 +89,8 @@ class StepsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        ForegroundService.lst_sync = pref.getLong(SettingsActivity.PREF_SYNC,System.currentTimeMillis() - 604800000)
-        if (System.currentTimeMillis() > ForegroundService.lst_sync + (3600000 * 1)){
-            if (ForegroundService().syncData()){
-                Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
-                val editor: SharedPreferences.Editor = pref.edit()
-                val time = System.currentTimeMillis()
-                editor.putLong(SettingsActivity.PREF_SYNC, time)
-                editor.apply()
-                editor.commit()
-            }
-
+        if (ForegroundService().syncData(MyDBHandler(this, null, null, 1).getLastSteps())){
+            //Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
         }
 
         loadData()

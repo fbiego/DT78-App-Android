@@ -116,13 +116,14 @@ class SettingsWatchActivity : AppCompatActivity() {
 
 
 
-        val names = arrayListOf(getString(R.string.hr12_sys), getString(R.string.hourly), unit(setPref.getBoolean(ST.PREF_UNITS, false), this),
+        val names = arrayListOf(getString(R.string.hr12_sys), getString(R.string.measurement), unit(setPref.getBoolean(ST.PREF_UNITS, false), this),
             getString(R.string.watch_type)+Watch(dt78).name+"\t\t"+FG.watchVersion, getString(R.string.watch_lang), getString(R.string.reset_watch))
 
         var units = setPref.getBoolean(ST.PREF_UNITS, false)
 
+        //setPref.getBoolean(ST.PREF_HOURLY, false)
         val states : ArrayList<Boolean?> = arrayListOf( !hr24,
-            setPref.getBoolean(ST.PREF_HOURLY, false), null, null, null, null)
+            null, null, null, null, null)
         val icons = arrayListOf(R.drawable.ic_12hr, R.drawable.ic_hourly, R.drawable.ic_klm, R.drawable.ic_watch,R.drawable.ic_lang, R.drawable.ic_reset)
 
         if (Watch(dt78).rtw) {
@@ -163,10 +164,11 @@ class SettingsWatchActivity : AppCompatActivity() {
                     FG().update12hr(states[i]!!)
                 }
                 1 -> {
-                    states[i] = !states[i]!!
-                    editor.putBoolean(ST.PREF_HOURLY, states[i]!!)
-                    val hrl = byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x78, 0x80, if (states[i]!!) 1 else 0)
-                    FG().sendData(hrl)
+//                    states[i] = !states[i]!!
+//                    editor.putBoolean(ST.PREF_HOURLY, states[i]!!)
+//                    FG.hourly = states[i]!!
+//                    FG().updateHourly(states[i]!!)
+                    startActivity(Intent(this, MeasureActivity::class.java))
                 }
                 2 -> {
                     units = !units

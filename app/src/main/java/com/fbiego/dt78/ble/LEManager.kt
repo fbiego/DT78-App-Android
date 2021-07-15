@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
 import com.fbiego.dt78.app.DataReceiver
+import com.fbiego.dt78.data.StepsData
 import com.fbiego.dt78.data.byteArrayOfInts
 import com.fbiego.dt78.data.toPInt
 import no.nordicsemi.android.ble.BleManager
@@ -22,6 +23,7 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
 
     var dt78RxCharacteristic: BluetoothGattCharacteristic? = null
     var dt78TxCharacteristic: BluetoothGattCharacteristic? = null
+    var newLine = false
 
 
     companion object {
@@ -54,15 +56,17 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
     }
 
 
-    fun syncData(time: Long): Boolean{
+    fun syncData(steps: StepsData?): Boolean{
         return if (isConnected && isReady && dt78TxCharacteristic != null){
             requestMtu(MTU).enqueue()
             val calendar = Calendar.getInstance(Locale.getDefault())
-            calendar.time = Date(time)
-            val stepRQ = byteArrayOfInts(0xAB, 0x00, 0x09, 0xFF, 0x51, 0x80, 0x00, calendar.get(Calendar.YEAR)-2000,
-                calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY), 0x00)
-            val sleepRQ = byteArrayOfInts(0xAB, 0x00, 0x09, 0xFF, 0x52, 0x80, 0x00, calendar.get(Calendar.YEAR)-2000,
-                calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY), 0x00)
+            calendar.timeInMillis -= 604800000
+            val yr = steps?.year ?: calendar.get(Calendar.YEAR)-2000
+            val mt = steps?.month ?: calendar.get(Calendar.MONTH)+1
+            val dy = steps?.day ?: calendar.get(Calendar.DAY_OF_MONTH)
+            val hr = steps?.hour ?: calendar.get(Calendar.HOUR_OF_DAY)
+            val stepRQ = byteArrayOfInts(0xAB, 0x00, 0x09, 0xFF, 0x51, 0x80, 0x00, yr, mt, dy, hr, 0x00)
+            val sleepRQ = byteArrayOfInts(0xAB, 0x00, 0x09, 0xFF, 0x52, 0x80, 0x00, yr, mt, dy, hr, 0x00)
             writeCharacteristic(dt78TxCharacteristic, stepRQ).enqueue()
             writeCharacteristic(dt78TxCharacteristic, sleepRQ).enqueue()
             true
@@ -440,7 +444,11 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
 
     private fun logData(data: Data){
 
-        var str = "["+Calendar.getInstance(Locale.getDefault()).time+"] "
+        var str = if (newLine){
+            "["+Calendar.getInstance(Locale.getDefault()).time+"] "
+        } else {
+            ""
+        }
         for (x in 0 until data.size()){
             str += if(x == 0){
                 String.format("%02X", data.getByte(x)!!.toPInt())
@@ -448,6 +456,15 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
                 String.format("-%02X", data.getByte(x)!!.toPInt())
             }
         }
+
+        str += if (data.getByte(2) == (0x16).toByte() && data.getByte(4) == (0x51).toByte()){
+            newLine = false
+            "-"
+        } else {
+            newLine = true
+            "\n"
+        }
+
 
         try {
             val directory = context.cacheDir
@@ -461,7 +478,7 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
             if (!file.exists()) {
                 file.createNewFile()
             }
-            file.appendText("$str\n")
+            file.appendText(str)
         } catch (e: IOException){
             Timber.e("Failed to write data file")
         }

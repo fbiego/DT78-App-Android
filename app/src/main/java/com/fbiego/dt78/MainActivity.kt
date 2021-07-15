@@ -340,6 +340,10 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
             intent.removeExtra("RING")
         }
 
+        MeasureActivity().setSchedule(this, pref.getBoolean(ST.PREF_SCHEDULED, false),
+            pref.getInt(ST.PREF_M_START, 0), pref.getInt(ST.PREF_M_END, 23), pref.getInt(ST.PREF_M_INTERVAL, 2)
+        )
+
         Timber.w("onStart")
     }
 
@@ -389,15 +393,9 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         val tp = pref.getInt(ST.PREF_WATCH_ID, -1)
         title = Watch(tp).name
         checkEnabled(tp)
-        FG.lst_sync = pref.getLong(ST.PREF_SYNC, System.currentTimeMillis() - 604800000)
-        if (System.currentTimeMillis() > FG.lst_sync + (3600000 * 3) && tp != ESP32 && tp != UNKNOWN){
-            if (FG().syncData()){
-                Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
-                val editor: SharedPreferences.Editor = pref.edit()
-                val time = System.currentTimeMillis()
-                editor.putLong(ST.PREF_SYNC, time)
-                editor.apply()
-                editor.commit()
+        if (tp != ESP32){
+            if (FG().syncData(MyDBHandler(this, null, null, 1).getLastSteps())){
+                //Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
             }
 //            else  {
 //                Toast.makeText(this, R.string.unable_sync, Toast.LENGTH_SHORT).show()
@@ -662,15 +660,9 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
 
             val pref = PreferenceManager.getDefaultSharedPreferences(this)
             val id = pref.getInt(ST.PREF_WATCH_ID, -1)
-            FG.lst_sync = pref.getLong(ST.PREF_SYNC, System.currentTimeMillis() - 604800000)
-            if (System.currentTimeMillis() > FG.lst_sync + (3600000 * 3) && id != ESP32 ){
-                if (FG().syncData()){
-                    Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
-                    val editor: SharedPreferences.Editor = pref.edit()
-                    val time = System.currentTimeMillis()
-                    editor.putLong(ST.PREF_SYNC, time)
-                    editor.apply()
-                    editor.commit()
+            if (id != ESP32 ){
+                if (FG().syncData(MyDBHandler(this, null, null, 1).getLastSteps())){
+                    //Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -682,7 +674,7 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
 
         when (view.id) {
             R.id.cardInfo -> {
-                if (FG().syncData()) {
+                if (FG().syncData(null)) {
                     Toast.makeText(this, R.string.sync_watch, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, R.string.not_connect, Toast.LENGTH_SHORT).show()

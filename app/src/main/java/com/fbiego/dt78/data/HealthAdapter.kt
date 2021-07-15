@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.fbiego.dt78.R
 
@@ -41,15 +42,17 @@ class HealthAdapter(healthData: ArrayList<HealthData>): RecyclerView.Adapter<Hea
         private val mDate: TextView = itemView.findViewById(R.id.date)
         private val mTime: TextView = itemView.findViewById(R.id.time)
         private val mValue: TextView = itemView.findViewById(R.id.value)
+        private val mIcon: ImageView = itemView.findViewById(R.id.type)
         //private val card: CardView = itemView.findViewById(R.id.cardView)
 
         @SuppressLint("DefaultLocale")
         fun bind (health: HealthData){
-            val date = java.lang.String.format("%02d-%02d-20%02d", health.day, health.month,health.year)
+            val date = String.format("%02d-%02d-20%02d", health.day, health.month,health.year)
             mDate.text = date
-            val time = java.lang.String.format("%02d:%02d", health.hour, health.minute)
+            val time = String.format("%02d:%02d", health.hour, health.minute)
             mTime.text = time
             mValue.text = health.value
+            mIcon.setImageResource(healthIcon(health.type))
             //card.setBackgroundColor(colors(health.day%10))
             //card.setCardBackgroundColor(ContextCompat.getColor(cnt, R.color.colorAccent))
         }

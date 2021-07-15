@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:weightSum="17">
+            android:weightSum="18">
 
             <TextView
                 android:id="@+id/date"
@@ -35,8 +35,8 @@
                 android:id="@+id/time"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:text="13:00 - 14:00"
+                android:layout_weight="4"
+                android:text="13:00"
                 android:textAlignment="center"
                 android:textStyle="bold" />
 
@@ -44,10 +44,18 @@
                 android:id="@+id/value"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="7"
                 android:text="76 bpm"
                 android:textAlignment="center"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/type"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_h_old"
+                app:tint="?attr/colorIcons" />
 
 
 

@@ -73,7 +73,7 @@ class SettingsActivity : AppCompatActivity() {
         const val PREF_VERSION = "watch_version"
         const val PREF_NEW_SEP = "separator"
         //val MAC_PATTERN = Pattern.compile("^([A-F0-9]{2}[:]?){5}[A-F0-9]{2}$")
-        const val PREF_SYNC = "last_sync"
+        //const val PREF_SYNC = "last_sync"
         const val PREF_DISPLAY_OFF = "esp_dsp_off"
         const val PREF_TIMEOUT = "esp_dsp_timeout"
         const val PREF_OPTIMIZE = "optimize_now"
@@ -87,6 +87,12 @@ class SettingsActivity : AppCompatActivity() {
         const val PREF_DND_CHARGE = "dnd_charge"
         const val PREF_CAMERA = "camera"
         const val PREF_BRIGHT = "brightness"
+        const val PREF_SCHEDULED = "scheduled_measure"
+        const val PREF_M_START = "measure_start"
+        const val PREF_M_END = "measure_end"
+        const val PREF_M_INTERVAL = "measure_interval"
+        const val PREF_SEND_WATCH = "send_watch"
+        const val PREF_SEND_ICON = "send_icon"
         lateinit var btAdapter: BluetoothAdapter
 
         var curLock = false

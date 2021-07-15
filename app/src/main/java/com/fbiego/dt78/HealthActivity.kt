@@ -71,6 +71,7 @@ class HealthActivity : AppCompatActivity(), DataListener {
     override fun onResume() {
         super.onResume()
 
+        FG.healthRun = true
 
         healthList.clear()
         val dbHandler = MyDBHandler(this, null, null, 1)
@@ -242,6 +243,7 @@ class HealthActivity : AppCompatActivity(), DataListener {
         hrmCard.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundDark))
         bpCard.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundDark))
         sp02Card.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundDark))
+        allCard.backgroundTintList = ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorCardBackgroundDark))
         healthList.clear()
         val dbHandler = MyDBHandler(this, null, null, 1)
         healthList = when(view.id){
@@ -284,6 +286,7 @@ class HealthActivity : AppCompatActivity(), DataListener {
     override fun onPause() {
         super.onPause()
         stopMeasure()
+        FG.healthRun = false
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -325,7 +328,7 @@ class HealthActivity : AppCompatActivity(), DataListener {
                     }
                     dbHandler.insertHeart(
                         HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp)
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp, H_APP)
                     )
                 }
             }
@@ -346,7 +349,7 @@ class HealthActivity : AppCompatActivity(), DataListener {
                     }
                     dbHandler.insertSp02(
                         OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp)
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp, H_APP)
                     )
                 }
             }
@@ -368,7 +371,7 @@ class HealthActivity : AppCompatActivity(), DataListener {
                     }
                     dbHandler.insertBp(
                         PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl)
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl, H_APP)
                     )
                 }
             }
@@ -386,19 +389,19 @@ class HealthActivity : AppCompatActivity(), DataListener {
             if (bp != 0){
                 dbHandler.insertHeart(
                     HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp)
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp, H_APP)
                 )
             }
             if (bph != 0 ){
                 dbHandler.insertBp(
                     PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl)
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl, H_APP)
                 )
             }
             if (sp != 0){
                 dbHandler.insertSp02(
                     OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp)
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp, H_APP)
                 )
             }
         }
