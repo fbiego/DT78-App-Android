@@ -17,7 +17,7 @@
 
 [`DT78-App-v3.3.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.3.apk)
 
-Released on `Thursday, 15 July 2021 05:40 Greenwich Mean Time (GMT)`
+Released on `Thursday, 15 July 2021 06:00 Greenwich Mean Time (GMT)`
 
 [Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
 >+ Improved data sync time
@@ -27,10 +27,11 @@ Released on `Thursday, 15 July 2021 05:40 Greenwich Mean Time (GMT)`
 > The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
 
-#### Translate
+### Translate
 
 [`DT78 app translations`](https://docs.google.com/spreadsheets/d/1crHcLgeA30y7-kiXHY95TBrc7-_znlTKFR2QMc66zT4/edit?usp=sharing) on Google Sheets
-
+| |  | |
+| --- | --- | --- |
 | Czech | English | German |
 | Greek | Indonesian | Italian |
 | Polish | Portuguese | Russian |
