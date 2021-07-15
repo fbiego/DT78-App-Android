@@ -9,6 +9,8 @@
 + Added Charging status
 + Added DND when charging
 + Updated translations
++ Added animated heart rate measurement
++ Added 'Measure all' option
 
 ## 3.1
 + Added Italian language
