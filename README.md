@@ -46,15 +46,12 @@ Released on `Thursday, 15 July 2021 06:00 Greenwich Mean Time (GMT)`
 
 
 ## Source Code (Dev branch)
-Changes:
-+ Migrated project to `androidx`
-+ Included [`Android-BLE-Library`](https://github.com/fbiego/DT78-App-Android/blob/dev/Android-BLE-Library.zip) as a zip file
-+ Converted `WheelView` to `Kotlin`
+Dependency [`Android-BLE-Library`](https://github.com/fbiego/Android-BLE-Library)
 
-Extract as follows:
-> `~/your-folder/DT78-App-Android-dev`
+Clone as follows:
+> `~/AndroidStudioProjects/DT78-App-Android-dev`
 
-> `~/your-folder/Android-BLE-Library`
+> `~/AndroidStudioProjects/Android-BLE-Library`
 
 You may need to delete the `.idea` folder before syncing the project
 
