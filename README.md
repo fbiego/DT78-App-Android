@@ -45,7 +45,7 @@ Released on `Thursday, 15 July 2021 06:00 Greenwich Mean Time (GMT)`
 ![2](dt78_app2.png?raw=true "2")
 
 
-## Source Code (Dev branch)
+## Source Code
 Dependency [`Android-BLE-Library`](https://github.com/fbiego/Android-BLE-Library)
 
 Clone as follows:
