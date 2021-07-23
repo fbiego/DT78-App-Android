@@ -45,16 +45,13 @@ The camera may not work on some devices and on others only the back camera may w
 ![2](dt78_app2.png?raw=true "2")
 
 
-## Source Code (Dev branch)
-Changes:
-+ Migrated project to `androidx`
-+ Included [`Android-BLE-Library`](https://github.com/fbiego/DT78-App-Android/blob/dev/Android-BLE-Library.zip) as a zip file
-+ Converted `WheelView` to `Kotlin`
+## Source Code
+Dependency [`Android-BLE-Library`](https://github.com/fbiego/Android-BLE-Library)
 
-Extract as follows:
-> `~/your-folder/DT78-App-Android-dev`
+Clone as follows:
+> `~/AndroidStudioProjects/DT78-App-Android-dev`
 
-> `~/your-folder/Android-BLE-Library`
+> `~/AndroidStudioProjects/Android-BLE-Library`
 
 You may need to delete the `.idea` folder before syncing the project
 
