@@ -1,3 +1,28 @@
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Felix Biego
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.fbiego.dt78
 
 import android.animation.Animator
@@ -170,21 +195,22 @@ class HealthActivity : AppCompatActivity(), DataListener {
     }
 
     private fun stopMeasure(){
-        when (viewH){
-            0 -> {
-                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x0A, 0x00))
-            }
-            1 -> {
-                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x22, 0x00))
-            }
-            2 -> {
-                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x12, 0x00))
-            }
-            3 -> {
-                FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x00))
-            }
-        }
+
         if (measuring){
+            when (viewH){
+                0 -> {
+                    FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x0A, 0x00))
+                }
+                1 -> {
+                    FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x22, 0x00))
+                }
+                2 -> {
+                    FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x31, 0x12, 0x00))
+                }
+                3 -> {
+                    FG().sendData(byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x32, 0x80, 0x00))
+                }
+            }
             rate = 0L
             progressBar.visibility = View.GONE
             heart_beat.visibility = View.GONE
@@ -306,122 +332,176 @@ class HealthActivity : AppCompatActivity(), DataListener {
         val dbHandler = MyDBHandler(this, null, null, 1)
         val calendar = Calendar.getInstance(Locale.getDefault())
 
-        if (data.getByte(4) == (0x31).toByte()){
+        if (data.getByte(0) == (0xAB).toByte() && data.getByte(3) == (0xFF).toByte()) {
+            if (data.getByte(4) == (0x31).toByte()) {
 
-            Timber.d("Type = ${data.getByte(5)!!.toPInt()} and value = ${data.getByte(6)!!.toPInt()}")
+                Timber.d(
+                    "Type = ${data.getByte(5)!!.toPInt()} and value = ${
+                        data.getByte(6)!!.toPInt()
+                    }"
+                )
 
-            if (data.getByte(5) == (0x0A).toByte()){
+                if (data.getByte(5) == (0x0A).toByte()) {
+                    val bp = data.getByte(6)!!.toPInt()
+
+                    if (bp != 0) {
+                        runOnUiThread {
+                            if (measuring) {
+                                valueHealth.text = "$bp " + getString(R.string.bpm)
+                                if (rate == 0L) {
+                                    rate = ((60000 / bp) / 2).toLong()
+                                    heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f)
+                                        .setDuration(rate)
+                                        .setListener(scaleUp)
+                                } else {
+                                    rate = ((60000 / bp) / 2).toLong()
+                                }
+                            }
+                        }
+                        dbHandler.insertHeart(
+                            HeartData(
+                                calendar.get(Calendar.YEAR) - 2000,
+                                calendar.get(Calendar.MONTH) + 1,
+                                calendar.get(Calendar.DAY_OF_MONTH),
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                bp,
+                                H_APP
+                            )
+                        )
+                    }
+                }
+
+                if (data.getByte(5) == (0x12).toByte()) {
+                    val sp = data.getByte(6)!!.toPInt()
+
+                    if (sp != 0) {
+                        runOnUiThread {
+                            if (measuring) {
+                                valueHealth.text = "$sp %"
+                                if (rate == 0L) {
+                                    rate = 350L
+                                    heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f)
+                                        .setDuration(rate)
+                                        .setListener(scaleUp)
+                                }
+                            }
+                        }
+                        dbHandler.insertSp02(
+                            OxygenData(
+                                calendar.get(Calendar.YEAR) - 2000,
+                                calendar.get(Calendar.MONTH) + 1,
+                                calendar.get(Calendar.DAY_OF_MONTH),
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                sp,
+                                H_APP
+                            )
+                        )
+                    }
+                }
+
+                if (data.getByte(5) == (0x22).toByte()) {
+                    val bph = data.getByte(6)!!.toPInt()
+                    val bpl = data.getByte(7)!!.toPInt()
+
+                    if (bph != 0) {
+                        runOnUiThread {
+                            if (measuring) {
+                                valueHealth.text = "$bpl/$bph " + getString(R.string.mmHg)
+                                if (rate == 0L) {
+                                    rate = 350L
+                                    heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f)
+                                        .setDuration(rate)
+                                        .setListener(scaleUp)
+                                }
+                            }
+                        }
+                        dbHandler.insertBp(
+                            PressureData(
+                                calendar.get(Calendar.YEAR) - 2000,
+                                calendar.get(Calendar.MONTH) + 1,
+                                calendar.get(Calendar.DAY_OF_MONTH),
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                bph,
+                                bpl,
+                                H_APP
+                            )
+                        )
+                    }
+                }
+            }
+            if (data.getByte(4) == (0x32).toByte()) {
                 val bp = data.getByte(6)!!.toPInt()
+                val sp = data.getByte(7)!!.toPInt()
+                val bph = data.getByte(8)!!.toPInt()
+                val bpl = data.getByte(9)!!.toPInt()
 
-                if (bp != 0){
-                    runOnUiThread {
-                        if (measuring){
-                            valueHealth.text = "$bp "+getString(R.string.bpm)
-                            if (rate == 0L) {
-                                rate = ((60000 / bp) / 2).toLong()
-                                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
-                                    .setListener(scaleUp)
-                            } else {
-                                rate = ((60000 / bp) / 2).toLong()
-                            }
-                        }
-                    }
+                runOnUiThread {
+                    valueHealth.text =
+                        "$bp " + getString(R.string.bpm) + " | $bpl/$bph " + getString(R.string.mmHg) + " | $sp %"
+                }
+
+                if (bp != 0) {
                     dbHandler.insertHeart(
-                        HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp, H_APP)
+                        HeartData(
+                            calendar.get(Calendar.YEAR) - 2000,
+                            calendar.get(Calendar.MONTH) + 1,
+                            calendar.get(Calendar.DAY_OF_MONTH),
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            bp,
+                            H_APP
+                        )
                     )
                 }
-            }
-
-            if (data.getByte(5) == (0x12).toByte()){
-                val sp = data.getByte(6)!!.toPInt()
-
-                if (sp != 0){
-                    runOnUiThread {
-                        if (measuring){
-                            valueHealth.text = "$sp %"
-                            if (rate == 0L) {
-                                rate = 350L
-                                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
-                                    .setListener(scaleUp)
-                            }
-                        }
-                    }
-                    dbHandler.insertSp02(
-                        OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp, H_APP)
-                    )
-                }
-            }
-
-            if (data.getByte(5) == (0x22).toByte()){
-                val bph = data.getByte(6)!!.toPInt()
-                val bpl = data.getByte(7)!!.toPInt()
-
-                if (bph != 0 ){
-                    runOnUiThread {
-                        if (measuring){
-                            valueHealth.text = "$bpl/$bph "+getString(R.string.mmHg)
-                            if (rate == 0L) {
-                                rate = 350L
-                                heart_beat.animate().scaleXBy(0.2f).scaleYBy(0.2f).setDuration(rate)
-                                    .setListener(scaleUp)
-                            }
-                        }
-                    }
+                if (bph != 0) {
                     dbHandler.insertBp(
-                        PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl, H_APP)
+                        PressureData(
+                            calendar.get(Calendar.YEAR) - 2000,
+                            calendar.get(Calendar.MONTH) + 1,
+                            calendar.get(Calendar.DAY_OF_MONTH),
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            bph,
+                            bpl,
+                            H_APP
+                        )
+                    )
+                }
+                if (sp != 0) {
+                    dbHandler.insertSp02(
+                        OxygenData(
+                            calendar.get(Calendar.YEAR) - 2000,
+                            calendar.get(Calendar.MONTH) + 1,
+                            calendar.get(Calendar.DAY_OF_MONTH),
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            sp,
+                            H_APP
+                        )
                     )
                 }
             }
+
+            healthList = when (viewH) {
+                0 -> {
+                    dbHandler.getHeart()
+                }
+                1 -> {
+                    dbHandler.getBp()
+                }
+                2 -> {
+                    dbHandler.getSp02()
+                }
+                else -> {
+                    dbHandler.getHeart()
+                }
+            }
+
+            healthAdapter.update(healthList)
         }
-        if (data.getByte(4) == (0x32).toByte()){
-            val bp = data.getByte(6)!!.toPInt()
-            val sp = data.getByte(7)!!.toPInt()
-            val bph = data.getByte(8)!!.toPInt()
-            val bpl = data.getByte(9)!!.toPInt()
-
-            runOnUiThread {
-                valueHealth.text = "$bp "+getString(R.string.bpm) + " | $bpl/$bph "+getString(R.string.mmHg) + " | $sp %"
-            }
-
-            if (bp != 0){
-                dbHandler.insertHeart(
-                    HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp, H_APP)
-                )
-            }
-            if (bph != 0 ){
-                dbHandler.insertBp(
-                    PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl, H_APP)
-                )
-            }
-            if (sp != 0){
-                dbHandler.insertSp02(
-                    OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp, H_APP)
-                )
-            }
-        }
-
-        healthList = when (viewH) {
-            0 -> {
-                dbHandler.getHeart()
-            }
-            1 -> {
-                dbHandler.getBp()
-            }
-            2 -> {
-                dbHandler.getSp02()
-            }
-            else -> {
-                dbHandler.getHeart()
-            }
-        }
-
-        healthAdapter.update(healthList)
 
     }
 

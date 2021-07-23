@@ -28,8 +28,12 @@
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeasureActivity"
-            android:label="@string/measurement"/>
+        <activity
+            android:name=".BackupRestoreActivity"
+            android:label="@string/bakup_restore" />
+        <activity
+            android:name=".MeasureActivity"
+            android:label="@string/measurement" />
         <activity
             android:name=".CameraActivity"
             android:label="@string/camera" />
@@ -131,7 +135,6 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".app.MeasureReceiver" />
 
         <provider

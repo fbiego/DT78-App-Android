@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Agregar contacto</string>
@@ -18,7 +43,7 @@
 	<string name="capitalize">Capitalizar notificaciones del reloj</string>
 	<string name="channel_desc">notificaciones de estado de conexión</string>
 	<string name="choose_app">Elija Aplicaciones</string>
-	<string name="choose_apps"> um Apps auszuwählen"</string>
+	<string name="choose_apps"> um Apps auszuwählen</string>
 	<string name="cm">cm</string>
 	<string name="colored">Colorear iconos</string>
 	<string name="connect_set">Verbinde Uhr für einmaligen Alarm</string>
@@ -30,7 +55,7 @@
 	<string name="disconnected">desconectado de</string>
 	<string name="disconnecting">desconectar de</string>
 	<string name="distance">distancia</string>
-	<string name="enable_lock"> um das Telefon zu sperren"</string>
+	<string name="enable_lock"> um das Telefon zu sperren</string>
 	<string name="error_log">Registro de errores</string>
 	<string name="everyday">Todos los días</string>
 	<string name="filter_info">Drücken um einen anderen Filter hinzuzufügen. Lange drücken für Inhalt löschen</string>
@@ -61,7 +86,7 @@
 	<string name="log_deleted">archivo de registro borrado</string>
 	<string name="loss_link">eslabón perdido a</string>
 	<string name="mac_addr">Dirección MAC</string>
-	<string name="mac_format_error">Formato debe ser A1: BB: 3C: 44: DE: 9F</string>
+	<string name="mac_format_error">Formato debe ser A1:BB:3C:44:DE:9F</string>
 	<string name="metric">Unidades metricas</string>
 	<string name="miles">millas</string>
 	<string name="mmHg">mmHg</string>
@@ -70,7 +95,7 @@
 	<string name="mon_fri">Lunes - Viernes</string>
 	<string name="no_errors">No hay errores para mostrar</string>
 	<string name="not_connect">Mira no está conectado</string>
-	<string name="not_disconnect">"Benachrichtigung anzeigen</string>
+	<string name="not_disconnect">Benachrichtigung anzeigen</string>
 	<string name="not_enable">No disponible</string>
 	<string name="not_list">lista de notificaciones</string>
 	<string name="not_paired">El dispositivo no en la lista? Par en la configuración de los teléfonos Bluetooth primero</string>
@@ -90,20 +115,20 @@
 	<string name="reminder">recordatorios</string>
 	<string name="remote_mac_address_default">00:00:00:00:00:00</string>
 	<string name="remote_mac_address">dirección MAC remota</string>
-	<string name="reset_info"> um Fortzufahren?"</string>
+	<string name="reset_info"> um Fortzufahren?</string>
 	<string name="reset_watch">reloj de reposición</string>
 	<string name="run_as_service">Funcionar como un servicio</string>
-	<string name="run_as_service_summary"> χωρίς κρατώντας την ανοιχτή εφαρμογή"</string>
+	<string name="run_as_service_summary"> χωρίς κρατώντας την ανοιχτή εφαρμογή</string>
 	<string name="sa">S</string>
 	<string name="sat">Se sentó</string>
 	<string name="save">Salvar</string>
-	<string name="scan">Scanningâ € |</string>
+	<string name="scan">Scanning..</string>
 	<string name="sedentary">Sedentario</string>
 	<string name="self_test">Autotest</string>
 	<string name="self_test_notif">la notificación de autocomprobación</string>
 	<string name="send">Enviar</string>
 	<string name="service_name">Servicio DT78</string>
-	<string name="service_stopped">"Dienst wird beendet</string>
+	<string name="service_stopped">Dienst wird beendet</string>
 	<string name="settings">ajustes</string>
 	<string name="setup_desc">dirección MAC reloj Configuración de los ajustes</string>
 	<string name="setup_now">Configurar ahora</string>
@@ -113,7 +138,7 @@
 	<string name="start_at_boot">Iniciar en el arranque</string>
 	<string name="start_measure">Tippen für Messung starten</string>
 	<string name="start_service">servicio a partir</string>
-	<string name="start_service_at_boot"> um automatisch den Dienst nach dem Betriebssystemstart zu starten"</string>
+	<string name="start_service_at_boot"> um automatisch den Dienst nach dem Betriebssystemstart zu starten</string>
 	<string name="step_len">paso Largo</string>
 	<string name="steps">pasos</string>
 	<string name="stop_measure">Tippen für Messung stoppen</string>
@@ -125,7 +150,7 @@
 	<string name="target">Pasos de destino</string>
 	<string name="test">Prueba</string>
 	<string name="test_notification">Prueba de notificación</string>
-	<string name="test_notification_desc">"Sende eine Test-Benachrichtigung an die Uhr. Wähle ein Symbol</string>
+	<string name="test_notification_desc">Sende eine Test-Benachrichtigung an die Uhr. Wähle ein Symbol</string>
 	<string name="th">T</string>
 	<string name="thur">jue</string>
 	<string name="tu">T</string>
@@ -228,7 +253,7 @@
 	<string name="start">Comienzo</string>
 	<string name="end">Final</string>
 	<string name="interval">Intervalo</string>
-	<string name="send_watch"> um anzusehen"</string>
+	<string name="send_watch"> um anzusehen</string>
 	<string name="scheduled">Medida programada</string>
 	<string name="hours">Horas</string>
 	<string name="waiting">Esperando</string>
@@ -243,6 +268,25 @@
 	<string name="m_no_data">Sin datos</string>
 	<string name="zero_values">Έλαβαν μηδενικές τιμές. Παρακαλώ φορέστε το ρολόι σωστά</string>
 	<string name="watch_charging">El reloj está cargando</string>
+	<string name="bakup_restore">Copia de seguridad de restauracion</string>
+	<string name="backup_info">Los archivos de copia de seguridad se almacenan en la carpeta DT78 en el almacenamiento interno</string>
+	<string name="restore">Restaurar</string>
+	<string name="start_backup">Comenzar respaldo</string>
+	<string name="start_restore">Iniciar restaurar</string>
+	<string name="scheduled_reminder">Recordatorio programado</string>
+	<string name="reminder_name">Recordatorio</string>
+	<string name="delete_file">Eliminar archivo de copia de seguridad?</string>
+	<string name="restore_file">Restaurar archivo de copia de seguridad?</string>
+	<string name="backup_complete">Copia de seguridad completa</string>
+	<string name="restore_complete">Restaurar completa</string>
+	<string name="restore_progress">Restauración</string>
+	<string name="restore_success">¡Restaura el éxito! Aplicación de reinicio</string>
+	<string name="restore_fail">Restauración falló</string>
+	<string name="backup_count">Backups encontrados</string>
+	<string name="load_error">No se pudo cargar el archivo de restauración</string>
+	<string name="text_hint">tu texto aqui</string>
+	<string name="reminder_hint">Klicken Sie auf den Außenring</string>
+	<string name="watch_full_charge">La batería del reloj está completamente cargada</string>
 	<string-array name="alarm_options">
 		<item>Una vez</item>
 		<item>Todos los días</item>

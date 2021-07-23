@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Přidat kontakt</string>
@@ -61,7 +86,7 @@
 	<string name="log_deleted">Soubor protokolu odstraněn</string>
 	<string name="loss_link">Ztracený odkaz</string>
 	<string name="mac_addr">Mac Adresa</string>
-	<string name="mac_format_error">Formát musí být A1: BB: 3C: 44: DE: 9F</string>
+	<string name="mac_format_error">Formát musí být A1:BB:3C:44:DE:9F</string>
 	<string name="metric">Metrické jednotky</string>
 	<string name="miles">míle</string>
 	<string name="mmHg">mmHg</string>
@@ -70,7 +95,7 @@
 	<string name="mon_fri">Po - Pá</string>
 	<string name="no_errors">Žádné chyby k zobrazení</string>
 	<string name="not_connect">Hodinky nejsou připojeny</string>
-	<string name="not_disconnect"> wenn Gerät nicht verbunden ist"</string>
+	<string name="not_disconnect"> wenn Gerät nicht verbunden ist</string>
 	<string name="not_enable">Není povoleno</string>
 	<string name="not_list">Seznam oznámení</string>
 	<string name="not_paired">Zařízení není na seznamu? Spárujte telefon nejprve v nastavení Bluetooth</string>
@@ -97,7 +122,7 @@
 	<string name="sa">Sat</string>
 	<string name="sat">Sobota</string>
 	<string name="save">Uložit</string>
-	<string name="scan">Hledej</string>
+	<string name="scan">Hledej...</string>
 	<string name="sedentary">Výstraha bez pohybu</string>
 	<string name="self_test">Vlastní test</string>
 	<string name="self_test_notif">Oznámení vlastního testu</string>
@@ -125,12 +150,12 @@
 	<string name="target">Cílový počet kroků</string>
 	<string name="test">Test</string>
 	<string name="test_notification">Oznámení test</string>
-	<string name="test_notification_desc"> das mit dem Text angezeigt wird."</string>
+	<string name="test_notification_desc"> das mit dem Text angezeigt wird.</string>
 	<string name="th">Th</string>
 	<string name="thur">Čtvrtek</string>
 	<string name="tu">Tu</string>
 	<string name="tue">Úterý</string>
-	<string name="turn_on_bt">"Por favor</string>
+	<string name="turn_on_bt">Por favor</string>
 	<string name="unable_load">Nelze načíst soubor chyb</string>
 	<string name="unable_sync">Nelze synchronizovat data</string>
 	<string name="units">Metrické jednotky</string>
@@ -243,6 +268,25 @@
 	<string name="m_no_data">Žádná data</string>
 	<string name="zero_values">Empfangene Nullwerte. Bitte tragen Sie die Uhr richtig</string>
 	<string name="watch_charging">Hodinky se nabíjí</string>
+	<string name="bakup_restore">Obnovení zálohy</string>
+	<string name="backup_info">Zálohovací soubory jsou uloženy ve složce DT78 na interním úložišti</string>
+	<string name="restore">Obnovit</string>
+	<string name="start_backup">Začněte zálohování</string>
+	<string name="start_restore">Začněte obnovit</string>
+	<string name="scheduled_reminder">Plánovaná připomenutí</string>
+	<string name="reminder_name">Připomínka</string>
+	<string name="delete_file">Smazat záložní soubor?</string>
+	<string name="restore_file">Obnovení záložního souboru?</string>
+	<string name="backup_complete">Zálohování kompletní</string>
+	<string name="restore_complete">Obnovit kompletní</string>
+	<string name="restore_progress">Obnovení</string>
+	<string name="restore_success">Obnovte úspěch! Restartování aplikace</string>
+	<string name="restore_fail">Obnovení se nezdařilo</string>
+	<string name="backup_count">Zálohování nalezeno</string>
+	<string name="load_error">Nelze načíst soubor obnovení</string>
+	<string name="text_hint">text zde</string>
+	<string name="reminder_hint"> um die Erinnerung zu aktivieren</string>
+	<string name="watch_full_charge">Sledujte baterii je plně nabitá</string>
 	<string-array name="alarm_options">
 		<item>Jednou</item>
 		<item>Každý den</item>

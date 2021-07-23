@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Kontakt hinzufügen</string>
@@ -18,7 +43,7 @@
 	<string name="capitalize">Uhr Benachrichtigungen aktivieren</string>
 	<string name="channel_desc">Verbindungsstatus-Benachrichtigungen</string>
 	<string name="choose_app">Apps auswählen</string>
-	<string name="choose_apps">"Tippen</string>
+	<string name="choose_apps">Tippen</string>
 	<string name="cm">cm</string>
 	<string name="colored">Farb-Symbole</string>
 	<string name="connect_set">Συνδέστε το ρολόι για να ρυθμίσετε μια ειδοποίηση μία φορά</string>
@@ -30,7 +55,7 @@
 	<string name="disconnected">Getrennt von</string>
 	<string name="disconnecting">Trennen von</string>
 	<string name="distance">Entfernung</string>
-	<string name="enable_lock">"Aktiviere die App</string>
+	<string name="enable_lock">Aktiviere die App</string>
 	<string name="error_log">Fehlerprotokoll</string>
 	<string name="everyday">Täglich</string>
 	<string name="filter_info">Πατήστε enter για να προσθέσετε ένα άλλο φίλτρο. Long στοιχείο πιέστε για να διαγράψετε</string>
@@ -61,7 +86,7 @@
 	<string name="log_deleted">Log-Datei gelöscht</string>
 	<string name="loss_link">Verlorene Verbindung zu</string>
 	<string name="mac_addr">MAC-Adresse</string>
-	<string name="mac_format_error">Format muss A1: BB: 3C: 44: DE: 9F</string>
+	<string name="mac_format_error">Format muss A1:BB:3C:44:DE:9F</string>
 	<string name="metric">Metrische Einheiten</string>
 	<string name="miles">Meilen</string>
 	<string name="mmHg">mmHg</string>
@@ -90,14 +115,14 @@
 	<string name="reminder">Erinnerungen</string>
 	<string name="remote_mac_address_default">00:00:00:00:00:00</string>
 	<string name="remote_mac_address">Remote-MAC-Adresse</string>
-	<string name="reset_info">"Dadurch werden alle Daten der Uhr zurückgesetzt. Sind Sie sicher</string>
+	<string name="reset_info">Dadurch werden alle Daten der Uhr zurückgesetzt. Sind Sie sicher</string>
 	<string name="reset_watch">Reset-Uhr</string>
 	<string name="run_as_service">Als Dienst ausführen</string>
-	<string name="run_as_service_summary">"Εκτέλεση αυτής της εφαρμογής ως υπηρεσία</string>
+	<string name="run_as_service_summary">Εκτέλεση αυτής της εφαρμογής ως υπηρεσία</string>
 	<string name="sa">S</string>
 	<string name="sat">Sa</string>
 	<string name="save">Speichern</string>
-	<string name="scan">Scannen</string>
+	<string name="scan">Scannen...</string>
 	<string name="sedentary">Zu wenig Bewegung</string>
 	<string name="self_test">Selbsttest</string>
 	<string name="self_test_notif">Selbsttest Benachrichtigung</string>
@@ -113,7 +138,7 @@
 	<string name="start_at_boot">Start beim Hochfahren</string>
 	<string name="start_measure">Πατήστε για να ξεκινήσετε τη μέτρηση</string>
 	<string name="start_service">Dienst starten</string>
-	<string name="start_service_at_boot">"Aktivieren</string>
+	<string name="start_service_at_boot">Aktivieren</string>
 	<string name="step_len">Schrittlänge</string>
 	<string name="steps">Schritte</string>
 	<string name="stop_measure">Πατήστε για μέτρηση στάση</string>
@@ -228,7 +253,7 @@
 	<string name="start">Start</string>
 	<string name="end">Ende</string>
 	<string name="interval">Intervall</string>
-	<string name="send_watch">"Senden Sie Werte</string>
+	<string name="send_watch">Senden Sie Werte</string>
 	<string name="scheduled">Geplante Maßnahme</string>
 	<string name="hours">Std</string>
 	<string name="waiting">Warten</string>
@@ -241,8 +266,27 @@
 	<string name="m_disconnect">Uhr wurde getrennt</string>
 	<string name="m_failed">Wiederholung fehlgeschlagen</string>
 	<string name="m_no_data">Keine Daten</string>
-	<string name="zero_values"> use o relógio corretamente"</string>
+	<string name="zero_values"> use o relógio corretamente</string>
 	<string name="watch_charging">Uhr wird aufgeladen</string>
+	<string name="bakup_restore">Backup wiederherstellen</string>
+	<string name="backup_info">Sicherungsdateien werden im Ordner DT78 auf internen Speicher gespeichert</string>
+	<string name="restore">Wiederherstellen</string>
+	<string name="start_backup">Sicherung starten</string>
+	<string name="start_restore">Restore starten</string>
+	<string name="scheduled_reminder">Geplante Erinnerung</string>
+	<string name="reminder_name">Erinnerung</string>
+	<string name="delete_file">Sicherungsdatei löschen?</string>
+	<string name="restore_file">Wiederherstellen der Sicherungsdatei?</string>
+	<string name="backup_complete">Sicherung komplett</string>
+	<string name="restore_complete">Restore abgeschlossen.</string>
+	<string name="restore_progress">Wiederherstellung</string>
+	<string name="restore_success">Erfolg wiederherstellen! App neu starten</string>
+	<string name="restore_fail">Restore fehlgeschlagen</string>
+	<string name="backup_count">Backups gefunden</string>
+	<string name="load_error">Die Wiederherstellungsdatei konnte nicht geladen werden</string>
+	<string name="text_hint">Dein Text hier</string>
+	<string name="reminder_hint">Κάντε κλικ στον εξωτερικό δακτύλιο για να ενεργοποιήσετε την υπενθύμιση</string>
+	<string name="watch_full_charge">Uhrenbatterie ist vollständig aufgeladen</string>
 	<string-array name="alarm_options">
 		<item>Einmal</item>
 		<item>Täglich</item>

@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Adicionar contato</string>
@@ -50,7 +75,7 @@
 	<string name="hrm">Frequência cardíaca</string>
 	<string name="icon_set">jogo do ícone</string>
 	<string name="imperial">unidades imperiais</string>
-	<string name="info_once"> чтобы загрузить контакты"</string>
+	<string name="info_once"> чтобы загрузить контакты</string>
 	<string name="kcal">kcal</string>
 	<string name="kg">kg</string>
 	<string name="km">km</string>
@@ -61,7 +86,7 @@
 	<string name="log_deleted">arquivo de log excluídos</string>
 	<string name="loss_link">elo perdido para</string>
 	<string name="mac_addr">Endereço MAC</string>
-	<string name="mac_format_error">Formato deve ser A1: BB: 3C: 44: DE: 9F</string>
+	<string name="mac_format_error">Formato deve ser A1:BB:3C:44:DE:9F</string>
 	<string name="metric">Unidades métricas</string>
 	<string name="miles">milhas</string>
 	<string name="mmHg">mmHg</string>
@@ -97,7 +122,7 @@
 	<string name="sa">S</string>
 	<string name="sat">Sentou</string>
 	<string name="save">Salve </string>
-	<string name="scan">Scanningâ € |</string>
+	<string name="scan">Scanning...</string>
 	<string name="sedentary">Sedentário</string>
 	<string name="self_test">Auto teste</string>
 	<string name="self_test_notif">notificação auto-teste</string>
@@ -243,6 +268,25 @@
 	<string name="m_no_data">Sem dados</string>
 	<string name="zero_values">Nhận được giá trị bằng không. Vui lòng đeo đồng hồ chính xác</string>
 	<string name="watch_charging">O relógio está carregando</string>
+	<string name="bakup_restore">Restauração de backup</string>
+	<string name="backup_info">Arquivos de backup são armazenados na pasta DT78 no armazenamento interno</string>
+	<string name="restore">Restaurar</string>
+	<string name="start_backup">Iniciar backup</string>
+	<string name="start_restore">Comece a restaurar.</string>
+	<string name="scheduled_reminder">Lembrete agendado</string>
+	<string name="reminder_name">Lembrete</string>
+	<string name="delete_file">Excluir o arquivo de backup?</string>
+	<string name="restore_file">Restaurar o arquivo de backup?</string>
+	<string name="backup_complete">Backup completo</string>
+	<string name="restore_complete">Restaurar completa.</string>
+	<string name="restore_progress">Restaurando</string>
+	<string name="restore_success">Restaurar o sucesso! Reiniciar o aplicativo.</string>
+	<string name="restore_fail">Restaurar falhou</string>
+	<string name="backup_count">Backups encontrados</string>
+	<string name="load_error">Não foi possível carregar o arquivo de restauração</string>
+	<string name="text_hint">seu texto aqui</string>
+	<string name="reminder_hint">Nhấp vào vòng ngoài để kích hoạt lời nhắc nhở</string>
+	<string name="watch_full_charge">Assistir a bateria está totalmente carregada</string>
 	<string-array name="alarm_options">
 		<item>Uma vez</item>
 		<item>Todo dia</item>

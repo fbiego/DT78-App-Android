@@ -1,3 +1,28 @@
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Felix Biego
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.fbiego.dt78.data
 
 import android.content.ContentValues
@@ -16,7 +41,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
 
     companion object {
         private const val DATABASE_NAME = "watch_data"
-        private const val DATABASE_VERSION = 7
+        private const val DATABASE_VERSION = 8
         const val STEPS_TABLE = "stepsData"
         const val HRM_TABLE = "heartRate"
         const val BP_TABLE = "bloodPressure"
@@ -27,6 +52,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         const val SET_TABLE = "settingsData"
         const val CONTACTS_TABLE = "contactsData"
         const val ERROR_TABLE = "errorData"
+        const val REMINDER_TABLE = "reminderData"
 
         const val COLUMN_ID = "_id"
         const val COLUMN_YEAR = "year"
@@ -55,6 +81,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         const val COLUMN_LENGTH = "length"
         const val COLUMN_HEIGHT = "height"
         const val COLUMN_WEIGHT = "weight"
+        const val COLUMN_TEXT = "text"
     }
     override fun onCreate(p0: SQLiteDatabase?) {
         val createStepsTable = ("CREATE TABLE " + STEPS_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
@@ -82,6 +109,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         val createErrorTable = ("CREATE TABLE  $ERROR_TABLE ($COLUMN_ID INTEGER PRIMARY KEY,"
                 + "$COLUMN_YEAR INTEGER, $COLUMN_MONTH INTEGER, $COLUMN_DAY  INTEGER, $COLUMN_HOUR INTEGER,"
                 + "$COLUMN_MIN  INTEGER, $COLUMN_SEC  INTEGER, $COLUMN_ERROR  INTEGER, $COLUMN_STATE INTEGER)"  )
+        val createReminderTable = ("CREATE TABLE $REMINDER_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_HOUR INTEGER, $COLUMN_MIN INTEGER, $COLUMN_TYPE INTEGER, $COLUMN_STATE INTEGER, $COLUMN_TEXT TEXT)")
         p0?.execSQL(createStepsTable)
         p0?.execSQL(createHrmTable)
         p0?.execSQL(createBpTable)
@@ -92,8 +120,13 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         p0?.execSQL(createSetTable)
         p0?.execSQL(createContactsTable)
         p0?.execSQL(createErrorTable)
+        p0?.execSQL(createReminderTable)
         for (al in 0 .. 7){
             p0?.execSQL("INSERT INTO $ALARM_TABLE ($COLUMN_ID, $COLUMN_STATE, $COLUMN_HOUR, $COLUMN_MIN, $COLUMN_REPEAT ) VALUES($al, 0, 0, 0,0)")
+        }
+        for (rm in 1..5){
+            val text = "Reminder $rm"
+            p0?.execSQL("INSERT INTO $REMINDER_TABLE ($COLUMN_ID, $COLUMN_HOUR, $COLUMN_MIN, $COLUMN_TYPE, $COLUMN_STATE, $COLUMN_TEXT) VALUES($rm, 0, 0, 0, 0, '$text')")
         }
         p0?.execSQL("INSERT INTO $USER_TABLE ($COLUMN_ID, $COLUMN_AGE, $COLUMN_LENGTH, $COLUMN_HEIGHT, $COLUMN_WEIGHT, $COLUMN_STEPS ) VALUES(0, 18, 60, 150, 60, 5000)")
 
@@ -111,6 +144,8 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         val createErrorTable = ("CREATE TABLE IF NOT EXISTS $ERROR_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_YEAR INTEGER, $COLUMN_MONTH INTEGER, " +
                 "$COLUMN_DAY  INTEGER, $COLUMN_HOUR INTEGER, $COLUMN_MIN  INTEGER, $COLUMN_SEC  INTEGER, $COLUMN_ERROR  INTEGER, $COLUMN_STATE INTEGER)" )
 
+        val createReminderTable = ("CREATE TABLE IF NOT EXISTS $REMINDER_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_HOUR INTEGER, $COLUMN_MIN INTEGER, $COLUMN_TYPE INTEGER, $COLUMN_STATE INTEGER, $COLUMN_TEXT TEXT)")
+
         if (p1 < 7){
             p0?.execSQL("ALTER TABLE $HRM_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
             p0?.execSQL("ALTER TABLE $SP02_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
@@ -122,6 +157,11 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         p0?.execSQL(createSetTable)
         p0?.execSQL(createContactsTable)
         p0?.execSQL(createErrorTable)
+        p0?.execSQL(createReminderTable)
+        for (rm in 1..5){
+            val text = "Reminder $rm"
+            p0?.execSQL("INSERT INTO $REMINDER_TABLE ($COLUMN_ID, $COLUMN_HOUR, $COLUMN_MIN, $COLUMN_TYPE, $COLUMN_STATE, $COLUMN_TEXT) VALUES($rm, 0, 0, 0, 0, '$text')")
+        }
     }
 
     fun insertSteps(stepsData: StepsData){
@@ -137,6 +177,35 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         val db = this.writableDatabase
         db.replace(STEPS_TABLE, null, values)
         db.close()
+    }
+
+    fun insertReminder(reminder: ReminderData){
+        val values = ContentValues()
+        values.put(COLUMN_ID, reminder.id)
+        values.put(COLUMN_HOUR, reminder.hour)
+        values.put(COLUMN_MIN, reminder.minute)
+        values.put(COLUMN_TYPE, reminder.icon)
+        values.put(COLUMN_STATE, if (reminder.state) 1 else 0)
+        values.put(COLUMN_TEXT, reminder.text)
+
+        val db = this.writableDatabase
+        db.replace(REMINDER_TABLE, null, values)
+        db.close()
+    }
+
+    fun getReminders(): ArrayList<ReminderData>{
+        val qr = ArrayList<ReminderData>()
+        val query = "SELECT * FROM $REMINDER_TABLE"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            qr.add(ReminderData(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4) == 1, cursor.getString(5)))
+        }
+        cursor.close()
+        db.close()
+        return qr
+
     }
 
     private fun insertError(errorData: ErrorData){
@@ -341,7 +410,21 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         return qr
     }
 
+    fun getRawSteps(): ArrayList<StepsData>{
+        val qr = ArrayList<StepsData>()
+        val query = "SELECT * FROM $STEPS_TABLE"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
 
+        while (cursor.moveToNext()){
+            qr.add(StepsData(
+                cursor.getInt(1), cursor.getInt(2), cursor.getInt(3),
+                cursor.getInt(4), cursor.getInt(5), cursor.getInt(6)))
+        }
+        cursor.close()
+        db.close()
+        return qr
+    }
 
     fun getDaysWithSteps(): ArrayList<StepsData>{
         val qr = ArrayList<StepsData>()
@@ -772,6 +855,48 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         qr.sortByDescending {
             it.id
         }
+        return qr
+    }
+
+    fun getRawHeart(): ArrayList<HeartData>{
+        val qr = ArrayList<HeartData>()
+        val query = "SELECT * FROM $HRM_TABLE"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            qr.add(HeartData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), cursor.getInt(6), cursor.getInt(7)))
+
+        }
+        cursor.close()
+        db.close()
+        return qr
+    }
+
+    fun getRawBP(): ArrayList<PressureData>{
+        val qr = ArrayList<PressureData>()
+        val query = "SELECT * FROM $BP_TABLE"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            qr.add(PressureData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), cursor.getInt(6), cursor.getInt(7), cursor.getInt(8)))
+
+        }
+        cursor.close()
+        db.close()
+        return qr
+    }
+
+    fun getRawSP(): ArrayList<OxygenData>{
+        val qr = ArrayList<OxygenData>()
+        val query = "SELECT * FROM $SP02_TABLE"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            qr.add(OxygenData(cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5), cursor.getInt(6), cursor.getInt(7)))
+
+        }
+        cursor.close()
+        db.close()
         return qr
     }
 

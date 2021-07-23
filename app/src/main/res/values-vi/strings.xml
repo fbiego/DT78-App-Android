@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Thêm số liên lạc</string>
@@ -61,7 +86,7 @@
 	<string name="log_deleted">Nhật ký file bị xóa</string>
 	<string name="loss_link">Mất liên kết đến</string>
 	<string name="mac_addr">Địa chỉ MAC</string>
-	<string name="mac_format_error">Format phải là A1: BB: 3C: 44: DE: 9F</string>
+	<string name="mac_format_error">Format phải là A1:BB:3C:44:DE:9F</string>
 	<string name="metric">Đơn vị hệ mét</string>
 	<string name="miles">Dặm</string>
 	<string name="mmHg">mmHg</string>
@@ -243,6 +268,25 @@
 	<string name="m_no_data">Không có dữ liệu</string>
 	<string name="zero_values">Menerima nilai nol. Silakan pakai arloji dengan benar</string>
 	<string name="watch_charging">Đồng hồ đang sạc</string>
+	<string name="bakup_restore">Phục hồi dữ liệu đã lưu</string>
+	<string name="backup_info">Các tệp sao lưu được lưu trữ trong thư mục DT78 trên bộ nhớ trong</string>
+	<string name="restore">Khôi phục.</string>
+	<string name="start_backup">Bắt đầu sao lưu.</string>
+	<string name="start_restore">Khởi động khôi phục</string>
+	<string name="scheduled_reminder">Nhắc nhở theo lịch trình</string>
+	<string name="reminder_name">Nhắc nhở</string>
+	<string name="delete_file">Xóa tập tin sao lưu?</string>
+	<string name="restore_file">Khôi phục tập tin sao lưu?</string>
+	<string name="backup_complete">Sao lưu thành công</string>
+	<string name="restore_complete">Khôi phục hoàn thành</string>
+	<string name="restore_progress">Phục hồi</string>
+	<string name="restore_success">Khôi phục thành công! Khởi động lại ứng dụng.</string>
+	<string name="restore_fail">Khôi phục thất bại</string>
+	<string name="backup_count">Sao lưu được tìm thấy</string>
+	<string name="load_error">Không thể tải tệp khôi phục</string>
+	<string name="text_hint">Văn bản của bạn ở đây</string>
+	<string name="reminder_hint">Klik pada cincin luar untuk mengaktifkan pengingat</string>
+	<string name="watch_full_charge">Đồng hồ pin được sạc đầy</string>
 	<string-array name="alarm_options">
 		<item>Một lần</item>
 		<item>Hằng ngày</item>

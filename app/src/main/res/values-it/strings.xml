@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Aggiungi contatto</string>
@@ -42,7 +67,7 @@
 	<string name="fr">V</string>
 	<string name="frequent">Contatti preferiti</string>
 	<string name="fri">Ven</string>
-	<string name="grant_notification">"Zdá se</string>
+	<string name="grant_notification">Zdá se</string>
 	<string name="health">Salute</string>
 	<string name="height">Altezza</string>
 	<string name="hourly">Misura ogni ora</string>
@@ -50,7 +75,7 @@
 	<string name="hrm">Battiti cuore</string>
 	<string name="icon_set">Set icone</string>
 	<string name="imperial">Unità di misura imperiali</string>
-	<string name="info_once">"Einmal tippen</string>
+	<string name="info_once">Einmal tippen</string>
 	<string name="kcal">kcal</string>
 	<string name="kg">kg</string>
 	<string name="km">km</string>
@@ -97,13 +122,13 @@
 	<string name="sa">S</string>
 	<string name="sat">Sab</string>
 	<string name="save">Salva</string>
-	<string name="scan">Ricercaâ€¦</string>
+	<string name="scan">Ricerca...</string>
 	<string name="sedentary">Sedentarietà</string>
 	<string name="self_test">Test automatico</string>
 	<string name="self_test_notif">Notifica test automatico</string>
 	<string name="send">Invia</string>
 	<string name="service_name">Servizio DT78</string>
-	<string name="service_stopped"> um den Dienst automatisch neu zu starten."</string>
+	<string name="service_stopped"> um den Dienst automatisch neu zu starten.</string>
 	<string name="settings">Impostazioni</string>
 	<string name="setup_desc">Imposta l\'indirizzo mac dell\'orologio nelle impostazioni</string>
 	<string name="setup_now">Imposta Adesso</string>
@@ -130,7 +155,7 @@
 	<string name="thur">Gio</string>
 	<string name="tu">M</string>
 	<string name="tue">Mar</string>
-	<string name="turn_on_bt"> active Bluetooth"</string>
+	<string name="turn_on_bt"> active Bluetooth</string>
 	<string name="unable_load">Impossibile trovare il file di errore</string>
 	<string name="unable_sync">Impossibile sincronizzare i dati</string>
 	<string name="units">Unità metriche</string>
@@ -241,8 +266,27 @@
 	<string name="m_disconnect">L\'orologio è stato disconnesso</string>
 	<string name="m_failed">Riprova non riuscito</string>
 	<string name="m_no_data">Nessun dato</string>
-	<string name="zero_values">"Recibió los valores cero. Por favor</string>
+	<string name="zero_values">Recibió los valores cero. Por favor</string>
 	<string name="watch_charging">L\'orologio sta caricando</string>
+	<string name="bakup_restore">Ripristinare il backup</string>
+	<string name="backup_info">I file di backup sono memorizzati nella cartella DT78 sullo spazio di archiviazione interno</string>
+	<string name="restore">Ristabilire</string>
+	<string name="start_backup">Start Backup.</string>
+	<string name="start_restore">Start Restore.</string>
+	<string name="scheduled_reminder">Promemoria programmata</string>
+	<string name="reminder_name">Promemoria</string>
+	<string name="delete_file">Elimina file di backup?</string>
+	<string name="restore_file">Ripristina il file di backup?</string>
+	<string name="backup_complete">Backup completo</string>
+	<string name="restore_complete">Ripristina completare</string>
+	<string name="restore_progress">Ripristino</string>
+	<string name="restore_success">Ripristina il successo! Riavvio dell\'app.</string>
+	<string name="restore_fail">Ripristina non riuscito</string>
+	<string name="backup_count">Backup trovati</string>
+	<string name="load_error">Impossibile caricare il file di ripristino</string>
+	<string name="text_hint">il tuo testo qui</string>
+	<string name="reminder_hint">Haga clic en el anillo exterior para activar el recordatorio</string>
+	<string name="watch_full_charge">Guarda la batteria è completamente carica</string>
 	<string-array name="alarm_options">
 		<item>Una volta</item>
 		<item>Ogni giorno</item>

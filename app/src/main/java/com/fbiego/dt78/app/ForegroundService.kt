@@ -1,3 +1,28 @@
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Felix Biego
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.fbiego.dt78.app
 
 import android.annotation.TargetApi
@@ -45,6 +70,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         const val SERVICE_ID = 9001
         const val SERVICE_ID2 = 9002
         const val TEST_ID = 9456
+        const val BATTERY_ID = 9460
         const val NOTIFICATION_CHANNEL = BuildConfig.APPLICATION_ID
         const val VESPA_DEVICE_ADDRESS = "00:00:00:00:00:00" // <--- YOUR MAC address here
 
@@ -499,6 +525,33 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         notBuild.setOnlyAlertOnce(true)
         val notification= notBuild.build()
         notificationChannel(priority, context).notify(id, notification)
+        return notification
+    }
+
+    fun notifyReminder(context: Context, id: Int, title: String, text: String): Notification {
+        Timber.w("Context ${context.packageName}")
+        val intent = Intent(context, ReminderActivity::class.java)
+        intent.putExtra("reminder", id - 5800)
+        intent.putExtra("text", text)
+
+        val pendingIntent = PendingIntent.getActivity(context, 0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val notBuild = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
+        notBuild.setSmallIcon(R.drawable.ic_scheduled)
+        notBuild.color = ContextCompat.getColor(context, notIcon(acc))
+        notBuild.setContentIntent(pendingIntent)
+        notBuild.setContentTitle(title)
+        notBuild.setContentText(text)
+        notBuild.setStyle(NotificationCompat.BigTextStyle().bigText(text))
+        notBuild.priority = NotificationCompat.PRIORITY_HIGH
+        notBuild.setSound(Uri.parse("android.resource://${BuildConfig.APPLICATION_ID}/"+R.raw.notification))
+        notBuild.setShowWhen(true)
+        notBuild.setOnlyAlertOnce(true)
+        notBuild.setAutoCancel(true)
+        val notification= notBuild.build()
+        notificationChannel(true, context).notify(id, notification)
         return notification
     }
 
@@ -1083,16 +1136,9 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onDataReceived(data: Data) {
-
         Timber.w("Data received")
-        if (data.size() == 8){
-            if (data.getByte(4) == (0x91).toByte()){
-                bat = data.getByte(7)!!.toPInt()
-                watchCharge = (data.getByte(6)!!.toPInt() == 1)
-                Timber.w("Battery: $bat%")
-                notify(getString(R.string.connected)+" $deviceName", false, bat, SERVICE_ID)
-            }
-        }
+
+        val dbHandler = MyDBHandler(this, null, null, 1)
 
         if (data.size() == 5 && data.getByte(0) == (0xAD).toByte()){
             val pos = data.getByte(3)!!.toPInt()
@@ -1111,254 +1157,373 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
             }
         }
 
-        if (data.size() == 7){
-            if (data.getByte(4) == (0x7D).toByte()){
-                if(data.getByte(6) == (0x01).toByte()){
-                    findPhone = true
-                    ring(true)
-                }
-                if(data.getByte(6) == (0x00).toByte()){
-                    if (findPhone){
-                        ring(false)
-                        batLevel(this, null)
-                        findPhone = false
+
+        if (data.getByte(0) == (0xAB).toByte() && data.getByte(3) == (0xFF).toByte()) {
+
+            if (data.size() == 8) {
+                if (data.getByte(4) == (0x91).toByte()) {
+                    bat = data.getByte(7)!!.toPInt()
+                    watchCharge = (data.getByte(6)!!.toPInt() == 1)
+                    Timber.w("Battery: $bat%")
+                    notify(getString(R.string.connected) + " $deviceName", false, bat, SERVICE_ID)
+
+                    if (data.getByte(6) == (0x02).toByte() && data.getByte(7) == (0x64).toByte()){
+                        notify(getString(R.string.watch_full_charge), true, -1, BATTERY_ID)
                     }
                 }
             }
-            val rooted = RootUtil.isDeviceRooted
-            if (data.size() == 7 && rooted){
-                if (data.getByte(4) == (0x99).toByte()){
-                    when (data.getByte(6)) {
-                        (0x00).toByte() -> {
 
-                            try {
-                                Runtime.getRuntime().exec("su -c input keyevent 85")
 
-                            } catch (e: Exception){
 
-                            }
-
-                        }
-                        (0x01).toByte() -> {
-                            try {
-                                Runtime.getRuntime().exec("su -c input keyevent 87")
-                            } catch (e: Exception){
-
-                            }
-                        }
-                        (0x02).toByte() -> {
-                            try {
-                                Runtime.getRuntime().exec("su -c input keyevent 88")
-                            } catch (e: Exception){
-
-                            }
+            if (data.size() == 7) {
+                if (data.getByte(4) == (0x7D).toByte()) {
+                    if (data.getByte(6) == (0x01).toByte()) {
+                        findPhone = true
+                        ring(true)
+                    }
+                    if (data.getByte(6) == (0x00).toByte()) {
+                        if (findPhone) {
+                            ring(false)
+                            batLevel(this, null)
+                            findPhone = false
                         }
                     }
                 }
+                val rooted = RootUtil.isDeviceRooted
+                if (data.size() == 7 && rooted) {
+                    if (data.getByte(4) == (0x99).toByte()) {
+                        when (data.getByte(6)) {
+                            (0x00).toByte() -> {
 
-                if (data.getByte(4) == (0x79).toByte() && data.getByte(6) == (0x01).toByte() && ext_camera){
-                    try {
-                        Runtime.getRuntime().exec("su -c input keyevent 24")
-                        //su.waitFor()
-                    } catch (e: Exception){
+                                try {
+                                    Runtime.getRuntime().exec("su -c input keyevent 85")
 
+                                } catch (e: Exception) {
+
+                                }
+
+                            }
+                            (0x01).toByte() -> {
+                                try {
+                                    Runtime.getRuntime().exec("su -c input keyevent 87")
+                                } catch (e: Exception) {
+
+                                }
+                            }
+                            (0x02).toByte() -> {
+                                try {
+                                    Runtime.getRuntime().exec("su -c input keyevent 88")
+                                } catch (e: Exception) {
+
+                                }
+                            }
+                        }
                     }
 
+                    if (data.getByte(4) == (0x79).toByte() && data.getByte(6) == (0x01).toByte() && ext_camera) {
+                        try {
+                            Runtime.getRuntime().exec("su -c input keyevent 24")
+                            //su.waitFor()
+                        } catch (e: Exception) {
+
+                        }
+
+                    }
+                }
+
+
+            }
+
+            if (data.size() == 20) {
+                if (data.getByte(4) == (0x92).toByte()) {
+
+                    data.getByte(6) //major version
+                    data.getByte(7) //minor version
+
+                    when (data.getByte(17)) {
+                        (0x60).toByte() -> {
+                            //dt78
+                            dt78 = DT78
+                            if (data.getByte(15) == (0x08).toByte()) {
+                                dt78 = T03    //T03
+                            }
+                        }
+                        (0xA2).toByte() -> {
+                            //dt92
+                            dt78 = DT92
+                            if (data.getByte(15) == (0xFF).toByte()) {
+                                dt78 = ESP32    //ESP32
+                                Toast.makeText(this, "Detected ESP32", Toast.LENGTH_SHORT).show()
+                                updateEsp32(this)
+                            }
+                        }
+                        (0x22).toByte() -> {
+                            //dt66
+                            dt78 = DT66
+                            if (data.getByte(15) == (0x28).toByte()) {
+                                dt78 = DT78_2    //dt78 v2
+                            }
+
+                        }
+                        (0x62).toByte() -> {
+                            //mibro air
+                            //dt78 = DT66
+                            if (data.getByte(15) == (0x28).toByte()) {
+                                dt78 = MI_AIR    //mibro air
+                            }
+
+                        }
+                        (0xE0).toByte() -> {
+                            //lige l11
+                            dt78 = L_11
+                        }
+                    }
+                    var str = ""
+
+                    for (x in 0 until data.size()) {
+                        str += if (x == 0) {
+                            String.format("%02X", data.getByte(x)!!.toPInt())
+                        } else {
+                            String.format("-%02X", data.getByte(x)!!.toPInt())
+                        }
+                    }
+
+                    watchVersion = String.format(
+                        "v%01d.%02d",
+                        data.getByte(6)!!.toPInt(),
+                        data.getByte(7)!!.toPInt()
+                    )
+                    val pref = PreferenceManager.getDefaultSharedPreferences(this)
+                    val edit = pref.edit()
+                    edit.putInt(ST.PREF_WATCH_ID, dt78)
+                    edit.putString(ST.PREF_HEX_ID, str)
+                    edit.putString(ST.PREF_VERSION, watchVersion)
+                    edit.apply()
+                    edit.commit()
+
+                    //Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+
+
+                    Timber.w(str)
                 }
             }
 
 
-        }
 
-        if (data.size() == 20){
-            if (data.getByte(4) == (0x92).toByte()){
-
-                data.getByte(6) //major version
-                data.getByte(7) //minor version
-
-                when (data.getByte(17)) {
-                    (0x60).toByte() -> {
-                        //dt78
-                        dt78 = DT78
-                        if (data.getByte(15) == (0x08).toByte()){
-                            dt78 = T03    //T03
-                        }
+            if (data.getByte(4) == (0x51).toByte()) {
+                if (data.getByte(5) == (0x20).toByte()) {
+                    val st = (data.getByte(11)!!.toPInt() * 256) + (data.getByte(12)!!.toPInt())
+                    val cl = (data.getByte(14)!!.toPInt() * 256) + (data.getByte(15)!!.toPInt())
+                    if (st != 0) {
+                        dbHandler.insertSteps(
+                            StepsData(
+                                data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), st, cl
+                            )
+                        )
                     }
-                    (0xA2).toByte() -> {
-                        //dt92
-                        dt78 = DT92
-                        if (data.getByte(15) == (0xFF).toByte()){
-                            dt78 = ESP32    //ESP32
-                            Toast.makeText(this, "Detected ESP32", Toast.LENGTH_SHORT).show()
-                            updateEsp32(this)
-                        }
-                    }
-                    (0x22).toByte() -> {
-                        //dt66
-                        dt78 = DT66
-                        if (data.getByte(15) == (0x28).toByte()){
-                            dt78 = DT78_2    //dt78 v2
-                        }
 
+                    val bp = data.getByte(16)!!.toPInt()
+                    val sp = data.getByte(17)!!.toPInt()
+                    val bph = data.getByte(18)!!.toPInt()
+                    val bpl = data.getByte(19)!!.toPInt()
+                    if (bp != 0) {
+                        dbHandler.insertHeart(
+                            HeartData(
+                                data.getByte(6)!!.toPInt(),
+                                data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(),
+                                data.getByte(9)!!.toPInt(),
+                                data.getByte(10)!!.toPInt(),
+                                bp,
+                                H_HOURLY
+                            )
+                        )
                     }
-                    (0x62).toByte() -> {
-                        //mibro air
-                        //dt78 = DT66
-                        if (data.getByte(15) == (0x28).toByte()){
-                            dt78 = MI_AIR    //mibro air
-                        }
-
+                    if (sp != 0) {
+                        dbHandler.insertSp02(
+                            OxygenData(
+                                data.getByte(6)!!.toPInt(),
+                                data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(),
+                                data.getByte(9)!!.toPInt(),
+                                data.getByte(10)!!.toPInt(),
+                                sp,
+                                H_HOURLY
+                            )
+                        )
                     }
-                    (0xE0).toByte() -> {
-                        //lige l11
-                        dt78 = L_11
+                    if (bph != 0) {
+                        dbHandler.insertBp(
+                            PressureData(
+                                data.getByte(6)!!.toPInt(),
+                                data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(),
+                                data.getByte(9)!!.toPInt(),
+                                data.getByte(10)!!.toPInt(),
+                                bph,
+                                bpl,
+                                H_HOURLY
+                            )
+                        )
                     }
                 }
-                var str = ""
+                if (data.getByte(5) == (0x11).toByte()) {
+                    val bp = data.getByte(11)!!.toPInt()
+                    if (bp != 0) {
+                        dbHandler.insertHeart(
+                            HeartData(
+                                data.getByte(6)!!.toPInt(),
+                                data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(),
+                                data.getByte(9)!!.toPInt(),
+                                data.getByte(10)!!.toPInt(),
+                                bp,
+                                H_WATCH
+                            )
+                        )
+                    }
+                }
 
-                for (x in 0 until data.size()){
-                    str += if(x == 0){
-                        String.format("%02X", data.getByte(x)!!.toPInt())
+                if (data.getByte(5) == (0x12).toByte()) {
+                    val sp = data.getByte(11)!!.toPInt()
+                    if (sp != 0) {
+                        dbHandler.insertSp02(
+                            OxygenData(
+                                data.getByte(6)!!.toPInt(),
+                                data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(),
+                                data.getByte(9)!!.toPInt(),
+                                data.getByte(10)!!.toPInt(),
+                                sp,
+                                H_WATCH
+                            )
+                        )
+                    }
+                }
+
+                if (data.getByte(5) == (0x14).toByte()) {
+                    val bph = data.getByte(11)!!.toPInt()
+                    val bpl = data.getByte(12)!!.toPInt()
+                    if (bph != 0) {
+                        dbHandler.insertBp(
+                            PressureData(
+                                data.getByte(6)!!.toPInt(),
+                                data.getByte(7)!!.toPInt(),
+                                data.getByte(8)!!.toPInt(),
+                                data.getByte(9)!!.toPInt(),
+                                data.getByte(10)!!.toPInt(),
+                                bph,
+                                bpl,
+                                H_WATCH
+                            )
+                        )
+                    }
+                }
+            }
+
+            if (data.getByte(4) == (0x52).toByte()) {
+                val dur = (data.getByte(12)!!.toPInt() * 256) + data.getByte(13)!!.toPInt()
+                if (dur != 0) {
+                    dbHandler.insertSleep(
+                        SleepData(
+                            data.getByte(6)!!.toPInt(),
+                            data.getByte(7)!!.toPInt(),
+                            data.getByte(8)!!.toPInt(),
+                            data.getByte(9)!!.toPInt(),
+                            data.getByte(10)!!.toPInt(),
+                            data.getByte(11)!!.toPInt(),
+                            dur
+                        )
+                    )
+                }
+            }
+
+            if (!healthRun) {
+                if (data.getByte(4) == (0x32).toByte()) {
+                    val bp = data.getByte(6)!!.toPInt()
+                    val sp = data.getByte(7)!!.toPInt()
+                    val bph = data.getByte(8)!!.toPInt()
+                    val bpl = data.getByte(9)!!.toPInt()
+
+                    val calendar = Calendar.getInstance(Locale.getDefault())
+                    dbHandler.writeMeasure(
+                        calendar,
+                        M_MEASURE_RECEIVED,
+                        calendar.get(Calendar.HOUR_OF_DAY)
+                    )
+
+                    var isNull = true
+
+                    if (bp != 0) {
+                        dbHandler.insertHeart(
+                            HeartData(
+                                calendar.get(Calendar.YEAR) - 2000,
+                                calendar.get(Calendar.MONTH) + 1,
+                                calendar.get(Calendar.DAY_OF_MONTH),
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                bp,
+                                H_TIMED
+                            )
+                        )
+                        isNull = false
+                    }
+                    if (bph != 0) {
+                        dbHandler.insertBp(
+                            PressureData(
+                                calendar.get(Calendar.YEAR) - 2000,
+                                calendar.get(Calendar.MONTH) + 1,
+                                calendar.get(Calendar.DAY_OF_MONTH),
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                bph,
+                                bpl,
+                                H_TIMED
+                            )
+                        )
+                        isNull = false
+                    }
+                    if (sp != 0) {
+                        dbHandler.insertSp02(
+                            OxygenData(
+                                calendar.get(Calendar.YEAR) - 2000,
+                                calendar.get(Calendar.MONTH) + 1,
+                                calendar.get(Calendar.DAY_OF_MONTH),
+                                calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE),
+                                sp,
+                                H_TIMED
+                            )
+                        )
+                        isNull = false
+                    }
+                    val s = context.getString(R.string.scheduled)
+                    val title = if (s.length > 25) s.substring(0, 25) else s
+                    var msg = " ".repeat(125)
+                    msg = msg.replaceRange(0, title.length, title)
+                    if (isNull) {
+                        dbHandler.writeMeasure(
+                            calendar,
+                            M_MEASURE_NULL,
+                            calendar.get(Calendar.HOUR_OF_DAY)
+                        )
+                        if (sendWatch) {
+                            val txt = context.getString(R.string.zero_values)
+                            msg = msg.replaceRange(25, txt.length + 25, txt)
+                            writeMessage(msg, msIcon)
+                        }
+
                     } else {
-                        String.format("-%02X", data.getByte(x)!!.toPInt())
-                    }
-                }
-
-                watchVersion = String.format("v%01d.%02d", data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt())
-                val pref = PreferenceManager.getDefaultSharedPreferences(this)
-                val edit = pref.edit()
-                edit.putInt(ST.PREF_WATCH_ID, dt78)
-                edit.putString(ST.PREF_HEX_ID, str)
-                edit.putString(ST.PREF_VERSION, watchVersion)
-                edit.apply()
-                edit.commit()
-
-                //Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
-
-
-                Timber.w(str)
-            }
-        }
-
-
-        val dbHandler = MyDBHandler(this, null, null, 1)
-        if (data.getByte(4) == (0x51).toByte()){
-            if (data.getByte(5) == (0x20).toByte()){
-                val st = (data.getByte(11)!!.toPInt() *256)+(data.getByte(12)!!.toPInt())
-                val cl = (data.getByte(14)!!.toPInt()*256)+(data.getByte(15)!!.toPInt())
-                if (st != 0){
-                    dbHandler.insertSteps(StepsData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), st, cl))
-                }
-
-                val bp = data.getByte(16)!!.toPInt()
-                val sp = data.getByte(17)!!.toPInt()
-                val bph = data.getByte(18)!!.toPInt()
-                val bpl = data.getByte(19)!!.toPInt()
-                if (bp != 0){
-                    dbHandler.insertHeart(HeartData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bp, H_HOURLY))
-                }
-                if (sp != 0){
-                    dbHandler.insertSp02(OxygenData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), sp, H_HOURLY))
-                }
-                if (bph != 0 ){
-                    dbHandler.insertBp(PressureData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bph, bpl, H_HOURLY))
-                }
-            }
-            if (data.getByte(5) == (0x11).toByte()){
-                val bp = data.getByte(11)!!.toPInt()
-                if (bp != 0){
-                    dbHandler.insertHeart(HeartData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bp, H_WATCH))
-                }
-            }
-
-            if (data.getByte(5) == (0x12).toByte()){
-                val sp = data.getByte(11)!!.toPInt()
-                if (sp != 0){
-                    dbHandler.insertSp02(OxygenData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), sp, H_WATCH))
-                }
-            }
-
-            if (data.getByte(5) == (0x14).toByte()){
-                val bph = data.getByte(11)!!.toPInt()
-                val bpl = data.getByte(12)!!.toPInt()
-                if (bph != 0 ){
-                    dbHandler.insertBp(PressureData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(), bph, bpl, H_WATCH))
-                }
-            }
-        }
-
-        if (data.getByte(4) == (0x52).toByte()){
-            val dur = (data.getByte(12)!!.toPInt()*256)+data.getByte(13)!!.toPInt()
-            if (dur != 0){
-                dbHandler.insertSleep(
-                    SleepData(data.getByte(6)!!.toPInt(), data.getByte(7)!!.toPInt(),
-                        data.getByte(8)!!.toPInt(), data.getByte(9)!!.toPInt(), data.getByte(10)!!.toPInt(),
-                            data.getByte(11)!!.toPInt(), dur)
-                )
-            }
-        }
-
-        if (!healthRun){
-            if (data.getByte(4) == (0x32).toByte()){
-                val bp = data.getByte(6)!!.toPInt()
-                val sp = data.getByte(7)!!.toPInt()
-                val bph = data.getByte(8)!!.toPInt()
-                val bpl = data.getByte(9)!!.toPInt()
-
-                val calendar = Calendar.getInstance(Locale.getDefault())
-                dbHandler.writeMeasure(calendar, M_MEASURE_RECEIVED, calendar.get(Calendar.HOUR_OF_DAY))
-
-                var isNull = true
-
-                if (bp != 0){
-                    dbHandler.insertHeart(
-                        HeartData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bp, H_TIMED)
-                    )
-                    isNull = false
-                }
-                if (bph != 0 ){
-                    dbHandler.insertBp(
-                        PressureData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), bph, bpl, H_TIMED)
-                    )
-                    isNull = false
-                }
-                if (sp != 0){
-                    dbHandler.insertSp02(
-                        OxygenData(calendar.get(Calendar.YEAR)-2000,calendar.get(Calendar.MONTH)+1,
-                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), sp, H_TIMED)
-                    )
-                    isNull = false
-                }
-                val s = context.getString(R.string.scheduled)
-                val title = if (s.length > 25)  s.substring(0,25) else s
-                var msg = " ".repeat(125)
-                msg = msg.replaceRange(0, title.length, title)
-                if (isNull){
-                    dbHandler.writeMeasure(calendar, M_MEASURE_NULL, calendar.get(Calendar.HOUR_OF_DAY))
-                    if (sendWatch){
-                        val txt = context.getString(R.string.zero_values)
-                        msg = msg.replaceRange(25, txt.length, txt)
-                        writeMessage(msg, msIcon)
-                    }
-
-                } else {
-                    if (sendWatch){
-                        val hrm = "$bp "+ context.getString(R.string.bpm)
-                        val pressure = "$bpl/$bph "+ context.getString(R.string.mmHg)
-                        val o2 = "$sp %"
-                        msg = msg.replaceRange(25, hrm.length, hrm)
-                        msg = msg.replaceRange(50, pressure.length, pressure)
-                        msg = msg.replaceRange(75, o2.length, o2)
-                        writeMessage(msg, msIcon)
+                        if (sendWatch) {
+                            val hrm = "$bp " + context.getString(R.string.bpm)
+                            val pressure = "$bpl/$bph " + context.getString(R.string.mmHg)
+                            val o2 = "$sp %"
+                            msg = msg.replaceRange(25, hrm.length + 25, hrm)
+                            msg = msg.replaceRange(50, pressure.length + 50, pressure)
+                            msg = msg.replaceRange(75, o2.length + 75, o2)
+                            writeMessage(msg, msIcon)
+                        }
                     }
                 }
             }
@@ -1629,6 +1794,14 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                 data[3] = ((b + pos) % 256).toByte()
                 sendData(data)
             }
+        }
+    }
+
+    override fun onReminder(icon: Int, text: String, id: Int) {
+        var msg = " ".repeat(125)
+        msg = msg.replaceRange(0, text.length, text)
+        if (!writeMessage(msg, icon)){
+            notifyReminder(context, 5800+id, context.getString(R.string.reminder_name)+ " $id", text)
         }
     }
 

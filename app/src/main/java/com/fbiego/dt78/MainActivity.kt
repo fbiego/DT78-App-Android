@@ -1,3 +1,28 @@
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Felix Biego
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.fbiego.dt78
 
 import android.Manifest
@@ -322,12 +347,6 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         if (btAdapter.isEnabled){
 
             if (remoteMacAddress != FG.VESPA_DEVICE_ADDRESS){
-//                if (isConnected(btAdapter.getRemoteDevice(remoteMacAddress)) && id == UNKNOWN){
-//                    Toast.makeText(this, "Device already connected", Toast.LENGTH_SHORT).show()
-//                    deviceConnected()
-//                } else {
-//                    startService(Intent(this, FG::class.java))
-//                }
                 startService(Intent(this, FG::class.java))
 
             }
@@ -343,6 +362,8 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         MeasureActivity().setSchedule(this, pref.getBoolean(ST.PREF_SCHEDULED, false),
             pref.getInt(ST.PREF_M_START, 0), pref.getInt(ST.PREF_M_END, 23), pref.getInt(ST.PREF_M_INTERVAL, 2)
         )
+        val db = MyDBHandler(this, null, null, 1)
+        ReminderActivity().setReminders(this, db.getReminders())
 
         Timber.w("onStart")
     }
@@ -567,10 +588,10 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         builder.setTitle(R.string.test_notification)
         builder.setMessage(R.string.test_notification_desc)
         val inflater = layoutInflater
-        val dialogInflater = inflater.inflate(R.layout.notify_layout, null)
-        val editText = dialogInflater.findViewById<EditText>(R.id.editText)
-        val spinner = dialogInflater.findViewById<Spinner>(R.id.spinner)
-        val adapter = NotifyAdapter(this, true, Watch(tp).iconSet)
+        val dialogInflater = inflater.inflate(R.layout.reminder_layout, null)
+        val editText = dialogInflater.findViewById<EditText>(R.id.watchText)
+        val spinner = dialogInflater.findViewById<Spinner>(R.id.watchIcon)
+        val adapter = NotifyAdapter(this, false, Watch(tp).iconSet)
         spinner.adapter = adapter
 
         builder.setView(dialogInflater)
@@ -609,10 +630,8 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
     @SuppressLint("SetTextI18n")
     fun onDataReceived(data: Data, context: Context , stepsZ: Int){
 
-
-        run {}
-
-            Timber.w("Data received")
+        Timber.w("Data received")
+        if (data.getByte(0) == (0xAB).toByte() && data.getByte(3) == (0xFF).toByte()) {
             if (data.size() == 8) {
                 if (data.getByte(4) == (0x91).toByte()) {
                     FG.bat = data.getByte(7)!!.toPInt()
@@ -639,8 +658,7 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
                 //updateDonut(this@MainActivity, steps, target, true)
 
             }
-
-
+        }
 
     }
 

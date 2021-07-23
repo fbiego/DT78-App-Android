@@ -1,7 +1,41 @@
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Felix Biego
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.fbiego.dt78
 
+import android.app.AlarmManager
+import android.app.Notification
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -11,19 +45,25 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.cardview.widget.CardView
+import androidx.core.widget.addTextChangedListener
+import com.fbiego.dt78.app.MeasureReceiver
 import com.fbiego.dt78.app.SettingsActivity
-import com.fbiego.dt78.data.AlarmAdapter
-import com.fbiego.dt78.data.AlarmData
-import com.fbiego.dt78.data.MyDBHandler
-import com.fbiego.dt78.data.myTheme
+import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_reminder.*
+import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 import com.fbiego.dt78.app.ForegroundService as FG
 
 class ReminderActivity : AppCompatActivity() {
 
     private var alarmList = ArrayList<AlarmData>()
     private val alarmAdapter = AlarmAdapter(alarmList, this@ReminderActivity::alarmClicked)
+    private var scheduledList = ArrayList<ReminderData>()
+    private val reminderAdapter = ReminderAdapter(scheduledList, this@ReminderActivity::reminderClicked)
     private var hr24 = false
+    var ed = 0
 
     companion object {
         lateinit var alarmRecycler: RecyclerView
@@ -48,16 +88,44 @@ class ReminderActivity : AppCompatActivity() {
         alarmRecycler.addItemDecoration(div)
         alarmRecycler.isNestedScrollingEnabled = false
 
+        recyclerScheduled.layoutManager = LinearLayoutManager(this)
+        recyclerScheduled.addItemDecoration(div)
+        recyclerScheduled.isNestedScrollingEnabled = false
 
+//        scheduledReminder.setOnClickListener {
+//            startActivity(Intent(this, ScheduledActivity::class.java))
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//        }
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (intent.hasExtra("reminder")){
+            val id = intent.getIntExtra("reminder", 0)
+            val text = intent.getStringExtra("text")
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle(getString(R.string.reminder_name) + " $id")
+            builder.setMessage(text)
+            builder.setPositiveButton(android.R.string.ok, null)
+            builder.setNegativeButton(R.string.cancel) {_, _ ->
+
+            }
+            builder.show()
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
         alarmList.clear()
+        scheduledList.clear()
         val dbHandler = MyDBHandler(this, null, null, 1)
         val setPref =  PreferenceManager.getDefaultSharedPreferences(this)
         alarmList = dbHandler.getAlarms()
+        scheduledList = dbHandler.getReminders()
 
         if (alarmList.size != 8){
             dbHandler.createAlarms()
@@ -148,14 +216,110 @@ class ReminderActivity : AppCompatActivity() {
 
 
         alarmRecycler.apply {
-            layoutManager =
-                LinearLayoutManager(this@ReminderActivity)
+            layoutManager = LinearLayoutManager(this@ReminderActivity)
             adapter = alarmAdapter
         }
+        recyclerScheduled.apply{
+            layoutManager = LinearLayoutManager(this@ReminderActivity)
+            adapter = reminderAdapter
+        }
         alarmAdapter.update(alarmList)
+        reminderAdapter.update(scheduledList)
     }
 
+//    private fun format25(input: String): String{
+//        val l = 25
+//        val x = (input.length-1)/l
+//        var str = input
+//        for (y in 1..x){
+//            val z = y*l+y-1
+//            str = str.replaceRange(z, z, "\n")
+//        }
+//        return str
+//    }
 
+    private fun reminderClicked(reminder: ReminderData){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.reminder_name) +"${reminder.id}")
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val showHint = pref.getBoolean(SettingsActivity.PREF_HINT, true)
+        if (showHint) {
+            builder.setMessage(getString(R.string.reminder_hint))
+        }
+        var state = reminder.state
+        var hr = reminder.hour
+        var min = reminder.minute
+        val inflater = layoutInflater
+        val watchLayout = inflater.inflate(R.layout.reminder_layout, null)
+        val edit = watchLayout.findViewById<EditText>(R.id.watchText)
+        val spinner = watchLayout.findViewById<Spinner>(R.id.watchIcon)
+        val card = watchLayout.findViewById<CardView>(R.id.outerCard)
+        val time = watchLayout.findViewById<TextView>(R.id.watchTime)
+        time.text = String.format("%02d:%02d",hr, min)
+        edit.setText(reminder.text)
+        if (state){
+            card.setCardBackgroundColor(ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorIcons)))
+        } else {
+            card.setCardBackgroundColor(Color.GRAY)
+        }
+
+        val adapter = NotifyAdapter(this, false, Watch(FG.dt78).iconSet)
+        spinner.adapter = adapter
+        val index = Watch(FG.dt78).iconSet.indexOf(reminder.icon)
+        val pos = if (index != -1){
+            index
+        } else {
+            0
+        }
+        spinner.setSelection(pos)
+
+
+//        edit.setOnFocusChangeListener { view, b ->
+//            if (b){
+//                edit.setText(format25(edit.text.toString().replace("\n", "")))
+//            } else {
+//                edit.setText(edit.text.toString().replace("\n", ""))
+//            }
+//        }
+
+        time.setOnClickListener {
+            val picker = TimePickerDialog(this, { _, i, i2 ->
+                hr = i
+                min = i2
+                time.text = String.format("%02d:%02d", i, i2)
+            }, hr, min, hr24)
+            picker.show()
+        }
+
+        card.setOnClickListener {
+            if (showHint){
+                pref.edit().putBoolean(SettingsActivity.PREF_HINT, false).apply()
+            }
+            state = !state
+            if (state){
+                card.setCardBackgroundColor(ColorStateList.valueOf(this.getColorFromAttr(R.attr.colorIcons)))
+            } else {
+                card.setCardBackgroundColor(Color.GRAY)
+            }
+
+        }
+
+
+        builder.setView(watchLayout)
+        builder.setPositiveButton(R.string.save) {_, _ ->
+
+            val db = MyDBHandler(this, null, null, 1)
+            db.insertReminder(ReminderData(reminder.id, hr, min, spinner.selectedItem as Int, state, edit.text.toString().replace("\n", "")))
+            val reminders = db.getReminders()
+            reminderAdapter.update(reminders)
+            setReminders(this, reminders)
+
+        }
+        builder.setNegativeButton(R.string.cancel) {_, _ ->
+
+        }
+        builder.show()
+    }
 
 
     private fun alarmClicked(alarm: AlarmData){
@@ -274,9 +438,6 @@ class ReminderActivity : AppCompatActivity() {
             val newAlarms = dbHandler.getAlarms()
             alarmAdapter.update(newAlarms)
 
-
-
-
         }
         builder.setNegativeButton(R.string.cancel) {_, _ ->
 
@@ -284,10 +445,47 @@ class ReminderActivity : AppCompatActivity() {
         builder.show()
     }
 
-//    private fun checked(alarm: AlarmData, boolean: Boolean){
-//        val state = if (boolean) "On" else "Off"
-//        Toast.makeText(this@ReminderActivity, "Switched ${alarm.name} $state", Toast.LENGTH_SHORT).show()
-//    }
+    fun setReminders(context: Context, reminders: ArrayList<ReminderData>){
+
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.set(Calendar.MILLISECOND, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
+
+        for (rem in reminders){
+            cal.set(Calendar.HOUR_OF_DAY, rem.hour)
+            cal.set(Calendar.MINUTE, rem.minute)
+            if (rem.state){
+                val time = if (cal.timeInMillis > System.currentTimeMillis()){
+                    cal.timeInMillis
+                } else {
+                    cal.timeInMillis + 86400000
+                }
+                setRemind(context, time, rem)
+            } else {
+                setRemind(context, null, rem)
+            }
+        }
+    }
+
+    private fun setRemind(context: Context, time: Long?, rem: ReminderData){
+        Timber.e("Set reminder? $time")
+        val intent = Intent(context, MeasureReceiver::class.java)
+        val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+        if (time != null){
+            intent.putExtra("id", rem.id+30)
+            intent.putExtra("text", rem.text)
+            intent.putExtra("icon", rem.icon)
+            val pending = PendingIntent.getBroadcast(context.applicationContext, 57600 + rem.id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+            alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pending)
+        } else {
+            val pendingIntent = PendingIntent.getBroadcast(context.applicationContext, 57600 + rem.id, intent, PendingIntent.FLAG_NO_CREATE)
+            if (pendingIntent != null) {
+                alarmManager.cancel(pendingIntent)
+            }
+        }
+
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Dodaj kontakt</string>
@@ -38,11 +63,11 @@
 	<string name="find_w">Znajdź zegarek</string>
 	<string name="find_watch">Szukam zegarka</string>
 	<string name="flip_vertically">Obróć ekran pionowo</string>
-	<string name="flip_vertically_summary">"Włącz</string>
+	<string name="flip_vertically_summary">Włącz</string>
 	<string name="fr">P</string>
 	<string name="frequent">Częste kontakty</string>
 	<string name="fri">Pt</string>
-	<string name="grant_notification"> že nejprve musíte této aplikaci udělit přístup k oznámení. Chcete pokračovat?"</string>
+	<string name="grant_notification"> že nejprve musíte této aplikaci udělit přístup k oznámení. Chcete pokračovat?</string>
 	<string name="health">Zdrowie</string>
 	<string name="height">Wzrost</string>
 	<string name="hourly">Pomiar godzinowy</string>
@@ -70,15 +95,15 @@
 	<string name="mon_fri">Pon - Pt</string>
 	<string name="no_errors">Brak błędów</string>
 	<string name="not_connect">Zegarek nie połączony</string>
-	<string name="not_disconnect">"Zobrazovat upozornění</string>
+	<string name="not_disconnect">Zobrazovat upozornění</string>
 	<string name="not_enable">Wyłączono</string>
 	<string name="not_list">Lista powiadamianych</string>
 	<string name="not_paired">Brak zegarka na liście? Sparuj urządzenie w ustawieniach BT telefonu</string>
 	<string name="nothing">Nic do skasowania</string>
 	<string name="notification_access">Dostęp do powiadomień</string>
 	<string name="notification_access_summary">Przyznaj dostęp do powiadomień</string>
-	<string name="notifications">"Powiadomienia</string>
-	<string name="notify_disconnect">"Powiadom</string>
+	<string name="notifications">Powiadomienia</string>
+	<string name="notify_disconnect">Powiadom</string>
 	<string name="once">Jeden raz</string>
 	<string name="optimize_app">Optymalizacja</string>
 	<string name="phone_bat">Akumulator telefonu</string>
@@ -93,11 +118,11 @@
 	<string name="reset_info">Questa operazione eliminerà tutti i dati dell\'orologio. Sei sicuro?</string>
 	<string name="reset_watch">Resetuj zegarek</string>
 	<string name="run_as_service">Uruchom w tle</string>
-	<string name="run_as_service_summary">"Spustit tuto aplikaci jako službu</string>
+	<string name="run_as_service_summary">Spustit tuto aplikaci jako službu</string>
 	<string name="sa">S</string>
 	<string name="sat">Sob</string>
 	<string name="save">Zapisz</string>
-	<string name="scan">Skanowanieâ€¦</string>
+	<string name="scan">Skanowanie...</string>
 	<string name="sedentary">Неподвижное состояние</string>
 	<string name="self_test">Samotestowanie</string>
 	<string name="self_test_notif">Powiadomienie o testowaniu</string>
@@ -125,7 +150,7 @@
 	<string name="target">Cel dzienny</string>
 	<string name="test">Test</string>
 	<string name="test_notification">Test powiadomień</string>
-	<string name="test_notification_desc">"Odešlete do hodinek oznámení o testu. Vyberte ikonu</string>
+	<string name="test_notification_desc">Odešlete do hodinek oznámení o testu. Vyberte ikonu</string>
 	<string name="th">C</string>
 	<string name="thur">Czw</string>
 	<string name="tu">W</string>
@@ -241,8 +266,27 @@
 	<string name="m_disconnect">Zegarek został rozłączony</string>
 	<string name="m_failed">Retry nie powiodło się</string>
 	<string name="m_no_data">Brak danych</string>
-	<string name="zero_values"> use el reloj correctamente"</string>
+	<string name="zero_values"> use el reloj correctamente</string>
 	<string name="watch_charging">Oglądaj ładowanie</string>
+	<string name="bakup_restore">Przywracania kopii zapasowej</string>
+	<string name="backup_info">Pliki kopii zapasowej są przechowywane w folderze DT78 na wewnętrznej pamięci masowej</string>
+	<string name="restore">Przywracać</string>
+	<string name="start_backup">Rozpocząć tworzenie kopii zapasowych</string>
+	<string name="start_restore">Rozpocznij przywracanie</string>
+	<string name="scheduled_reminder">Zaplanowane przypomnienie</string>
+	<string name="reminder_name">Przypomnienie</string>
+	<string name="delete_file">Usuń plik kopii zapasowej?</string>
+	<string name="restore_file">Przywróć plik kopii zapasowej?</string>
+	<string name="backup_complete">Kopia zapasowa zakończona</string>
+	<string name="restore_complete">Przywróć kompletny</string>
+	<string name="restore_progress">Przywracanie</string>
+	<string name="restore_success">Przywróć sukces! Uruchomienie aplikacji.</string>
+	<string name="restore_fail">Przywróć nie powiodło się</string>
+	<string name="backup_count">Znalezione kopie zapasowe.</string>
+	<string name="load_error">Nie można załadować pliku przywracania</string>
+	<string name="text_hint">Twój tekst tutaj</string>
+	<string name="reminder_hint">Chcete-li aktivovat připomenutí</string>
+	<string name="watch_full_charge">Bateria obserwacyjna jest w pełni naładowana</string>
 	<string-array name="alarm_options">
 		<item>Jeden raz</item>
 		<item>Codziennie</item>

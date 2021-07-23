@@ -1,3 +1,28 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <resources>
 	<string name="app_name">DT78</string>
 	<string name="add_contact">Add contact</string>
@@ -45,7 +70,7 @@
 	<string name="grant_notification">Looks like you must first grant this app to access notifications. Do you want to continue?</string>
 	<string name="health">Health</string>
 	<string name="height">Height</string>
-	<string name="hourly">Hourly measure</string>
+	<string name="hourly">Hourly Measure</string>
 	<string name="hr12_sys">12 hour system</string>
 	<string name="hrm">Heart Rate</string>
 	<string name="icon_set">Icon set</string>
@@ -97,7 +122,7 @@
 	<string name="sa">S</string>
 	<string name="sat">Sat</string>
 	<string name="save">Save</string>
-	<string name="scan">Scanningâ€¦</string>
+	<string name="scan">Scanning...</string>
 	<string name="sedentary">Sedentary</string>
 	<string name="self_test">Self Test</string>
 	<string name="self_test_notif">Self test notification</string>
@@ -243,6 +268,25 @@
 	<string name="m_no_data">No data</string>
 	<string name="zero_values">Received zero values. Please wear the watch correctly</string>
 	<string name="watch_charging">Watch is charging</string>
+	<string name="bakup_restore">Backup &amp; Restore</string>
+	<string name="backup_info">Backup files are stored in DT78 folder on internal storage</string>
+	<string name="restore">Restore</string>
+	<string name="start_backup">Start backup</string>
+	<string name="start_restore">Start restore</string>
+	<string name="scheduled_reminder">Scheduled Reminder</string>
+	<string name="reminder_name">Reminder</string>
+	<string name="delete_file">Delete backup file?</string>
+	<string name="restore_file">Restore backup file?</string>
+	<string name="backup_complete">Backup Complete</string>
+	<string name="restore_complete">Restore Complete</string>
+	<string name="restore_progress">Restoring</string>
+	<string name="restore_success">Restore success! Restarting app</string>
+	<string name="restore_fail">Restore failed</string>
+	<string name="backup_count">Backups found</string>
+	<string name="load_error">Could not load restore file</string>
+	<string name="text_hint">your text here</string>
+	<string name="reminder_hint">Click on the outer ring to activate the reminder</string>
+	<string name="watch_full_charge">Watch battery is fully charged</string>
 	<string-array name="alarm_options">
 		<item>Once</item>
 		<item>Everyday</item>

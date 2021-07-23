@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 3.4
++ Added Backup & Restore feature
++ Added Scheduled Reminder
++ Added French language
+
 ## 3.3
 + Improved data sync time
 + Added Scheduled Measurement

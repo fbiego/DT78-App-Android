@@ -1,0 +1,300 @@
+<!--
+  ~
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2021 Felix Biego
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<resources>
+	<string name="app_name">DT78</string>
+	<string name="add_contact">Ajouter contact</string>
+	<string name="age">Age</string>
+	<string name="alarm">Alarme</string>
+	<string name="alarms">Alarmes</string>
+	<string name="bat_charging">[______ En charge ______]</string>
+	<string name="bat_notifs">Notifications de batterie</string>
+	<string name="bat_phone">[ Batterie du téléphone ]</string>
+	<string name="bat_unplugged">[______ Débranché ______]</string>
+	<string name="battery">Batterie</string>
+	<string name="battery_icon">Icône de batterie</string>
+	<string name="bph">Pression Artérielle</string>
+	<string name="bpm">bpm</string>
+	<string name="bt_settings">Paramètres BT</string>
+	<string name="camera">Appareil photo</string>
+	<string name="cancel">Annulation</string>
+	<string name="capitalize">Notifications en majuscules</string>
+	<string name="channel_desc">Notifications de statut de connexion</string>
+	<string name="choose_app">Choisir les applications</string>
+	<string name="choose_apps">Dotknij aby wybrać aplikację</string>
+	<string name="cm">cm</string>
+	<string name="colored">Coloriser les icônes</string>
+	<string name="connect_set">Podłącz zegarek aby ustawić alarm</string>
+	<string name="connected">Connecté à</string>
+	<string name="connecting">Connexion à</string>
+	<string name="contacts">Contacts</string>
+	<string name="customization">Personnalisation</string>
+	<string name="delete">Effacer</string>
+	<string name="disconnected">Déconnecté de</string>
+	<string name="disconnecting">Déconnexion de</string>
+	<string name="distance">distance</string>
+	<string name="enable_lock">Włącz aplikację</string>
+	<string name="error_log">Journal d\'erreurs</string>
+	<string name="everyday">Tous les jours</string>
+	<string name="filter_info">Wciśnij Enter</string>
+	<string name="find_phone">Trouver téléphone</string>
+	<string name="find_w">Trouver la montre</string>
+	<string name="find_watch">Recherche la montre</string>
+	<string name="flip_vertically">Basculer l\'affichage verticalement</string>
+	<string name="flip_vertically_summary"> aby obrócić ekran pionowo</string>
+	<string name="fr">V</string>
+	<string name="frequent">Contacts fréquents</string>
+	<string name="fri">Ven</string>
+	<string name="grant_notification">Sembra che tu debba prima consentire a questa app di accedere alle notifiche. Vuoi continuare?</string>
+	<string name="health">Santé</string>
+	<string name="height">Taille</string>
+	<string name="hourly">Mesure toutes les heures</string>
+	<string name="hr12_sys">Système 12 heures</string>
+	<string name="hrm">Pulsations cardiaques</string>
+	<string name="icon_set">Jeu d\'icônes</string>
+	<string name="imperial">Unités impériales</string>
+	<string name="info_once"> um Kontakt zu löschen \n Klicke den Sync-Button oben für Upload Kontakte</string>
+	<string name="kcal">kcal</string>
+	<string name="kg">kg</string>
+	<string name="km">km</string>
+	<string name="later">Plus tard</string>
+	<string name="load_apps">Chargement des applis</string>
+	<string name="loading">Chargement</string>
+	<string name="lock_phone">Verrouiller le téléphone quand il est retrouvé</string>
+	<string name="log_deleted">Fichier journal supprimé</string>
+	<string name="loss_link">Lien perdu</string>
+	<string name="mac_addr">Adresse MAC (BT)</string>
+	<string name="mac_format_error">Doit être au format A1:BB:3C:44:DE:9F</string>
+	<string name="metric">Unités métriques</string>
+	<string name="miles">miles</string>
+	<string name="mmHg">mmHg</string>
+	<string name="mo">M</string>
+	<string name="mon">Lun</string>
+	<string name="mon_fri">Lun - Ven</string>
+	<string name="no_errors">Aucune erreur à montrer</string>
+	<string name="not_connect">Montre non connectée</string>
+	<string name="not_disconnect"> když zařízení ztratí spojení</string>
+	<string name="not_enable">Non activé</string>
+	<string name="not_list">Liste de notifications</string>
+	<string name="not_paired">Appareil absent de la liste? Appairer votre montre dans les paramètres Bluetooth en premier</string>
+	<string name="nothing">Rien à effacer</string>
+	<string name="notification_access">Accès aux notifications</string>
+	<string name="notification_access_summary">Autoriser l\'accès aux notifications</string>
+	<string name="notifications"> gdy zegarek utracił połączenie</string>
+	<string name="notify_disconnect"> gdy rozłączony</string>
+	<string name="once">Une seule fois</string>
+	<string name="optimize_app">Optimiser l\'appli</string>
+	<string name="phone_bat">Batterie téléphone:</string>
+	<string name="plugged">Branché</string>
+	<string name="preferences">Préférences</string>
+	<string name="priority">Priorité des notifications</string>
+	<string name="quiet">Heures calmes</string>
+	<string name="raise_wake">Lever le poignet pour réveiller la montre</string>
+	<string name="reminder">Rappels</string>
+	<string name="remote_mac_address_default">00:00:00:00:00:00</string>
+	<string name="remote_mac_address">Adresse MAC distante</string>
+	<string name="reset_info">Resetowanie ustawień zegarka. Jesteś pewien?</string>
+	<string name="reset_watch">Réinitialiser la montre</string>
+	<string name="run_as_service">Exécuter en tant que service</string>
+	<string name="run_as_service_summary"> aniž byste ji nechali otevřenou</string>
+	<string name="sa">S</string>
+	<string name="sat">Sam</string>
+	<string name="save">Sauvegarder</string>
+	<string name="scan">En cours de scan</string>
+	<string name="sedentary">Sédentaire</string>
+	<string name="self_test">Auto test</string>
+	<string name="self_test_notif">Auto test de notification</string>
+	<string name="send">Envoyer</string>
+	<string name="service_name">DT78 Service</string>
+	<string name="service_stopped">Služba byla zastavena při změně předvoleb. Vraťte se na hlavní obrazovku a služba se automaticky restartuje.</string>
+	<string name="settings">Paramètres</string>
+	<string name="setup_desc">Définir l\'adresse MAC de la montre dans les paramètres</string>
+	<string name="setup_now">Effectuer le setup maintenant</string>
+	<string name="share">Partager</string>
+	<string name="sleep">Plage horaire de sommeil</string>
+	<string name="sp02">Oxygène sanguin</string>
+	<string name="start_at_boot">Lancer automatiquement l\'application au boot</string>
+	<string name="start_measure">Dotknij</string>
+	<string name="start_service">Lancement du service</string>
+	<string name="start_service_at_boot">Włącz</string>
+	<string name="step_len">Longueur du pas</string>
+	<string name="steps">pas</string>
+	<string name="stop_measure">Dotknij</string>
+	<string name="stop_service">Arrêt du service</string>
+	<string name="su">D</string>
+	<string name="sun">Dim</string>
+	<string name="sync">Synchroniser</string>
+	<string name="sync_watch">Synchro des données de la montre en cours</string>
+	<string name="target">Objectif de nombre de pas</string>
+	<string name="test">Test</string>
+	<string name="test_notification">Test de notification</string>
+	<string name="test_notification_desc"> která se zobrazí s textem</string>
+	<string name="th">J</string>
+	<string name="thur">Jeu</string>
+	<string name="tu">M</string>
+	<string name="tue">Mar</string>
+	<string name="turn_on_bt">Per favore avvia il Bluetooth</string>
+	<string name="unable_load">Impossible de charger le fichier d\'erreurs</string>
+	<string name="unable_sync">Impossible de synchroniser les données</string>
+	<string name="units">Unités métriques</string>
+	<string name="unplugged">Débranché</string>
+	<string name="user">Utilisateur</string>
+	<string name="watch_settings">Paramètres de la montre</string>
+	<string name="watch_type">Type de la montre:</string>
+	<string name="we">M</string>
+	<string name="wed">Mer</string>
+	<string name="weight">Poids</string>
+	<string name="years">ans</string>
+	<string name="yes">Oui</string>
+	<string name="self_test_ok">Auto test : OK</string>
+	<string name="self_test_fail">Auto test : Echec</string>
+	<string name="alarm_once">Une seule fois</string>
+	<string name="alarm_everyday">Tous les jours</string>
+	<string name="alarm_mon_fri">Lun - Ven</string>
+	<string name="custom_alarm">Alarme personnalisée</string>
+	<string name="quiet_active">Période Heures calmes act</string>
+	<string name="custom_watchface">Ecran de montre personnalisé</string>
+	<string name="upload_image">Envoi de l\'image</string>
+	<string name="select_image">Sélectionner l\'image</string>
+	<string name="image_cropped">Image rognée</string>
+	<string name="create_upload">Création des fichiers pour l\'envoi</string>
+	<string name="send_data">Envoi des données</string>
+	<string name="transfer_complete">Transfert terminé</string>
+	<string name="notify_off">Pas de notification</string>
+	<string name="notify_only">Notification seule</string>
+	<string name="notify_ring">Notification et sonnerie/vibration</string>
+	<string name="watch_lang">Langue sur la montre</string>
+	<string name="upload">Envoyer l\'image</string>
+	<string name="week">Semaine</string>
+	<string name="month">Mois</string>
+	<string name="january">Janvier</string>
+	<string name="february">Février</string>
+	<string name="march">Mars</string>
+	<string name="april">Avril</string>
+	<string name="may">Mai</string>
+	<string name="june">Juin</string>
+	<string name="july">Juillet</string>
+	<string name="august">Août</string>
+	<string name="september">Septembre</string>
+	<string name="october">Octobre</string>
+	<string name="november">Novembre</string>
+	<string name="december">Décembre</string>
+	<string name="sunday">Dimanche</string>
+	<string name="monday">Lundi</string>
+	<string name="tuesday">Mardi</string>
+	<string name="wednesday">Mercredi</string>
+	<string name="thursday">Jeudi</string>
+	<string name="friday">Vendredi</string>
+	<string name="saturday">Samedi</string>
+	<string name="daily">Chaque jour</string>
+	<string name="weekly">Chaque semaine</string>
+	<string name="monthly">Chaque mois</string>
+	<string name="re_enable">Voulez-vous autoriser de nouveau l\'accès aux notifications?</string>
+	<string name="copied">Copié dans le clipboard</string>
+	<string name="watch_info">Information sur la montre</string>
+	<string name="version">Version</string>
+	<string name="type">Type</string>
+	<string name="copy_id">Copy ID</string>
+	<string name="convert_greek">Convertir les caractères grecs</string>
+	<string name="no_data">Aucune donnée</string>
+	<string name="today">Aujourd\'hui</string>
+	<string name="steps_history">Historique des pas</string>
+	<string name="sleep_history">Historique du sommeil</string>
+	<string name="deep_sleep">Profond</string>
+	<string name="light_sleep">Léger</string>
+	<string name="total_sleep">Total</string>
+	<string name="flip_disp">Basculer l\'affichage</string>
+	<string name="rotate_disp">Rotation de l\'affichage</string>
+	<string name="screen_off">Eteindre l\'écran</string>
+	<string name="timeout">Timeout de notification</string>
+	<string name="ignore_optimize">Ignorer les optimisations</string>
+	<string name="request_optimize">Demande pour ignorer les optimisations de batterie</string>
+	<string name="never_ask">Ne jamais demander</string>
+	<string name="theme">Thème</string>
+	<string name="accent">Accent</string>
+	<string name="choose_theme">Choisir le thème de l\'application</string>
+	<string name="clear_data">Effacer les données</string>
+	<string name="clear_data_info">Cela va effacer le journal d\'erreurs. Confirmez-vous?</string>
+	<string name="sleep_txt">Sommeil</string>
+	<string name="not_rooted">Appareil non rooté</string>
+	<string name="dnd_mode">Mode ne pas déranger</string>
+	<string name="dnd_text">Ne pas déranger</string>
+	<string name="ext_camera">Appareil photo externe</string>
+	<string name="screen_on">Ecran allumé</string>
+	<string name="unlocked">Déverrouilé</string>
+	<string name="call">Appel</string>
+	<string name="sms">SMS</string>
+	<string name="set_screen_lock">Définir un verrouillage d\'écran en premier</string>
+	<string name="dnd_charge">Montre en charge</string>
+	<string name="measure_all">Mesurer tout</string>
+	<string name="measurement">Mesure</string>
+	<string name="start">Début</string>
+	<string name="end">Fin</string>
+	<string name="interval">Intervalle</string>
+	<string name="send_watch">Wyślij wartości do oglądania</string>
+	<string name="scheduled">Mesurer régulièrement</string>
+	<string name="hours">Heures</string>
+	<string name="waiting">En attente</string>
+	<string name="m_triggered">Commande de mesure reçue</string>
+	<string name="m_stopped">Le service n\'était pas lancé</string>
+	<string name="m_start">Début de la mesure</string>
+	<string name="m_end">Fin de la mesure</string>
+	<string name="m_received">Données de mesure reçues</string>
+	<string name="m_null">Aucune valeur reçue</string>
+	<string name="m_disconnect">La montre était déconnectée</string>
+	<string name="m_failed">Ré-essai : échec</string>
+	<string name="m_no_data">Aucune donnée</string>
+	<string name="zero_values">Přijaté nulové hodnoty. Používejte prosím hodinky správně</string>
+	<string name="watch_charging">La montre est en charge.</string>
+	<string name="bakup_restore">Restauration de sauvegarde</string>
+	<string name="backup_info">Les fichiers de sauvegarde sont stockés dans le dossier DT78 sur le stockage interne</string>
+	<string name="restore">Restaurer</string>
+	<string name="start_backup">Démarrer la sauvegarde</string>
+	<string name="start_restore">Commencer à restaurer</string>
+	<string name="scheduled_reminder">Rappel planifié</string>
+	<string name="reminder_name">Rappel</string>
+	<string name="delete_file">Supprimer le fichier de sauvegarde?</string>
+	<string name="restore_file">Restaurer le fichier de sauvegarde?</string>
+	<string name="backup_complete">Sauvegarde complète</string>
+	<string name="restore_complete">Restaurer complet</string>
+	<string name="restore_progress">Restaurer</string>
+	<string name="restore_success">Restaurer le succès! Application de redémarrage</string>
+	<string name="restore_fail">Restaurer a échoué</string>
+	<string name="backup_count">Sauvegardes trouvées</string>
+	<string name="load_error">Impossible de charger le fichier de restauration</string>
+	<string name="text_hint">votre texte ici</string>
+	<string name="reminder_hint"> klikněte na vnější kroužek</string>
+	<string name="watch_full_charge">Regarder la batterie est complètement chargée</string>
+	<string-array name="alarm_options">
+		<item>Une seule fois</item>
+		<item>Tous les jours</item>
+		<item>Lun - Ven</item>
+		<item>Alarme personnalisée</item>
+	</string-array>
+	<string-array name="sedentaryInterval">
+		<item>45 mins</item>
+		<item>1 hour</item>
+	</string-array>
+</resources>

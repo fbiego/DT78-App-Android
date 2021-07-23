@@ -1,3 +1,28 @@
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) 2021 Felix Biego
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.fbiego.dt78.app
 
 import android.content.Intent
@@ -197,22 +222,43 @@ class ErrorLogActivity : AppCompatActivity() {
             R.id.share -> {
                 val cachePath = this.cacheDir
                 val file = File(cachePath, "data.txt")
+                val error = File(cachePath, "error.txt")
 
-                if (file.exists()){
-                    val contentUri = FileProvider.getUriForFile(this, "com.fbiego.dt78.fileprovider", file)
+                var text = ""
+                text += if (file.exists()) "data.txt -> data from watch\n" else "No data logs\n"
+                text += if (error.exists()) "error.txt -> error logs" else "No error logs"
 
-
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.type = "*/*"
-                    intent.putExtra(Intent.EXTRA_STREAM, contentUri)
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    intent.putExtra(Intent.EXTRA_TEXT, "Share data log")
-                    intent.putExtra(Intent.EXTRA_SUBJECT,"Send")
-                    startActivity(Intent.createChooser(intent, "Share"))
-                } else {
-                    Toast.makeText(this, R.string.no_errors, Toast.LENGTH_SHORT).show()
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Share logs")
+                builder.setMessage(text)
+                if (error.exists()) {
+                    builder.setPositiveButton("Error") { _, _ ->
+                        val contentUri =
+                            FileProvider.getUriForFile(this, "com.fbiego.dt78.fileprovider", error)
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "*/*"
+                        intent.putExtra(Intent.EXTRA_STREAM, contentUri)
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        intent.putExtra(Intent.EXTRA_TEXT, "Share error log")
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Send")
+                        startActivity(Intent.createChooser(intent, "Share"))
+                    }
                 }
-
+                if (file.exists()) {
+                    builder.setNeutralButton("Data") { _, _ ->
+                        val contentUri =
+                            FileProvider.getUriForFile(this, "com.fbiego.dt78.fileprovider", file)
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "*/*"
+                        intent.putExtra(Intent.EXTRA_STREAM, contentUri)
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        intent.putExtra(Intent.EXTRA_TEXT, "Share data log")
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Send")
+                        startActivity(Intent.createChooser(intent, "Share"))
+                    }
+                }
+                builder.setNegativeButton(R.string.cancel, null)
+                builder.show()
 
                 true
             }

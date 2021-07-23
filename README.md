@@ -10,16 +10,16 @@
 
 ### App Install
 
-[`DT78-App-v3.3.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.3.apk)
+[`DT78-App-v3.4.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.4.apk)
 
-Released on `Thursday, 15 July 2021 06:00 Greenwich Mean Time (GMT)`
+Released on `06:35 Friday, 23 July 2021 Greenwich Mean Time (GMT)`
 
 [Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
->+ Improved data sync time
->+ Added Scheduled Measurement
->+ Added health data source (app, watch, hourly, scheduled)
+>+ Added Backup & Restore feature
+>+ Added Scheduled Reminder
+>+ Added French language
 
-> The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
+The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
 
 ### Translate
@@ -27,10 +27,10 @@ Released on `Thursday, 15 July 2021 06:00 Greenwich Mean Time (GMT)`
 [`DT78 app translations`](https://docs.google.com/spreadsheets/d/1crHcLgeA30y7-kiXHY95TBrc7-_znlTKFR2QMc66zT4/edit?usp=sharing) on Google Sheets
 | |  | |
 | --- | --- | --- |
-| Czech | English | German |
-| Greek | Indonesian | Italian |
-| Polish | Portuguese | Russian |
-|Spanish | Vietnamese | |
+| Czech | English | French |
+| German | Greek | Indonesian |
+| Italian | Polish | Portuguese |
+| Russian | Spanish | Vietnamese |
 
 #### Telegram
 
