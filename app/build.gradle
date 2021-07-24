@@ -36,9 +36,11 @@ android {
             if (project.hasProperty('STORE_FILE')) {
                 storeFile file(STORE_FILE)
                 storePassword STORE_PASSWORD
-                keyAlias = KEY_ALIAS
+                keyAlias KEY_ALIAS
                 keyPassword KEY_PASSWORD
             }
+            v1SigningEnabled true
+            v2SigningEnabled true
 
         }
     }

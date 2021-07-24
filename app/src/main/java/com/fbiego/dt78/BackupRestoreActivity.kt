@@ -159,7 +159,9 @@ class BackupRestoreActivity : AppCompatActivity() {
         files?.sortByDescending { it.lastModified() }
         files?.forEach {
             //val name = it.readLines()[0]
-            fileList.add(it.name)
+            if (it.extension == "txt") {
+                fileList.add(it.name)
+            }
         }
         fileAdapter?.update(fileList)
         textStatus.text = "${fileList.size} "+ getString(R.string.backup_count)
