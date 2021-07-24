@@ -11,10 +11,10 @@
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 35,
-      "versionName": "3.4",
+      "versionCode": 36,
+      "versionName": "3.4.1",
       "enabled": true,
-      "outputFile": "DT78-App-v3.4.apk"
+      "outputFile": "DT78-App-v3.4.1.apk"
     }
   ]
 }

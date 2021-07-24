@@ -43,10 +43,10 @@
 	<string name="capitalize">Přepnout velká písmena oznámení hodinek</string>
 	<string name="channel_desc">Oznámení o stavu připojení</string>
 	<string name="choose_app">Výbět aplikací</string>
-	<string name="choose_apps">Toque para seleccionar aplicaciones</string>
+	<string name="choose_apps">Klepnutím vyberte aplikace</string>
 	<string name="cm">cm</string>
 	<string name="colored">Barva ikony</string>
-	<string name="connect_set">reloj de conexión para configurar una alarma que suena una vez</string>
+	<string name="connect_set">Připojte hodinky a nastavte jednorázový budík</string>
 	<string name="connected">Připojeno</string>
 	<string name="connecting">Připojování</string>
 	<string name="contacts">Kontakty</string>
@@ -55,10 +55,10 @@
 	<string name="disconnected">Odpojen</string>
 	<string name="disconnecting">Odpojuji</string>
 	<string name="distance">Vzdálenost</string>
-	<string name="enable_lock">Habilitar la aplicación para bloquear el teléfono</string>
+	<string name="enable_lock">Povolte aplikaci uzamčení telefonu</string>
 	<string name="error_log">Chybový protokol</string>
 	<string name="everyday">Každý den</string>
-	<string name="filter_info">Pulse ENTER para añadir otro filtro. elemento de pulsación larga para borrar</string>
+	<string name="filter_info">Stiskněte klávesu Enter pro přidání dalšího filtru. Dlouhým stiskem položku smažte</string>
 	<string name="find_phone">Najdi telefon</string>
 	<string name="find_w">Najdi hodinky</string>
 	<string name="find_watch">Vyhledávám hodinky</string>
@@ -67,7 +67,7 @@
 	<string name="fr">Fr</string>
 	<string name="frequent">Časté kontakty</string>
 	<string name="fri">Pátek</string>
-	<string name="grant_notification">Parece que deben conceder por primera vez esta aplicación para acceder a las notificaciones. ¿Quieres continuar?</string>
+	<string name="grant_notification">Zdá se, že nejprve musíte této aplikaci udělit přístup k oznámení. Chcete pokračovat?</string>
 	<string name="health">Zdraví</string>
 	<string name="height">Výška</string>
 	<string name="hourly">Hodinová měření</string>
@@ -75,7 +75,7 @@
 	<string name="hrm">Tepová frekvence</string>
 	<string name="icon_set">Nastavení ikon</string>
 	<string name="imperial">Národní jednotky</string>
-	<string name="info_once">Πατήστε μία φορά για να επιλέξετε μια επαφή SOS \nLong πατήστε για να αφαιρέσετε μια επαφή \nΚάντε κλικ στο κουμπί συγχρονισμού παραπάνω στις επαφές αποστολή</string>
+	<string name="info_once">Jedním klepnutím vyberte kontakt SOS \n Dlouhým stisknutím kontakt odstraníte \n Kliknutím na tlačítko synchronizace výše nahrajete kontakty</string>
 	<string name="kcal">kcal</string>
 	<string name="kg">kg</string>
 	<string name="km">km</string>
@@ -95,7 +95,7 @@
 	<string name="mon_fri">Po - Pá</string>
 	<string name="no_errors">Žádné chyby k zobrazení</string>
 	<string name="not_connect">Hodinky nejsou připojeny</string>
-	<string name="not_disconnect"> wenn Gerät nicht verbunden ist</string>
+	<string name="not_disconnect">Zobrazovat upozornění, když zařízení ztratí spojení</string>
 	<string name="not_enable">Není povoleno</string>
 	<string name="not_list">Seznam oznámení</string>
 	<string name="not_paired">Zařízení není na seznamu? Spárujte telefon nejprve v nastavení Bluetooth</string>
@@ -115,10 +115,10 @@
 	<string name="reminder">Připomenutí</string>
 	<string name="remote_mac_address_default">00:00:00:00:00:00</string>
 	<string name="remote_mac_address">Vzdálená adresa MAC</string>
-	<string name="reset_info">Esto restablecerá todos los datos de vigilancia. ¿Estás seguro?</string>
+	<string name="reset_info">Vymaže všechna data hodinek. Jsi si jistý?</string>
 	<string name="reset_watch">Resetovat hodinky</string>
 	<string name="run_as_service">Spustit jako službu</string>
-	<string name="run_as_service_summary">Anwendung im Hintergrund weiter ausführen</string>
+	<string name="run_as_service_summary">Spustit tuto aplikaci jako službu, aniž byste ji nechali otevřenou</string>
 	<string name="sa">Sat</string>
 	<string name="sat">Sobota</string>
 	<string name="save">Uložit</string>
@@ -128,7 +128,7 @@
 	<string name="self_test_notif">Oznámení vlastního testu</string>
 	<string name="send">Poslat</string>
 	<string name="service_name">DT78 Service</string>
-	<string name="service_stopped"> wenn Änderungen vorgenommen werden. Gehen Sie zum Hauptbildschirm zurück</string>
+	<string name="service_stopped">Služba byla zastavena při změně předvoleb. Vraťte se na hlavní obrazovku a služba se automaticky restartuje.</string>
 	<string name="settings">Nastavení</string>
 	<string name="setup_desc">Nastavte mac adresu hodinek v nastavení</string>
 	<string name="setup_now">Nastavit nyní</string>
@@ -136,12 +136,12 @@
 	<string name="sleep">Čas spánku</string>
 	<string name="sp02">Kyslík v krvi</string>
 	<string name="start_at_boot">Spuštění při startu</string>
-	<string name="start_measure">Toque para iniciar la medición</string>
+	<string name="start_measure">Poklepáním spusťte měření</string>
 	<string name="start_service">Spuštění služby</string>
-	<string name="start_service_at_boot">Habilitado para iniciar automáticamente el servicio después de arrancar el sistema operativo hasta</string>
+	<string name="start_service_at_boot">Povolit automatické spuštění služby po spuštění operačního systému</string>
 	<string name="step_len">Délka kroku</string>
 	<string name="steps">Kroky</string>
-	<string name="stop_measure">Toque para la medición de parada</string>
+	<string name="stop_measure">Klepněte pro zastavení měření</string>
 	<string name="stop_service">Zastavení služby</string>
 	<string name="su">Su</string>
 	<string name="sun">Neděle</string>
@@ -150,12 +150,12 @@
 	<string name="target">Cílový počet kroků</string>
 	<string name="test">Test</string>
 	<string name="test_notification">Oznámení test</string>
-	<string name="test_notification_desc"> das mit dem Text angezeigt wird.</string>
+	<string name="test_notification_desc">Odešlete do hodinek oznámení o testu. Vyberte ikonu, která se zobrazí s textem</string>
 	<string name="th">Th</string>
 	<string name="thur">Čtvrtek</string>
 	<string name="tu">Tu</string>
 	<string name="tue">Úterý</string>
-	<string name="turn_on_bt">Por favor</string>
+	<string name="turn_on_bt">Prosím zapněte Bluetooth</string>
 	<string name="unable_load">Nelze načíst soubor chyb</string>
 	<string name="unable_sync">Nelze synchronizovat data</string>
 	<string name="units">Metrické jednotky</string>
@@ -253,7 +253,7 @@
 	<string name="start">Start</string>
 	<string name="end">Konec</string>
 	<string name="interval">Interval</string>
-	<string name="send_watch">Enviar valores a ver</string>
+	<string name="send_watch">Odeslat hodnoty sledovat</string>
 	<string name="scheduled">Plánované opatření</string>
 	<string name="hours">Hodiny</string>
 	<string name="waiting">Čekání</string>
@@ -266,7 +266,7 @@
 	<string name="m_disconnect">Hodinky byly odpojeny</string>
 	<string name="m_failed">Opakování se nezdařilo</string>
 	<string name="m_no_data">Žádná data</string>
-	<string name="zero_values">Empfangene Nullwerte. Bitte tragen Sie die Uhr richtig</string>
+	<string name="zero_values">Přijaté nulové hodnoty. Používejte prosím hodinky správně</string>
 	<string name="watch_charging">Hodinky se nabíjí</string>
 	<string name="bakup_restore">Obnovení zálohy</string>
 	<string name="backup_info">Zálohovací soubory jsou uloženy ve složce DT78 na interním úložišti</string>
@@ -285,7 +285,7 @@
 	<string name="backup_count">Zálohování nalezeno</string>
 	<string name="load_error">Nelze načíst soubor obnovení</string>
 	<string name="text_hint">text zde</string>
-	<string name="reminder_hint"> um die Erinnerung zu aktivieren</string>
+	<string name="reminder_hint">Chcete-li aktivovat připomenutí, klikněte na vnější kroužek</string>
 	<string name="watch_full_charge">Sledujte baterii je plně nabitá</string>
 	<string-array name="alarm_options">
 		<item>Jednou</item>

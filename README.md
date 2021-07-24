@@ -10,7 +10,7 @@
 
 ### App Install
 
-[`DT78-App-v3.4.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.4.apk)
+[`DT78-App-v3.4.1.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.4.1.apk)
 
 Released on `06:35 Friday, 23 July 2021 Greenwich Mean Time (GMT)`
 
@@ -21,6 +21,7 @@ Released on `06:35 Friday, 23 July 2021 Greenwich Mean Time (GMT)`
 
 The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
+[`Want to downgrade?`](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/downgrade.md)
 
 ### Translate
 

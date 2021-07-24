@@ -46,7 +46,7 @@
 	<string name="choose_apps">Bấm để chọn ứng dụng</string>
 	<string name="cm">cm</string>
 	<string name="colored">Biểu tượng</string>
-	<string name="connect_set">Hubungkan jam tangan untuk menyetel alarm satu kali</string>
+	<string name="connect_set">Kết nối đồng hồ để thiết lập một báo thức</string>
 	<string name="connected">Đã kết nối tới</string>
 	<string name="connecting">Đang kết nối tới</string>
 	<string name="contacts">Danh bạ</string>
@@ -58,7 +58,7 @@
 	<string name="enable_lock">Bật ứng dụng để khóa điện thoại</string>
 	<string name="error_log">nhật ký lỗi </string>
 	<string name="everyday">Hằng ngày</string>
-	<string name="filter_info">Tekan enter untuk menambahkan filter lain. Tekan lama item untuk menghapus</string>
+	<string name="filter_info">Nhấn Enter để thêm bộ lọc khác. Nhấn và giữ để xóa</string>
 	<string name="find_phone">Tìm điện thoại</string>
 	<string name="find_w">Tìm đồng hồ</string>
 	<string name="find_watch">Đang tìm kiếm đồng hồ</string>
@@ -67,7 +67,7 @@
 	<string name="fr">F</string>
 	<string name="frequent">Liên lạc thường xuyên</string>
 	<string name="fri">Thứ 6</string>
-	<string name="grant_notification">Sepertinya Anda harus memberikan aplikasi ini terlebih dahulu untuk mengakses notifikasi. Apakah Anda ingin melanjutkan?</string>
+	<string name="grant_notification">Trước tiên bạn phải cấp phép cho ứng dụng này quyền truy cập thông báo. Bạn có muốn tiếp tục?</string>
 	<string name="health">Sức khỏe</string>
 	<string name="height">Chiều cao</string>
 	<string name="hourly">Đo theo giờ</string>
@@ -75,7 +75,7 @@
 	<string name="hrm">Nhịp tim</string>
 	<string name="icon_set">Set Biểu tượng</string>
 	<string name="imperial">đơn vị Imperial</string>
-	<string name="info_once"> чтобы удалить контакт\nНажмите кнопку синхронизации выше</string>
+	<string name="info_once">Nhấn một lần để chọn một liên hệ SOS \nNhấn lâu để xóa một liên hệ \nNhấp vào nút đồng bộ ở trên để tải lên các liên hệ</string>
 	<string name="kcal">kcal</string>
 	<string name="kg">Kilôgam</string>
 	<string name="km">km</string>
@@ -95,7 +95,7 @@
 	<string name="mon_fri">Thứ 2 ~ Thứ 6</string>
 	<string name="no_errors">Không có lỗi để hiển thị</string>
 	<string name="not_connect">Đồng hồ không được kết nối</string>
-	<string name="not_disconnect">Show notification when the device looses connection</string>
+	<string name="not_disconnect">Hiển thị thông báo khi thiết bị mất kết nối</string>
 	<string name="not_enable">Không được kích hoạt</string>
 	<string name="not_list">Danh sách thông báo</string>
 	<string name="not_paired">Thiết bị không có trong danh sách? Ghép nối trong cài đặt BT của điện thoại trước tiên</string>
@@ -118,7 +118,7 @@
 	<string name="reset_info">Điều này sẽ đặt lại tất cả dữ liệu đồng hồ. Bạn có chắc không?</string>
 	<string name="reset_watch">Đặt lại đồng hồ</string>
 	<string name="run_as_service">Chạy như một dịch vụ</string>
-	<string name="run_as_service_summary">Jalankan aplikasi ini sebagai layanan tanpa membiarkan aplikasi tetap terbuka</string>
+	<string name="run_as_service_summary">Chạy ứng dụng này như một dịch vụ mà không cần giữ mở ứng dụng</string>
 	<string name="sa">S</string>
 	<string name="sat">Thứ 7</string>
 	<string name="save">Lưu</string>
@@ -128,7 +128,7 @@
 	<string name="self_test_notif">tự kiểm tra thông báo </string>
 	<string name="send">Gửi</string>
 	<string name="service_name">Dịch vụ DT78</string>
-	<string name="service_stopped">Service stopped when changing preferences. Go back to the main screen to restart the service automatically.</string>
+	<string name="service_stopped">Dịch vụ dừng lại khi thay đổi sở thích. Quay trở lại màn hình chính để khởi động lại dịch vụ tự động.</string>
 	<string name="settings">Cài đặt</string>
 	<string name="setup_desc">Cài đặt đồng hồ địa chỉ mac trong cài đặt</string>
 	<string name="setup_now">Cài đặt Bây giờ</string>
@@ -136,12 +136,12 @@
 	<string name="sleep">Giờ ngủ</string>
 	<string name="sp02">Oxy trong máu</string>
 	<string name="start_at_boot">Khởi chạy lúc khởi động</string>
-	<string name="start_measure">Ketuk untuk memulai pengukuran</string>
+	<string name="start_measure">Bấm để bắt đầu đo lường</string>
 	<string name="start_service">Bắt đầu dịch vụ </string>
 	<string name="start_service_at_boot">Kích hoạt tính năng tự động bắt đầu dịch vụ sau khi hệ điều hành khởi động lên</string>
 	<string name="step_len">Độ dài bước</string>
 	<string name="steps">Số bước</string>
-	<string name="stop_measure">Ketuk untuk menghentikan pengukuran</string>
+	<string name="stop_measure">Bấm để  dừng đo lường</string>
 	<string name="stop_service">Dịch vụ đang dừng</string>
 	<string name="su">S</string>
 	<string name="sun">Chủ nhật</string>
@@ -150,12 +150,12 @@
 	<string name="target">Số bước mục tiêu</string>
 	<string name="test">Kiểm tra</string>
 	<string name="test_notification">Thử gửi thông báo </string>
-	<string name="test_notification_desc">Send a test notification to the watch. Select an icon that will be displayed with the text</string>
+	<string name="test_notification_desc">Thử gửi thông báo tới đồng hồ. Chọn một biểu tượng sẽ được hiển thị với văn bản</string>
 	<string name="th">T</string>
 	<string name="thur">Thứ 5</string>
 	<string name="tu">T</string>
 	<string name="tue">Thứ 3</string>
-	<string name="turn_on_bt">Harap aktifkan Bluetooth</string>
+	<string name="turn_on_bt">Hãy bật Bluetooth</string>
 	<string name="unable_load">Không thể tải tập tin lỗi</string>
 	<string name="unable_sync">Không thể đồng bộ hóa dữ liệu</string>
 	<string name="units">Đơn vị hệ mét</string>
@@ -266,7 +266,7 @@
 	<string name="m_disconnect">Đồng hồ đã bị ngắt kết nối</string>
 	<string name="m_failed">Thử lại thất bại</string>
 	<string name="m_no_data">Không có dữ liệu</string>
-	<string name="zero_values">Menerima nilai nol. Silakan pakai arloji dengan benar</string>
+	<string name="zero_values">Nhận được giá trị bằng không. Vui lòng đeo đồng hồ chính xác</string>
 	<string name="watch_charging">Đồng hồ đang sạc</string>
 	<string name="bakup_restore">Phục hồi dữ liệu đã lưu</string>
 	<string name="backup_info">Các tệp sao lưu được lưu trữ trong thư mục DT78 trên bộ nhớ trong</string>
@@ -285,7 +285,7 @@
 	<string name="backup_count">Sao lưu được tìm thấy</string>
 	<string name="load_error">Không thể tải tệp khôi phục</string>
 	<string name="text_hint">Văn bản của bạn ở đây</string>
-	<string name="reminder_hint">Klik pada cincin luar untuk mengaktifkan pengingat</string>
+	<string name="reminder_hint">Nhấp vào vòng ngoài để kích hoạt lời nhắc nhở</string>
 	<string name="watch_full_charge">Đồng hồ pin được sạc đầy</string>
 	<string-array name="alarm_options">
 		<item>Một lần</item>

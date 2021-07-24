@@ -43,10 +43,10 @@
 	<string name="capitalize">Notifiche orologio in maiuscolo</string>
 	<string name="channel_desc">Notifiche stato connessione</string>
 	<string name="choose_app">Scegli le app</string>
-	<string name="choose_apps">Klepnutím vyberte aplikace</string>
+	<string name="choose_apps">Tocca per selezionare le app</string>
 	<string name="cm">cm</string>
 	<string name="colored">Icone colorate</string>
-	<string name="connect_set">Připojte hodinky a nastavte jednorázový budík</string>
+	<string name="connect_set">Collega l\'orologio per impostare una sveglia</string>
 	<string name="connected">Collegato a</string>
 	<string name="connecting">Collegando a</string>
 	<string name="contacts">Contatti</string>
@@ -55,10 +55,10 @@
 	<string name="disconnected">Disconnesso da</string>
 	<string name="disconnecting">Disconnettendo da</string>
 	<string name="distance">distanza</string>
-	<string name="enable_lock">Povolte aplikaci uzamčení telefonu</string>
+	<string name="enable_lock">Consenti all\'app di bloccare il telefono</string>
 	<string name="error_log">Log degli errori</string>
 	<string name="everyday">Ogni giorno</string>
-	<string name="filter_info">Stiskněte klávesu Enter pro přidání dalšího filtru. Dlouhým stiskem položku smažte</string>
+	<string name="filter_info">Premi invio per aggiungere un altro filtro. Premi a lungo per cancellare</string>
 	<string name="find_phone">Trova il telefono</string>
 	<string name="find_w">Trova l\'orologio</string>
 	<string name="find_watch">Ricerca orologio in corso</string>
@@ -67,7 +67,7 @@
 	<string name="fr">V</string>
 	<string name="frequent">Contatti preferiti</string>
 	<string name="fri">Ven</string>
-	<string name="grant_notification">Zdá se</string>
+	<string name="grant_notification">Sembra che tu debba prima consentire a questa app di accedere alle notifiche. Vuoi continuare?</string>
 	<string name="health">Salute</string>
 	<string name="height">Altezza</string>
 	<string name="hourly">Misura ogni ora</string>
@@ -75,7 +75,7 @@
 	<string name="hrm">Battiti cuore</string>
 	<string name="icon_set">Set icone</string>
 	<string name="imperial">Unità di misura imperiali</string>
-	<string name="info_once">Einmal tippen</string>
+	<string name="info_once">Tocca una volta per selezionare il contatto SOS\nPremi a lungo per rimuovere un contatto\nPremi il bottone di sincronizzazione in alto per caricare i contatti</string>
 	<string name="kcal">kcal</string>
 	<string name="kg">kg</string>
 	<string name="km">km</string>
@@ -95,7 +95,7 @@
 	<string name="mon_fri">Lun - Ven</string>
 	<string name="no_errors">Nessun errore da visualizzare</string>
 	<string name="not_connect">Orologio non connesso</string>
-	<string name="not_disconnect">Mostrar una notificación cuando el dispositivo pierde la conexión</string>
+	<string name="not_disconnect">Mostra una notifica quando il dispositivo si disconnette</string>
 	<string name="not_enable">Non abilitato</string>
 	<string name="not_list">Lista notifiche</string>
 	<string name="not_paired">Il dispositivo non è presente nella lista? Associa prima nelle impostazioni Bluetooth del telefono</string>
@@ -115,10 +115,10 @@
 	<string name="reminder">Promemoria</string>
 	<string name="remote_mac_address_default">00:00:00:00:00:00</string>
 	<string name="remote_mac_address">Indirizzo MAC remoto</string>
-	<string name="reset_info">Vymaže všechna data hodinek. Jsi si jistý?</string>
+	<string name="reset_info">Questa operazione eliminerà tutti i dati dell\'orologio. Sei sicuro?</string>
 	<string name="reset_watch">Resetta l\'orologio</string>
 	<string name="run_as_service">Esegui come servizio</string>
-	<string name="run_as_service_summary">Ejecutar esta aplicación como un servicio sin mantener abierta la aplicación</string>
+	<string name="run_as_service_summary">Esegui questa app come servizio in secondo piano</string>
 	<string name="sa">S</string>
 	<string name="sat">Sab</string>
 	<string name="save">Salva</string>
@@ -128,7 +128,7 @@
 	<string name="self_test_notif">Notifica test automatico</string>
 	<string name="send">Invia</string>
 	<string name="service_name">Servizio DT78</string>
-	<string name="service_stopped"> um den Dienst automatisch neu zu starten.</string>
+	<string name="service_stopped">Il servizio si è arrestato cambiando le impostazioni. Torna alla schermata principale per riavviare automaticamente il servizio.</string>
 	<string name="settings">Impostazioni</string>
 	<string name="setup_desc">Imposta l\'indirizzo mac dell\'orologio nelle impostazioni</string>
 	<string name="setup_now">Imposta Adesso</string>
@@ -136,12 +136,12 @@
 	<string name="sleep">Modalità riposo</string>
 	<string name="sp02">Livello ossigeno del sangue</string>
 	<string name="start_at_boot">Avvia all\'accensione</string>
-	<string name="start_measure">Poklepáním spusťte měření</string>
+	<string name="start_measure">Tocca per avviere la misura</string>
 	<string name="start_service">Avviamento servizio</string>
-	<string name="start_service_at_boot">Povolit automatické spuštění služby po spuštění operačního systému</string>
+	<string name="start_service_at_boot">Abilita per avviare automaticamente il servizio al riavvio del sistema</string>
 	<string name="step_len">Lunghezza del passo</string>
 	<string name="steps">passi</string>
-	<string name="stop_measure">Klepněte pro zastavení měření</string>
+	<string name="stop_measure">Tocca per interrompere la misura</string>
 	<string name="stop_service">Arrestando il servizio</string>
 	<string name="su">D</string>
 	<string name="sun">Dom</string>
@@ -150,12 +150,12 @@
 	<string name="target">Obiettivo passi</string>
 	<string name="test">Test</string>
 	<string name="test_notification">Test notifica</string>
-	<string name="test_notification_desc">Enviar una notificación de prueba al reloj. Seleccione un icono que se mostrará con el texto</string>
+	<string name="test_notification_desc">Invia una notifica di test all\'orologio. Selezione l\'icona che verrà visualizzata con il testo</string>
 	<string name="th">G</string>
 	<string name="thur">Gio</string>
 	<string name="tu">M</string>
 	<string name="tue">Mar</string>
-	<string name="turn_on_bt"> active Bluetooth</string>
+	<string name="turn_on_bt">Per favore avvia il Bluetooth</string>
 	<string name="unable_load">Impossibile trovare il file di errore</string>
 	<string name="unable_sync">Impossibile sincronizzare i dati</string>
 	<string name="units">Unità metriche</string>
@@ -253,7 +253,7 @@
 	<string name="start">Inizio</string>
 	<string name="end">Fine</string>
 	<string name="interval">Intervallo</string>
-	<string name="send_watch">Odeslat hodnoty sledovat</string>
+	<string name="send_watch">Invia valori da guardare</string>
 	<string name="scheduled">Misura programmata</string>
 	<string name="hours">Ore</string>
 	<string name="waiting">In attesa</string>
@@ -266,7 +266,7 @@
 	<string name="m_disconnect">L\'orologio è stato disconnesso</string>
 	<string name="m_failed">Riprova non riuscito</string>
 	<string name="m_no_data">Nessun dato</string>
-	<string name="zero_values">Recibió los valores cero. Por favor</string>
+	<string name="zero_values">Ricevuto valori zero. Si prega di indossare l\'orologio correttamente</string>
 	<string name="watch_charging">L\'orologio sta caricando</string>
 	<string name="bakup_restore">Ripristinare il backup</string>
 	<string name="backup_info">I file di backup sono memorizzati nella cartella DT78 sullo spazio di archiviazione interno</string>
@@ -285,7 +285,7 @@
 	<string name="backup_count">Backup trovati</string>
 	<string name="load_error">Impossibile caricare il file di ripristino</string>
 	<string name="text_hint">il tuo testo qui</string>
-	<string name="reminder_hint">Haga clic en el anillo exterior para activar el recordatorio</string>
+	<string name="reminder_hint">Fare clic sull\'anello esterno per attivare il promemoria</string>
 	<string name="watch_full_charge">Guarda la batteria è completamente carica</string>
 	<string-array name="alarm_options">
 		<item>Una volta</item>

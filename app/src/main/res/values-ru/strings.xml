@@ -46,7 +46,7 @@
 	<string name="choose_apps">Нажмите для выбора приложений</string>
 	<string name="cm">см</string>
 	<string name="colored">Раскрасить значки</string>
-	<string name="connect_set">Подключите часы</string>
+	<string name="connect_set">Подключите часы, чтобы установить одноразовый будильник</string>
 	<string name="connected">Подключено к</string>
 	<string name="connecting">Подключение к</string>
 	<string name="contacts">Контакты</string>
@@ -58,7 +58,7 @@
 	<string name="enable_lock">Разрешить приложению блокировать телефон</string>
 	<string name="error_log">Журнал Ошибок</string>
 	<string name="everyday">Каждый день</string>
-	<string name="filter_info">Нажмите Enter</string>
+	<string name="filter_info">Нажмите Enter, чтобы добавить еще один фильтр. Долгое нажатие для удаления</string>
 	<string name="find_phone">Найти телефон</string>
 	<string name="find_w">Найти часы</string>
 	<string name="find_watch">Ищу часы</string>
@@ -67,7 +67,7 @@
 	<string name="fr">Пт</string>
 	<string name="frequent">Частые контакты</string>
 	<string name="fri">Пт</string>
-	<string name="grant_notification">Похоже</string>
+	<string name="grant_notification">Похоже, вы должны сначала предоставить этому приложению доступ к уведомлениям. Вы хотите продолжить?</string>
 	<string name="health">Здоровье</string>
 	<string name="height">Рост</string>
 	<string name="hourly">Ежечасное измерение</string>
@@ -75,7 +75,7 @@
 	<string name="hrm">Пульс</string>
 	<string name="icon_set">Набор иконок</string>
 	<string name="imperial">Имперские единицы</string>
-	<string name="info_once">Нажмите один раз</string>
+	<string name="info_once">Нажмите один раз, чтобы выбрать контакт SOS\nНажмите и удерживайте, чтобы удалить контакт\nНажмите кнопку синхронизации выше, чтобы загрузить контакты</string>
 	<string name="kcal">ккал</string>
 	<string name="kg">кг</string>
 	<string name="km">км</string>
@@ -95,7 +95,7 @@
 	<string name="mon_fri">Пн - Пт</string>
 	<string name="no_errors">Нет ошибок для отображения</string>
 	<string name="not_connect">Часы не подключены</string>
-	<string name="not_disconnect">Показывать уведомление</string>
+	<string name="not_disconnect">Показывать уведомление, когда связь с часами потеряна</string>
 	<string name="not_enable">Не включено</string>
 	<string name="not_list">Список уведомлений</string>
 	<string name="not_paired">Устройства нет в списке? Сначала выполните сопряжение в настройках Bluetooth телефона</string>
@@ -118,7 +118,7 @@
 	<string name="reset_info">Это сбросит все данные часов. Вы уверены?</string>
 	<string name="reset_watch">Сбросить часы</string>
 	<string name="run_as_service">Запуск как сервис</string>
-	<string name="run_as_service_summary">Запустите это приложение как службу</string>
+	<string name="run_as_service_summary">Запустите это приложение как службу, не открывая приложение</string>
 	<string name="sa">Сб</string>
 	<string name="sat">Сб</string>
 	<string name="save">Сохранить</string>
@@ -128,7 +128,7 @@
 	<string name="self_test_notif">Уведомление о самодиагностике</string>
 	<string name="send">Отправить</string>
 	<string name="service_name">DT78 Сервис</string>
-	<string name="service_stopped">Служба остановлена при изменении настроек. Вернитесь на главный экран</string>
+	<string name="service_stopped">Служба остановлена при изменении настроек. Вернитесь на главный экран, чтобы автоматически перезапустить службу.</string>
 	<string name="settings">Настройки</string>
 	<string name="setup_desc">Настроить mac-адрес часов в настройках</string>
 	<string name="setup_now">Настроить сейчас</string>
@@ -136,12 +136,12 @@
 	<string name="sleep">Время сна</string>
 	<string name="sp02">Оксигенация</string>
 	<string name="start_at_boot">Запуск при загрузке</string>
-	<string name="start_measure">Нажмите</string>
+	<string name="start_measure">Нажмите, чтобы начать измерение</string>
 	<string name="start_service">Запуск службы</string>
 	<string name="start_service_at_boot">Включите автоматический запуск службы после загрузки операционной системы.</string>
 	<string name="step_len">Длина шага</string>
 	<string name="steps">шаги</string>
-	<string name="stop_measure">Нажмите</string>
+	<string name="stop_measure">Нажмите, чтобы остановить измерение</string>
 	<string name="stop_service">Остановка службы</string>
 	<string name="su">Вс</string>
 	<string name="sun">Вс</string>
@@ -150,12 +150,12 @@
 	<string name="target">Целевые шаги</string>
 	<string name="test">Тест</string>
 	<string name="test_notification">Тест Уведомлении</string>
-	<string name="test_notification_desc">Отправьте тестовое уведомление на часы. Выберите значок</string>
+	<string name="test_notification_desc">Отправьте тестовое уведомление на часы. Выберите значок, который будет отображаться с текстом</string>
 	<string name="th">Чт</string>
 	<string name="thur">Чт</string>
 	<string name="tu">Вт</string>
 	<string name="tue">Вт</string>
-	<string name="turn_on_bt">Пожалуйста</string>
+	<string name="turn_on_bt">Пожалуйста, включите Bluetooth</string>
 	<string name="unable_load">Невозможно загрузить файл ошибок</string>
 	<string name="unable_sync">Невозможно синхронизировать данные</string>
 	<string name="units">Метрические единицы</string>
@@ -266,7 +266,7 @@
 	<string name="m_disconnect">Часы были отключены</string>
 	<string name="m_failed">Повторите неудачу</string>
 	<string name="m_no_data">Нет данных</string>
-	<string name="zero_values">Получил нулевые значения. Пожалуйста</string>
+	<string name="zero_values">Получил нулевые значения. Пожалуйста, носите часы правильно</string>
 	<string name="watch_charging">Часы заряжают</string>
 	<string name="bakup_restore">Восстановления резервной копии</string>
 	<string name="backup_info">Файлы резервных копий хранятся в папке DT78 на внутреннем хранилище</string>
@@ -285,7 +285,7 @@
 	<string name="backup_count">Созданные резервные копии</string>
 	<string name="load_error">Не удалось загрузить файл восстановления</string>
 	<string name="text_hint">Здесь ваш текст</string>
-	<string name="reminder_hint">Нажмите на внешнее кольцо</string>
+	<string name="reminder_hint">Нажмите на внешнее кольцо, чтобы активировать напоминание</string>
 	<string name="watch_full_charge">Часы батареи полностью заряжены</string>
 	<string-array name="alarm_options">
 		<item>Один раз</item>

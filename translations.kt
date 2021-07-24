@@ -1,6 +1,6 @@
 import java.io.File
 
-const val SEPARATOR = ","
+const val SEPARATOR = "\t"
 
 const val license = "<!--\n" +
         "  ~\n" +

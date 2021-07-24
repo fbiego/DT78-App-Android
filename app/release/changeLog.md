@@ -1,5 +1,9 @@
 # ChangeLog
 
+Find other version here [`dt78_apps`](https://drive.google.com/drive/folders/1TNZRSj1136R-gQsKzKYm5xz7v1q2ppmm)
+
+[`Want to downgrade?`](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/downgrade.md)
+
 ## 3.4
 + Added Backup & Restore feature
 + Added Scheduled Reminder
