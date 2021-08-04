@@ -41,7 +41,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
 
     companion object {
         private const val DATABASE_NAME = "watch_data"
-        private const val DATABASE_VERSION = 8
+        private const val DATABASE_VERSION = 9
         const val STEPS_TABLE = "stepsData"
         const val HRM_TABLE = "heartRate"
         const val BP_TABLE = "bloodPressure"
@@ -53,6 +53,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         const val CONTACTS_TABLE = "contactsData"
         const val ERROR_TABLE = "errorData"
         const val REMINDER_TABLE = "reminderData"
+        const val BATTERY_TABLE = "batteryData"
 
         const val COLUMN_ID = "_id"
         const val COLUMN_YEAR = "year"
@@ -82,6 +83,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         const val COLUMN_HEIGHT = "height"
         const val COLUMN_WEIGHT = "weight"
         const val COLUMN_TEXT = "text"
+        const val COLUMN_LEVEL = "level"
     }
     override fun onCreate(p0: SQLiteDatabase?) {
         val createStepsTable = ("CREATE TABLE " + STEPS_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
@@ -110,6 +112,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
                 + "$COLUMN_YEAR INTEGER, $COLUMN_MONTH INTEGER, $COLUMN_DAY  INTEGER, $COLUMN_HOUR INTEGER,"
                 + "$COLUMN_MIN  INTEGER, $COLUMN_SEC  INTEGER, $COLUMN_ERROR  INTEGER, $COLUMN_STATE INTEGER)"  )
         val createReminderTable = ("CREATE TABLE $REMINDER_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_HOUR INTEGER, $COLUMN_MIN INTEGER, $COLUMN_TYPE INTEGER, $COLUMN_STATE INTEGER, $COLUMN_TEXT TEXT)")
+        val createBatteryTable = ("CREATE TABLE $BATTERY_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_LEVEL INTEGER, $COLUMN_TYPE INTEGER)")
         p0?.execSQL(createStepsTable)
         p0?.execSQL(createHrmTable)
         p0?.execSQL(createBpTable)
@@ -121,6 +124,7 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         p0?.execSQL(createContactsTable)
         p0?.execSQL(createErrorTable)
         p0?.execSQL(createReminderTable)
+        p0?.execSQL(createBatteryTable)
         for (al in 0 .. 7){
             p0?.execSQL("INSERT INTO $ALARM_TABLE ($COLUMN_ID, $COLUMN_STATE, $COLUMN_HOUR, $COLUMN_MIN, $COLUMN_REPEAT ) VALUES($al, 0, 0, 0,0)")
         }
@@ -145,12 +149,14 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
                 "$COLUMN_DAY  INTEGER, $COLUMN_HOUR INTEGER, $COLUMN_MIN  INTEGER, $COLUMN_SEC  INTEGER, $COLUMN_ERROR  INTEGER, $COLUMN_STATE INTEGER)" )
 
         val createReminderTable = ("CREATE TABLE IF NOT EXISTS $REMINDER_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_HOUR INTEGER, $COLUMN_MIN INTEGER, $COLUMN_TYPE INTEGER, $COLUMN_STATE INTEGER, $COLUMN_TEXT TEXT)")
+        val createBatteryTable = ("CREATE TABLE IF NOT EXISTS $BATTERY_TABLE ($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_LEVEL INTEGER, $COLUMN_TYPE INTEGER)")
 
-        if (p1 < 7){
+        if (p1 < 7 && p2 >= 7){
             p0?.execSQL("ALTER TABLE $HRM_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
             p0?.execSQL("ALTER TABLE $SP02_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
             p0?.execSQL("ALTER TABLE $BP_TABLE ADD COLUMN $COLUMN_TYPE INTEGER DEFAULT $H_OLD")
         }
+
 
         p0?.execSQL(createAlarmTable)
         p0?.execSQL(createUserTable)
@@ -158,10 +164,38 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         p0?.execSQL(createContactsTable)
         p0?.execSQL(createErrorTable)
         p0?.execSQL(createReminderTable)
+        p0?.execSQL(createBatteryTable)
         for (rm in 1..5){
             val text = "Reminder $rm"
-            p0?.execSQL("INSERT INTO $REMINDER_TABLE ($COLUMN_ID, $COLUMN_HOUR, $COLUMN_MIN, $COLUMN_TYPE, $COLUMN_STATE, $COLUMN_TEXT) VALUES($rm, 0, 0, 0, 0, '$text')")
+            p0?.execSQL("INSERT OR IGNORE INTO $REMINDER_TABLE ($COLUMN_ID, $COLUMN_HOUR, $COLUMN_MIN, $COLUMN_TYPE, $COLUMN_STATE, $COLUMN_TEXT) VALUES($rm, 0, 0, 0, 0, '$text')")
         }
+    }
+
+
+    fun insertBattery(batteryData: BatteryData){
+        val values = ContentValues()
+        values.put(COLUMN_ID, batteryData.time)
+        values.put(COLUMN_LEVEL, batteryData.level)
+        values.put(COLUMN_TYPE, batteryData.type)
+
+        val db = this.writableDatabase
+        db.replace(BATTERY_TABLE, null, values)
+        db.close()
+    }
+
+    fun getBattery(): ArrayList<BatteryData>{
+        val qr = ArrayList<BatteryData>()
+        val query = "SELECT * FROM $BATTERY_TABLE"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            qr.add(BatteryData(cursor.getLong(0), cursor.getInt(1), cursor.getInt(2)))
+        }
+        cursor.close()
+        db.close()
+        return qr
+
     }
 
     fun insertSteps(stepsData: StepsData){

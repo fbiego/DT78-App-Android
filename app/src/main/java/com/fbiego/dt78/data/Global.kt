@@ -69,6 +69,9 @@ const val DAY =     0
 const val WEEK =    1
 const val MONTH =   2
 
+const val DISCHARGING = 0
+const val CHARGING = 1
+const val FULLY_CHARGED = 2
 const val SERVICE_STARTED =     0
 const val SERVICE_STOPPED =     1
 const val BLUETOOTH_OFF =       2
@@ -94,6 +97,12 @@ const val H_WATCH = 1     //measurement from watch
 const val H_APP = 2       //measurement from app
 const val H_HOURLY = 3    //measurement from hourly data (received with hourly steps)
 const val H_TIMED = 4     //measurement from scheduled interval
+
+class BatteryData(
+    var time: Long,
+    var level: Int,
+    var type: Int
+)
 
 fun healthIcon(type: Int): Int{
     return when(type){

@@ -1139,6 +1139,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         Timber.w("Data received")
 
         val dbHandler = MyDBHandler(this, null, null, 1)
+        val calendar = Calendar.getInstance(Locale.getDefault())
 
         if (data.size() == 5 && data.getByte(0) == (0xAD).toByte()){
             val pos = data.getByte(3)!!.toPInt()
@@ -1163,9 +1164,13 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
             if (data.size() == 8) {
                 if (data.getByte(4) == (0x91).toByte()) {
                     bat = data.getByte(7)!!.toPInt()
-                    watchCharge = (data.getByte(6)!!.toPInt() == 1)
+                    val type = data.getByte(6)!!.toPInt()
+                    watchCharge = (type == 1)
+
                     Timber.w("Battery: $bat%")
                     notify(getString(R.string.connected) + " $deviceName", false, bat, SERVICE_ID)
+
+                    dbHandler.insertBattery(BatteryData(calendar.timeInMillis, bat, type))
 
                     if (data.getByte(6) == (0x02).toByte() && data.getByte(7) == (0x64).toByte()){
                         notify(getString(R.string.watch_full_charge), true, -1, BATTERY_ID)
