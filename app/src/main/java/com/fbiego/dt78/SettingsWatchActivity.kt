@@ -142,14 +142,15 @@ class SettingsWatchActivity : AppCompatActivity() {
 
 
         val names = arrayListOf(getString(R.string.hr12_sys), getString(R.string.measurement), unit(setPref.getBoolean(ST.PREF_UNITS, false), this),
-            getString(R.string.watch_type)+Watch(dt78).name+"\t\t"+FG.watchVersion, getString(R.string.watch_lang), getString(R.string.reset_watch))
+            getString(R.string.watch_type)+Watch(dt78).name+"\t\t"+FG.watchVersion, "Watch Battery", getString(R.string.watch_lang), getString(R.string.reset_watch))
 
         var units = setPref.getBoolean(ST.PREF_UNITS, false)
 
         //setPref.getBoolean(ST.PREF_HOURLY, false)
         val states : ArrayList<Boolean?> = arrayListOf( !hr24,
-            null, null, null, null, null)
-        val icons = arrayListOf(R.drawable.ic_12hr, R.drawable.ic_hourly, R.drawable.ic_klm, R.drawable.ic_watch,R.drawable.ic_lang, R.drawable.ic_reset)
+            null, null, null, null, null, null)
+        val icons = arrayListOf(R.drawable.ic_12hr, R.drawable.ic_hourly, R.drawable.ic_klm, R.drawable.ic_watch,
+            R.drawable.ic_bat80w ,R.drawable.ic_lang, R.drawable.ic_reset)
 
         if (Watch(dt78).rtw) {
             names.add(getString(R.string.raise_wake))
@@ -229,6 +230,10 @@ class SettingsWatchActivity : AppCompatActivity() {
 
                 }
                 4 -> {
+                    startActivity(Intent(this, BatteryActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                }
+                5 -> {
 
                     val outer = LayoutInflater.from(this).inflate(R.layout.wheel_view, null)
                     val wheelView = outer.findViewById<WheelView>(R.id.wheel_view_wv)
@@ -271,7 +276,7 @@ class SettingsWatchActivity : AppCompatActivity() {
                         .show()
 
                 }
-                5 -> {
+                6 -> {
                     if (dt78 != ESP32) {
                         val alert = AlertDialog.Builder(this)
                         alert.setTitle(getString(R.string.reset_watch))
@@ -297,14 +302,14 @@ class SettingsWatchActivity : AppCompatActivity() {
                     }
 
                 }
-                6 -> {
+                7 -> {
                     states[i] = !states[i]!!
                     editor.putBoolean(ST.PREF_RTW, states[i]!!)
 
                     val rtw = byteArrayOfInts(0xAB, 0x00, 0x04, 0xFF, 0x77, 0x80, if (states[i]!!) 1 else 0)
                     FG().sendData(rtw)
                 }
-                7 -> {
+                8 -> {
                     startActivity(Intent(this, ContactsActivity::class.java))
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }

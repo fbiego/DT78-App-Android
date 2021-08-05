@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".BatteryActivity"></activity>
         <activity
             android:name=".BackupRestoreActivity"
             android:label="@string/bakup_restore" />
