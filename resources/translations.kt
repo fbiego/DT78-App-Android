@@ -52,7 +52,7 @@ fun generate(strings: List<String>){
 	
     println("Languages: $lang")
 	
-	val dir = File("app/src/main/res")
+	val dir = File("../app/src/main/res")
 	if (!dir.exists())
         dir.mkdirs()
 		println("Created output folder")

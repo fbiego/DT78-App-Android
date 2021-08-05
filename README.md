@@ -6,7 +6,7 @@
 + [`Notification test`](https://youtu.be/2429i_2OC2A)
 + [`DT66 Customized watchface`](https://youtu.be/CJ8nM-tDxSM)
 
-[`Tested Watches`](https://github.com/fbiego/DT78-App-Android/blob/dev/watches.md)
+[`Tested Watches`](https://github.com/fbiego/DT78-App-Android/blob/dev/resources/watches.md)
 
 ### App Install
 
@@ -35,15 +35,15 @@ The camera may not work on some devices and on others only the back camera may w
 
 #### Telegram
 
-[<img src="telegram_.png?raw=true" width=100 align=left>](https://t.me/dt78app)
+[<img src="resources/telegram_.png?raw=true" width=100 align=left>](https://t.me/dt78app)
 
 <br><br><br><br>
 
 ### Screenshots
 
-![1](dt78_app1.png?raw=true "3")
+![1](resources/dt78_app1.png?raw=true "3")
 
-![2](dt78_app2.png?raw=true "2")
+![2](resources/dt78_app2.png?raw=true "2")
 
 
 ## Source Code
