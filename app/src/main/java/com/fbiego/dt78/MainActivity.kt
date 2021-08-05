@@ -56,10 +56,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.db.williamchart.data.Scale
 import com.db.williamchart.view.DonutChartView
-import com.fbiego.dt78.app.ConnectionListener
-import com.fbiego.dt78.app.ConnectionReceiver
-import com.fbiego.dt78.app.MainApplication
-import com.fbiego.dt78.app.RootUtil
+import com.fbiego.dt78.app.*
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_main.*
 import no.nordicsemi.android.ble.data.Data
@@ -183,6 +180,8 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         setTheme(myTheme(pref.getInt(ST.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         btAdapter = BluetoothAdapter.getDefaultAdapter()
         if (!btAdapter.isEnabled){

@@ -44,6 +44,7 @@ import android.view.View
 import android.widget.ImageView.ScaleType
 import android.widget.Toast
 import androidx.preference.PreferenceManager
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.ProgressListener
 import com.fbiego.dt78.app.ProgressReceiver
 import com.fbiego.dt78.app.SettingsActivity
@@ -65,6 +66,8 @@ class UploadActivity : AppCompatActivity(), ProgressListener {
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

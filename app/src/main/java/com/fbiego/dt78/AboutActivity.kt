@@ -37,6 +37,7 @@ import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceManager
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.data.getColorFromAttr
 import com.fbiego.dt78.data.myTheme
 import kotlinx.android.synthetic.main.activity_about.*
@@ -52,6 +53,7 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

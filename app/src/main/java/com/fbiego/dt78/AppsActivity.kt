@@ -51,6 +51,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SwitchCompat
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.MainApplication
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_apps.*
@@ -80,6 +81,8 @@ class AppsActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(ST.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apps)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

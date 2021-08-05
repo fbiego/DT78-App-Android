@@ -48,6 +48,7 @@ import androidx.core.app.ActivityCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.ForegroundService
 import com.fbiego.dt78.app.MeasureReceiver
 import com.fbiego.dt78.app.SettingsActivity
@@ -73,6 +74,8 @@ class BackupRestoreActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_backup_restore)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

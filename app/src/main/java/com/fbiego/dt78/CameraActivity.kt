@@ -35,10 +35,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import com.fbiego.dt78.app.DataListener
-import com.fbiego.dt78.app.DataReceiver
-import com.fbiego.dt78.app.ForegroundService
-import com.fbiego.dt78.app.SettingsActivity
+import com.fbiego.dt78.app.*
 import com.fbiego.dt78.camera.Camera2
 import com.fbiego.dt78.camera.Converters
 import com.fbiego.dt78.data.byteArrayOfInts
@@ -58,6 +55,8 @@ class CameraActivity : AppCompatActivity(), DataListener{
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

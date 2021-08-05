@@ -40,6 +40,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_contacts.*
 import timber.log.Timber
@@ -62,6 +63,8 @@ class ContactsActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(ST.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

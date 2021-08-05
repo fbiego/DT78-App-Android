@@ -38,6 +38,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.SeekBar
 import android.widget.Toast
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_setings.*
 import timber.log.Timber
@@ -51,6 +52,8 @@ class SettingsWatchActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(ST.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setings)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

@@ -134,6 +134,8 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
+
         Timber.d("onCreate")
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

@@ -34,6 +34,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.db.williamchart.data.Scale
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.SettingsActivity
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_sleep.*
@@ -62,6 +63,8 @@ class SleepActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sleep)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

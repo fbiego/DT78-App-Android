@@ -64,6 +64,8 @@ class ErrorLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_error_log)
 
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
+
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
 

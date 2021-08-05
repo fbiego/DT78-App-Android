@@ -39,6 +39,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.db.williamchart.data.Scale
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.ForegroundService
 import com.fbiego.dt78.app.SettingsActivity
 import com.fbiego.dt78.data.*
@@ -74,6 +75,8 @@ class StepsActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

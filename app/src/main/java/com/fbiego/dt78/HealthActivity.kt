@@ -42,6 +42,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.DataListener
 import com.fbiego.dt78.app.DataReceiver
 import com.fbiego.dt78.app.SettingsActivity
@@ -72,6 +73,8 @@ class HealthActivity : AppCompatActivity(), DataListener {
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_health)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)

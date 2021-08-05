@@ -47,6 +47,7 @@ import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
 import androidx.core.widget.addTextChangedListener
+import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.MeasureReceiver
 import com.fbiego.dt78.app.SettingsActivity
 import com.fbiego.dt78.data.*
@@ -74,6 +75,8 @@ class ReminderActivity : AppCompatActivity() {
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminder)
+
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
