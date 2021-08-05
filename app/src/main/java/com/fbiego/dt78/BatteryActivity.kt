@@ -69,6 +69,7 @@ class BatteryActivity : AppCompatActivity() {
                 buttonPrev.isEnabled = true
             }
             //loadDaySteps(currentView)
+            loadBatteryWeek(current)
 
         }
         buttonPrev.setOnClickListener {
@@ -80,6 +81,7 @@ class BatteryActivity : AppCompatActivity() {
                 buttonNext.isEnabled = true
             }
             //loadDaySteps(currentView)
+            loadBatteryWeek(current)
 
         }
 
@@ -92,13 +94,12 @@ class BatteryActivity : AppCompatActivity() {
         batteryList = MyDBHandler(this, null, null, 1).getBattery()
 
         weekList = ArrayList(batteryList.distinctBy { listOf(it.week(), it.year())  })
-
+        current = 0
+        maxWeeks = weekList.size
+        buttonNext.isEnabled = false
+        buttonPrev.isEnabled = maxWeeks > 1
         loadBatteryWeek(0)
-        recyclerViewBattery.apply {
-            layoutManager =
-                LinearLayoutManager(this@BatteryActivity)
-            adapter = BatteryAdapter(batteryList)
-        }
+
 
     }
 
@@ -107,7 +108,9 @@ class BatteryActivity : AppCompatActivity() {
             val wk = weekList[x]
             textDate.text = getString(R.string.week) + String.format(" %02d - %04d", wk.week(), wk.year())
 
-            val graph = sortWeekGraph(ArrayList(batteryList.filter { it.week()==wk.week() && it.year()==wk.year() }), wk.week(), wk.year())
+            val thisWk = ArrayList(batteryList.filter { it.week()==wk.week() && it.year()==wk.year() })
+
+            val graph = sortWeekGraph(thisWk, wk.week(), wk.year())
 
             val data = ArrayList<Pair<String, Float>>()
             graph.forEach {
@@ -117,6 +120,14 @@ class BatteryActivity : AppCompatActivity() {
             barChart.fillColor = this.getColorFromAttr(R.attr.colorIcons)
             barChart.scale = Scale(0f, 100f)
             barChart.animate(data)
+
+            val list = sortWeekList(thisWk)
+
+            recyclerViewBattery.apply {
+                layoutManager =
+                    LinearLayoutManager(this@BatteryActivity)
+                adapter = BatteryAdapter(list)
+            }
 
         } else {
 
@@ -134,7 +145,28 @@ class BatteryActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
-    fun sortWeekGraph(data: ArrayList<BatteryData>, week: Int, year: Int): ArrayList<GraphData>{
+    private fun sortWeekList(data: ArrayList<BatteryData>): ArrayList<BatteryData>{
+        val sorted = ArrayList<BatteryData>()
+        var level = 0
+        var state = 0
+        var hour = 0
+        var day = 0
+        data.sortByDescending { it.time }
+        data.forEach {
+            if (it.level==level && it.type==state && it.hour()==hour && it.weekDay()==day){
+
+            } else {
+                sorted.add(it)
+                level = it.level
+                state = it.type
+                hour = it.hour()
+                day = it.weekDay()
+            }
+        }
+        return sorted
+    }
+
+    private fun sortWeekGraph(data: ArrayList<BatteryData>, week: Int, year: Int): ArrayList<GraphData>{
 
         val cal = Calendar.getInstance(Locale.getDefault())
         val wk = cal.get(Calendar.WEEK_OF_YEAR)
