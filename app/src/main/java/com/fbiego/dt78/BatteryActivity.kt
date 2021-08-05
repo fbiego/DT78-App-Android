@@ -28,10 +28,18 @@ package com.fbiego.dt78
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fbiego.dt78.app.SettingsActivity
+import com.fbiego.dt78.data.BatteryAdapter
+import com.fbiego.dt78.data.BatteryData
+import com.fbiego.dt78.data.MyDBHandler
 import com.fbiego.dt78.data.myTheme
+import kotlinx.android.synthetic.main.activity_battery.*
 
 class BatteryActivity : AppCompatActivity() {
+
+    private var batteryList = ArrayList<BatteryData>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         setTheme(myTheme(pref.getInt(SettingsActivity.PREF_ACCENT, 0)))
@@ -41,6 +49,21 @@ class BatteryActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
 
+        recyclerViewBattery.layoutManager = LinearLayoutManager(this)
+        recyclerViewBattery.isNestedScrollingEnabled = false
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        batteryList.clear()
+        batteryList = MyDBHandler(this, null, null, 1).getBattery()
+        recyclerViewBattery.apply {
+            layoutManager =
+                LinearLayoutManager(this@BatteryActivity)
+            adapter = BatteryAdapter(batteryList)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

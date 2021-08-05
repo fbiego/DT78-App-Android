@@ -98,11 +98,7 @@ const val H_APP = 2       //measurement from app
 const val H_HOURLY = 3    //measurement from hourly data (received with hourly steps)
 const val H_TIMED = 4     //measurement from scheduled interval
 
-class BatteryData(
-    var time: Long,
-    var level: Int,
-    var type: Int
-)
+
 
 fun healthIcon(type: Int): Int{
     return when(type){
