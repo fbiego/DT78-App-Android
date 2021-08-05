@@ -28,6 +28,7 @@ package com.fbiego.dt78.app
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.fbiego.dt78.BackupRestoreActivity
 import com.fbiego.dt78.R
 import com.fbiego.dt78.data.*
 import java.util.*
@@ -60,7 +61,10 @@ class MeasureReceiver: BroadcastReceiver() {
         val dbHandler = MyDBHandler(p0, null, null, 1)
         val cal = Calendar.getInstance(Locale.getDefault())
 
-        if (id >= 30){
+        if (id == 50) {
+            BackupRestoreActivity().autoBackup(p0)
+
+        } else if (id >= 30){
             dbHandler.writeMeasure(cal, REMINDER_TRIGGERED, id)
             if (isInit) {
                 startReminder(icon, text!!, id-30)

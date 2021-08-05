@@ -27,6 +27,9 @@ package com.fbiego.dt78
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -46,6 +49,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fbiego.dt78.app.ForegroundService
+import com.fbiego.dt78.app.MeasureReceiver
 import com.fbiego.dt78.app.SettingsActivity
 import com.fbiego.dt78.data.*
 import kotlinx.android.synthetic.main.activity_backup_restore.*
@@ -76,7 +80,7 @@ class BackupRestoreActivity : AppCompatActivity() {
         backupCard.setOnClickListener {
 
             if (checkStoragePermission()) {
-                backupAll()
+                backupAll(this)
             } else {
                 requestWriteStoragePermission(MainActivity.PERMISSION_STORAGE + 2)
             }
@@ -93,15 +97,48 @@ class BackupRestoreActivity : AppCompatActivity() {
 
         checkBackups()
 
+        autoBackupSwitch.setOnCheckedChangeListener { _, b ->
+            pref.edit().putBoolean(SettingsActivity.PREF_AUTO_BACKUP, b).apply()
+            setAutoBackup(this, b)
+        }
+
     }
 
+    fun setAutoBackup(context: Context, state: Boolean){
+        val id = 50
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.set(Calendar.HOUR_OF_DAY, 2)
+        cal.set(Calendar.MILLISECOND, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
+        val intent = Intent(context, MeasureReceiver::class.java)
+        val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+        if (state){
+            intent.putExtra("id", id)
+            val pending = PendingIntent.getBroadcast(context.applicationContext, 54300 + id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+            alarmManager.setRepeating(AlarmManager.RTC, cal.timeInMillis, AlarmManager.INTERVAL_DAY, pending)
+        } else {
+            val pendingIntent = PendingIntent.getBroadcast(context.applicationContext, 54300 + id, intent, PendingIntent.FLAG_NO_CREATE)
+            if (pendingIntent != null) {
+                alarmManager.cancel(pendingIntent)
+            }
+        }
 
+    }
 
     override fun onResume() {
         super.onResume()
         if (!checkStoragePermission()){
             requestWriteStoragePermission(MainActivity.PERMISSION_STORAGE)
         }
+        val autoFile = File(Environment.getExternalStoragePublicDirectory("DT78"), "auto-backup.txt")
+
+        textAutoBackup.text = if (autoFile.exists()){
+            "Last Backup: "+autoFile.readLines()[0]
+        } else {
+            "Last Backup: Never"
+        }
+        autoBackupSwitch.isChecked = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(SettingsActivity.PREF_AUTO_BACKUP, false)
     }
 
     fun onClick(type: Int, name: String){
@@ -168,7 +205,7 @@ class BackupRestoreActivity : AppCompatActivity() {
     }
 
 
-    private fun backupAll(){
+    private fun backupAll(context: Context){
 
         val cal = Calendar.getInstance(Locale.getDefault())
         Thread {
@@ -181,16 +218,16 @@ class BackupRestoreActivity : AppCompatActivity() {
             var data = "${cal.time}\n${cal.timeInMillis}\n" +
                     "DT78 Backup File\n"
 
-            data += "## Steps \n" + backupSteps()
-            data += "## Sleep \n" + backupSleep()
-            data += "## Heart \n" + backupHeart()
-            data += "## Pressure \n" + backupPressure()
-            data += "## Oxygen \n" + backupOxygen()
-            data += "## User \n" + backupUser()
-            data += "## Settings \n" + backupSettings()
-            data += "## Alarms \n" + backupAlarms()
+            data += "## Steps \n" + backupSteps(context)
+            data += "## Sleep \n" + backupSleep(context)
+            data += "## Heart \n" + backupHeart(context)
+            data += "## Pressure \n" + backupPressure(context)
+            data += "## Oxygen \n" + backupOxygen(context)
+            data += "## User \n" + backupUser(context)
+            data += "## Settings \n" + backupSettings(context)
+            data += "## Alarms \n" + backupAlarms(context)
             data += "## Notification List \n" + backupList()
-            data += "## Preferences \n" + backupPrefs()
+            data += "## Preferences \n" + backupPrefs(context)
 
             val dir = Environment.getExternalStoragePublicDirectory("DT78")
 
@@ -213,6 +250,37 @@ class BackupRestoreActivity : AppCompatActivity() {
         }.start()
 
 
+    }
+
+    fun autoBackup(context: Context){
+        val cal = Calendar.getInstance(Locale.getDefault())
+        Thread {
+            var data = "${cal.time}\n${cal.timeInMillis}\n" +
+                    "DT78 Backup File\n"
+
+            data += "## Steps \n" + backupSteps(context)
+            data += "## Sleep \n" + backupSleep(context)
+            data += "## Heart \n" + backupHeart(context)
+            data += "## Pressure \n" + backupPressure(context)
+            data += "## Oxygen \n" + backupOxygen(context)
+            data += "## User \n" + backupUser(context)
+            data += "## Settings \n" + backupSettings(context)
+            data += "## Alarms \n" + backupAlarms(context)
+            data += "## Notification List \n" + backupList()
+            data += "## Preferences \n" + backupPrefs(context)
+
+            val dir = Environment.getExternalStoragePublicDirectory("DT78")
+
+            if (!dir.exists()) {
+                dir.mkdirs()
+            }
+
+            val name = "auto-backup.txt"
+
+            val file = File(dir, name)
+            file.createNewFile()
+            file.writeText(data)
+        }.start()
     }
 
     private fun restoreData(file: File){
@@ -343,14 +411,14 @@ class BackupRestoreActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun backupUser(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupUser(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val user = dbHandler.getUser()
         return "BA:${user.age}-${user.step}-${user.height}-${user.weight}-${user.target}\n"
     }
 
-    private fun backupSettings(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupSettings(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         var out = ""
         for (i in 0..2){
             val s = dbHandler.getSet(i)
@@ -360,8 +428,8 @@ class BackupRestoreActivity : AppCompatActivity() {
 
     }
 
-    private fun backupAlarms(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupAlarms(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val als = dbHandler.getAlarms()
         var out = ""
         for (a in als){
@@ -380,8 +448,8 @@ class BackupRestoreActivity : AppCompatActivity() {
         return out
     }
     
-    private fun backupPrefs(): String {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this).all
+    private fun backupPrefs(context: Context): String {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context).all
 
         var out = ""
         for (s in prefs){
@@ -392,8 +460,8 @@ class BackupRestoreActivity : AppCompatActivity() {
 
 
 
-    private fun backupSteps(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupSteps(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val steps = dbHandler.getRawSteps()
 
         var out = ""
@@ -403,8 +471,8 @@ class BackupRestoreActivity : AppCompatActivity() {
         return out
     }
 
-    private fun backupSleep(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupSleep(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val sleep = dbHandler.getSleepData()
 
         var out = ""
@@ -414,8 +482,8 @@ class BackupRestoreActivity : AppCompatActivity() {
         return out
     }
 
-    private fun backupHeart(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupHeart(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val data = dbHandler.getRawHeart()
 
         var out = ""
@@ -425,8 +493,8 @@ class BackupRestoreActivity : AppCompatActivity() {
         return out
     }
 
-    private fun backupPressure(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+    private fun backupPressure(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val data = dbHandler.getRawBP()
 
         var out = ""
@@ -437,8 +505,8 @@ class BackupRestoreActivity : AppCompatActivity() {
         return out
     }
 
-     private fun backupOxygen(): String{
-        val dbHandler = MyDBHandler(this, null, null, 1)
+     private fun backupOxygen(context: Context): String{
+        val dbHandler = MyDBHandler(context, null, null, 1)
         val data = dbHandler.getRawSP()
 
         var out = ""
@@ -483,7 +551,7 @@ class BackupRestoreActivity : AppCompatActivity() {
         Timber.w("Activity result: Request $requestCode")
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
             if (requestCode == MainActivity.PERMISSION_STORAGE + 2 ) {
-                backupAll()
+                //backupAll(this)
             }
             if (requestCode == MainActivity.PERMISSION_STORAGE){
                 checkBackups()

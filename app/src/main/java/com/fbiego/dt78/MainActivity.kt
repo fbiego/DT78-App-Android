@@ -362,6 +362,7 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
         MeasureActivity().setSchedule(this, pref.getBoolean(ST.PREF_SCHEDULED, false),
             pref.getInt(ST.PREF_M_START, 0), pref.getInt(ST.PREF_M_END, 23), pref.getInt(ST.PREF_M_INTERVAL, 2)
         )
+        BackupRestoreActivity().setAutoBackup(this, pref.getBoolean(ST.PREF_AUTO_BACKUP, false))
         val db = MyDBHandler(this, null, null, 1)
         ReminderActivity().setReminders(this, db.getReminders())
 
