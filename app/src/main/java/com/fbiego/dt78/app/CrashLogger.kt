@@ -27,8 +27,11 @@ package com.fbiego.dt78.app
 
 import android.app.Activity
 import android.content.Context
+import android.os.Environment
+import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.*
 
 
 class CrashLogger(val app: Activity): Thread.UncaughtExceptionHandler {
@@ -39,33 +42,44 @@ class CrashLogger(val app: Activity): Thread.UncaughtExceptionHandler {
     }
 
     override fun uncaughtException(t: Thread, e: Throwable) {
+        val cal = Calendar.getInstance(Locale.getDefault())
         var arr = e.stackTrace
-        var report = "$e\n"
-        report += "--------- Stack trace ---------\n\n"
+        var report = "-------------------------------\n" +
+                "Crash at ${cal.time}\n" +
+                "-------------------------------\n" +
+                "$e\n" +
+                "--------- Stack trace ---------\n"
         for (i in arr.indices) {
-            report += "${arr[i]}"
+            report += "${arr[i]}\n"
         }
-        report += "-------------------------------\n\n"
+        report += "-------------------------------\n"
 
         // If the exception was thrown in a background thread inside
         // AsyncTask, then the actual exception can be found with getCause
-        report += "--------- Cause ---------\n\n"
+        report += "--------- Cause ---------\n"
         val cause = e.cause
         if (cause != null) {
             report += "$cause\n"
             arr = cause.stackTrace
             for (i in arr.indices) {
-                report += "${arr[i]}"
+                report += "${arr[i]}\n"
             }
         }
-        report += "-------------------------------\n\n"
+        report += "-------------------------------\n"
         try {
-            val trace: FileOutputStream = app.openFileOutput(
-                "stack.trace",
-                Context.MODE_PRIVATE
-            )
-            trace.write(report.toByteArray())
-            trace.close()
+            val dir = File(Environment.getExternalStoragePublicDirectory("DT78/crash").path)
+            if (!dir.exists()){
+                dir.mkdirs()
+            }
+            val crashFile = File(dir, "logs.txt")
+            crashFile.createNewFile()
+            crashFile.appendText(report)
+//            val trace: FileOutputStream = app.openFileOutput(
+//                "stack.trace",
+//                Context.MODE_PRIVATE
+//            )
+//            trace.write(report.toByteArray())
+//            trace.close()
         } catch (ioe: IOException) {
             // ...
         }
