@@ -62,9 +62,7 @@ class MeasureReceiver: BroadcastReceiver() {
         val cal = Calendar.getInstance(Locale.getDefault())
 
         if (id == 50) {
-
             BackupRestoreActivity().autoBackup(p0)
-
         } else if (id >= 30){
             dbHandler.writeMeasure(cal, REMINDER_TRIGGERED, id)
             if (isInit) {

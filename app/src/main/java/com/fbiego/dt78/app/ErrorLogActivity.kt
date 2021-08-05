@@ -27,6 +27,7 @@ package com.fbiego.dt78.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -196,6 +197,7 @@ class ErrorLogActivity : AppCompatActivity() {
                 val cachePath = this.cacheDir
                 val file = File(cachePath, "error.txt")
                 val data = File(cachePath, "data.txt")
+                val crash = File(Environment.getExternalStoragePublicDirectory("DT78/crash/logs.txt").path)
 
                 if (data.exists()){
                     data.delete()
@@ -208,6 +210,9 @@ class ErrorLogActivity : AppCompatActivity() {
                     alert.setPositiveButton(R.string.yes) { _, _ ->
                         clearData()
                         file.delete()
+                        if (crash.exists()){
+                            crash.delete()
+                        }
                         Toast.makeText(this, R.string.log_deleted, Toast.LENGTH_SHORT).show()
                     }
                     alert.setNegativeButton(R.string.cancel) { _, _ ->
@@ -223,18 +228,20 @@ class ErrorLogActivity : AppCompatActivity() {
             }
             R.id.share -> {
                 val cachePath = this.cacheDir
+                val crash = File(Environment.getExternalStoragePublicDirectory("DT78/crash/logs.txt").path)
                 val file = File(cachePath, "data.txt")
                 val error = File(cachePath, "error.txt")
 
                 var text = ""
                 text += if (file.exists()) "data.txt -> data from watch\n" else "No data logs\n"
-                text += if (error.exists()) "error.txt -> error logs" else "No error logs"
+                text += if (error.exists()) "error.txt -> error logs\n" else "No error logs\n"
+                text += if (crash.exists()) "logs.txt -> crash logs" else "No crash logs"
 
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Share logs")
                 builder.setMessage(text)
                 if (error.exists()) {
-                    builder.setPositiveButton("Error") { _, _ ->
+                    builder.setNegativeButton("Error") { _, _ ->
                         val contentUri =
                             FileProvider.getUriForFile(this, "com.fbiego.dt78.fileprovider", error)
                         val intent = Intent(Intent.ACTION_SEND)
@@ -242,6 +249,19 @@ class ErrorLogActivity : AppCompatActivity() {
                         intent.putExtra(Intent.EXTRA_STREAM, contentUri)
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                         intent.putExtra(Intent.EXTRA_TEXT, "Share error log")
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Send")
+                        startActivity(Intent.createChooser(intent, "Share"))
+                    }
+                }
+                if (crash.exists()) {
+                    builder.setPositiveButton("Crash") { _, _ ->
+                        val contentUri =
+                            FileProvider.getUriForFile(this, "com.fbiego.dt78.fileprovider", crash)
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "*/*"
+                        intent.putExtra(Intent.EXTRA_STREAM, contentUri)
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        intent.putExtra(Intent.EXTRA_TEXT, "Share crash log")
                         intent.putExtra(Intent.EXTRA_SUBJECT, "Send")
                         startActivity(Intent.createChooser(intent, "Share"))
                     }

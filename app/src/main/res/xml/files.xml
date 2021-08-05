@@ -26,4 +26,5 @@
 
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <cache-path name="cache" path="/"/>
+    <external-path name="crash" path="./DT78/crash"/>
 </paths>
