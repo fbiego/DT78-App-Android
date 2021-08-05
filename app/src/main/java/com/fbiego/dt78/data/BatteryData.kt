@@ -36,12 +36,38 @@ import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.fbiego.dt78.R
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BatteryData(
     var time: Long,
     var level: Int,
     var type: Int
-)
+){
+    fun year(): Int{
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.timeInMillis = time
+        return cal.get(Calendar.YEAR)
+    }
+
+    fun week(): Int{
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.timeInMillis = time
+        return cal.get(Calendar.WEEK_OF_YEAR)
+    }
+
+    fun weekDay(): Int{
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.timeInMillis = time
+        return cal.get(Calendar.DAY_OF_WEEK)
+    }
+
+    fun timeString(): String{
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.timeInMillis = time
+        return String.format("%02d:%02d", cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE))
+    }
+}
 
 
 class BatteryAdapter(private val data: ArrayList<BatteryData>)
@@ -62,6 +88,7 @@ class BatteryAdapter(private val data: ArrayList<BatteryData>)
 
     class DataHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView){
         private val mTime: TextView = itemView.findViewById(R.id.time)
+        private val mDay: TextView = itemView.findViewById(R.id.day)
         private val mLevel: TextView = itemView.findViewById(R.id.batteryLevel)
         private val mState: TextView = itemView.findViewById(R.id.batteryState)
         private val card: CardView = itemView.findViewById(R.id.cardView)
@@ -69,7 +96,8 @@ class BatteryAdapter(private val data: ArrayList<BatteryData>)
 
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind (battery: BatteryData){
-            mTime.text = battery.time.toString()
+            mDay.text = dayOfWeek(battery.weekDay(), cnt)
+            mTime.text = battery.timeString()
             mLevel.text = "${battery.level}%"
             mState.text = battery.type.toString()
             card.backgroundTintList = ColorStateList.valueOf(cnt.getColorFromAttr(R.attr.colorCardBackgroundDark))
