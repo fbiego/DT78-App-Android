@@ -31,6 +31,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
@@ -95,7 +96,8 @@ class BatteryAdapter(private val data: ArrayList<BatteryData>)
         private val mTime: TextView = itemView.findViewById(R.id.time)
         private val mDay: TextView = itemView.findViewById(R.id.day)
         private val mLevel: TextView = itemView.findViewById(R.id.batteryLevel)
-        private val mState: TextView = itemView.findViewById(R.id.batteryState)
+        //private val mState: TextView = itemView.findViewById(R.id.batteryState)
+        private val mIcon: ImageView = itemView.findViewById(R.id.batteryType)
         private val card: CardView = itemView.findViewById(R.id.cardView)
         private val cnt = context
 
@@ -104,7 +106,8 @@ class BatteryAdapter(private val data: ArrayList<BatteryData>)
             mDay.text = dayOfWeek(battery.weekDay(), cnt)
             mTime.text = battery.timeString()
             mLevel.text = "${battery.level}%"
-            mState.text = batStatus(battery.type)
+            mIcon.setImageResource(batStatusIcon(battery.type))
+            //mState.text = batStatus(battery.type)
             card.backgroundTintList = ColorStateList.valueOf(cnt.getColorFromAttr(R.attr.colorCardBackgroundDark))
         }
 

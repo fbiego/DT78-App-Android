@@ -287,6 +287,9 @@
 	<string name="text_hint">Twój tekst tutaj</string>
 	<string name="reminder_hint">Kliknij na zewnętrzny pierścień, aby aktywować przypomnienie</string>
 	<string name="watch_full_charge">Bateria obserwacyjna jest w pełni naładowana</string>
+	<string name="auto_backup">Automatycznego tworzenia kopii zapasowych</string>
+	<string name="last_backup">Ostatnia kopia zapasowa</string>
+	<string name="watch_battery">Oglądaj baterię</string>
 	<string-array name="alarm_options">
 		<item>Jeden raz</item>
 		<item>Codziennie</item>

@@ -287,6 +287,9 @@
 	<string name="text_hint">votre texte ici</string>
 	<string name="reminder_hint">Cliquez sur la bague extérieure pour activer le rappel.</string>
 	<string name="watch_full_charge">Regarder la batterie est complètement chargée</string>
+	<string name="auto_backup">Sauvegarde automatique</string>
+	<string name="last_backup">Dernière sauvegarde</string>
+	<string name="watch_battery">Regarder la batterie</string>
 	<string-array name="alarm_options">
 		<item>Une seule fois</item>
 		<item>Tous les jours</item>

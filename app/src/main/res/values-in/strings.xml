@@ -287,6 +287,9 @@
 	<string name="text_hint">teks Anda di sini</string>
 	<string name="reminder_hint">Klik pada cincin luar untuk mengaktifkan pengingat</string>
 	<string name="watch_full_charge">Baterai menonton terisi penuh</string>
+	<string name="auto_backup">Cadangan otomatis</string>
+	<string name="last_backup">Cadangan terakhir</string>
+	<string name="watch_battery">Tonton baterai</string>
 	<string-array name="alarm_options">
 		<item>Sekali</item>
 		<item>Everyday</item>

@@ -287,6 +287,9 @@
 	<string name="text_hint">Dein Text hier</string>
 	<string name="reminder_hint">Klicken Sie auf den Außenring, um die Erinnerung zu aktivieren</string>
 	<string name="watch_full_charge">Uhrenbatterie ist vollständig aufgeladen</string>
+	<string name="auto_backup">Automatische Sicherung</string>
+	<string name="last_backup">Letzte Sicherung</string>
+	<string name="watch_battery">Batterie ansehen</string>
 	<string-array name="alarm_options">
 		<item>Einmal</item>
 		<item>Täglich</item>

@@ -287,6 +287,9 @@
 	<string name="text_hint">seu texto aqui</string>
 	<string name="reminder_hint">Clique no anel externo para ativar o lembrete</string>
 	<string name="watch_full_charge">Assistir a bateria está totalmente carregada</string>
+	<string name="auto_backup">Backup automático</string>
+	<string name="last_backup">Ultimo Back up</string>
+	<string name="watch_battery">Assista a bateria</string>
 	<string-array name="alarm_options">
 		<item>Uma vez</item>
 		<item>Todo dia</item>

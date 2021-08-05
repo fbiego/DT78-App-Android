@@ -287,6 +287,9 @@
 	<string name="text_hint">tu texto aqui</string>
 	<string name="reminder_hint">Haga clic en el anillo exterior para activar el recordatorio</string>
 	<string name="watch_full_charge">La batería del reloj está completamente cargada</string>
+	<string name="auto_backup">Copia de seguridad automática</string>
+	<string name="last_backup">Última copia de seguridad</string>
+	<string name="watch_battery">Batería de reloj</string>
 	<string-array name="alarm_options">
 		<item>Una vez</item>
 		<item>Todos los días</item>

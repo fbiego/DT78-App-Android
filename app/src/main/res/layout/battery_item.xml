@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:weightSum="17">
+            android:weightSum="13">
 
 
             <TextView
@@ -74,14 +74,21 @@
                 android:gravity="center"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/batteryState"
+<!--            <TextView-->
+<!--                android:id="@+id/batteryState"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="4"-->
+<!--                android:text="Charging"-->
+<!--                android:gravity="center"-->
+<!--                android:textStyle="bold" />-->
+            <ImageView
+                android:id="@+id/batteryType"
                 android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:text="Charging"
-                android:gravity="center"
-                android:textStyle="bold" />
+                android:src="@drawable/ic_watch"
+                app:tint="?attr/colorIcons" />
 
         </LinearLayout>
 

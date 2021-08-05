@@ -108,6 +108,15 @@ fun batStatus(x: Int): String{
     }
 }
 
+fun batStatusIcon(x: Int): Int{
+    return when (x){
+        DISCHARGING -> R.drawable.ic_watch
+        CHARGING -> R.drawable.ic_bat_charge
+        FULLY_CHARGED -> R.drawable.ic_bat_full
+        else -> R.drawable.ic_watch
+    }
+}
+
 fun healthIcon(type: Int): Int{
     return when(type){
         H_WATCH -> R.drawable.ic_h_watch

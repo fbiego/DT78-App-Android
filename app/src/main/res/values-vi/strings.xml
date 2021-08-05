@@ -287,6 +287,9 @@
 	<string name="text_hint">Văn bản của bạn ở đây</string>
 	<string name="reminder_hint">Nhấp vào vòng ngoài để kích hoạt lời nhắc nhở</string>
 	<string name="watch_full_charge">Đồng hồ pin được sạc đầy</string>
+	<string name="auto_backup">Tự động sao lưu</string>
+	<string name="last_backup">Sao lưu cuối cùng</string>
+	<string name="watch_battery">Đồng hồ pin</string>
 	<string-array name="alarm_options">
 		<item>Một lần</item>
 		<item>Hằng ngày</item>

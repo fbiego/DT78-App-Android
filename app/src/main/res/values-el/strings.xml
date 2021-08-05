@@ -287,6 +287,9 @@
 	<string name="text_hint">το κείμενό σας εδώ</string>
 	<string name="reminder_hint">Κάντε κλικ στον εξωτερικό δακτύλιο για να ενεργοποιήσετε την υπενθύμιση</string>
 	<string name="watch_full_charge">Η μπαταρία ρολογιών είναι πλήρως φορτισμένη</string>
+	<string name="auto_backup">Αυτόματο αντίγραφο ασφαλείας</string>
+	<string name="last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
+	<string name="watch_battery">Παρακολουθήστε την μπαταρία</string>
 	<string-array name="alarm_options">
 		<item>Μια φορά</item>
 		<item>Κάθε μέρα</item>

@@ -145,7 +145,8 @@ class SettingsWatchActivity : AppCompatActivity() {
 
 
         val names = arrayListOf(getString(R.string.hr12_sys), getString(R.string.measurement), unit(setPref.getBoolean(ST.PREF_UNITS, false), this),
-            getString(R.string.watch_type)+Watch(dt78).name+"\t\t"+FG.watchVersion, "Watch Battery", getString(R.string.watch_lang), getString(R.string.reset_watch))
+            getString(R.string.watch_type)+Watch(dt78).name+"\t\t"+FG.watchVersion, getString(R.string.watch_battery),
+            getString(R.string.watch_lang), getString(R.string.reset_watch))
 
         var units = setPref.getBoolean(ST.PREF_UNITS, false)
 

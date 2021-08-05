@@ -287,6 +287,9 @@
 	<string name="text_hint">il tuo testo qui</string>
 	<string name="reminder_hint">Fare clic sull\'anello esterno per attivare il promemoria</string>
 	<string name="watch_full_charge">Guarda la batteria è completamente carica</string>
+	<string name="auto_backup">Auto Backup</string>
+	<string name="last_backup">Ultimo backup.</string>
+	<string name="watch_battery">Guarda la batteria</string>
 	<string-array name="alarm_options">
 		<item>Una volta</item>
 		<item>Ogni giorno</item>

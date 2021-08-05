@@ -137,9 +137,9 @@ class BackupRestoreActivity : AppCompatActivity() {
         val autoFile = File(Environment.getExternalStoragePublicDirectory("DT78"), "auto-backup.txt")
 
         textAutoBackup.text = if (autoFile.exists()){
-            "Last Backup: "+autoFile.readLines()[0]
+            getString(R.string.last_backup)+": "+autoFile.readLines()[0]
         } else {
-            "Last Backup: Never"
+            getString(R.string.last_backup)
         }
         autoBackupSwitch.isChecked = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(SettingsActivity.PREF_AUTO_BACKUP, false)
     }

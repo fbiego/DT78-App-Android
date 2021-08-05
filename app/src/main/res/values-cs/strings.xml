@@ -287,6 +287,9 @@
 	<string name="text_hint">text zde</string>
 	<string name="reminder_hint">Chcete-li aktivovat připomenutí, klikněte na vnější kroužek</string>
 	<string name="watch_full_charge">Sledujte baterii je plně nabitá</string>
+	<string name="auto_backup">Automatická záloha</string>
+	<string name="last_backup">Poslední zálohování</string>
+	<string name="watch_battery">Sledujte baterii</string>
 	<string-array name="alarm_options">
 		<item>Jednou</item>
 		<item>Každý den</item>
