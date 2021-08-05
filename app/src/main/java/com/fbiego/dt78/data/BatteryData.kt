@@ -56,6 +56,11 @@ class BatteryData(
         return cal.get(Calendar.WEEK_OF_YEAR)
     }
 
+    fun hour(): Int{
+        val cal = Calendar.getInstance(Locale.getDefault())
+        cal.timeInMillis = time
+        return cal.get(Calendar.HOUR_OF_DAY)
+    }
     fun weekDay(): Int{
         val cal = Calendar.getInstance(Locale.getDefault())
         cal.timeInMillis = time
