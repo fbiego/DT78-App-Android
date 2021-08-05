@@ -104,7 +104,7 @@ class BatteryAdapter(private val data: ArrayList<BatteryData>)
             mDay.text = dayOfWeek(battery.weekDay(), cnt)
             mTime.text = battery.timeString()
             mLevel.text = "${battery.level}%"
-            mState.text = battery.type.toString()
+            mState.text = batStatus(battery.type)
             card.backgroundTintList = ColorStateList.valueOf(cnt.getColorFromAttr(R.attr.colorCardBackgroundDark))
         }
 

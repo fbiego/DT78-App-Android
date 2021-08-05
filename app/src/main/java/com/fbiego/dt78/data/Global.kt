@@ -72,6 +72,7 @@ const val MONTH =   2
 const val DISCHARGING = 0
 const val CHARGING = 1
 const val FULLY_CHARGED = 2
+
 const val SERVICE_STARTED =     0
 const val SERVICE_STOPPED =     1
 const val BLUETOOTH_OFF =       2
@@ -98,7 +99,14 @@ const val H_APP = 2       //measurement from app
 const val H_HOURLY = 3    //measurement from hourly data (received with hourly steps)
 const val H_TIMED = 4     //measurement from scheduled interval
 
-
+fun batStatus(x: Int): String{
+    return when (x){
+        DISCHARGING -> "Discharging"
+        CHARGING -> "Charging"
+        FULLY_CHARGED -> "Fully Charged"
+        else -> "Unknown"
+    }
+}
 
 fun healthIcon(type: Int): Int{
     return when(type){
