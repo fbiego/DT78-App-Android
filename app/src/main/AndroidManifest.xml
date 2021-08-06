@@ -28,8 +28,10 @@
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".BatteryActivity"
-            android:label="@string/watch_battery"/>
+        <activity android:name=".FunctionsActivity"></activity>
+        <activity
+            android:name=".BatteryActivity"
+            android:label="@string/watch_battery" />
         <activity
             android:name=".BackupRestoreActivity"
             android:label="@string/bakup_restore" />
