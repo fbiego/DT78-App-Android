@@ -490,7 +490,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
      * Create/Update the notification
      */
     fun notify(text: String, priority: Boolean, bat: Int, id: Int): Notification {
-        // Launch the MainAcivity when user taps on the Notification
+        // Launch the MainActivity when user taps on the Notification
         Timber.w("Context ${context.packageName}")
         val intent = Intent(context, MainActivity::class.java)
 
@@ -524,6 +524,9 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         }
         notBuild.setOnlyAlertOnce(true)
         val notification= notBuild.build()
+        if (id == -1) {
+            notification.flags = Notification.FLAG_ONLY_ALERT_ONCE
+        }
         notificationChannel(priority, context).notify(id, notification)
         return notification
     }
