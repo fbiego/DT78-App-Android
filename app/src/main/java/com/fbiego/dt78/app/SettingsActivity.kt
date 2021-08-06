@@ -120,6 +120,9 @@ class SettingsActivity : AppCompatActivity() {
         const val PREF_SEND_ICON = "send_icon"
         const val PREF_HINT = "reminder_hint"
         const val PREF_AUTO_BACKUP = "auto_backup"
+        const val PREF_FUNC_PREV = "function_previous"
+        const val PREF_FUNC_PLAY = "function_play"
+        const val PREF_FUNC_NEXT = "function_next"
         lateinit var btAdapter: BluetoothAdapter
 
         var curLock = false

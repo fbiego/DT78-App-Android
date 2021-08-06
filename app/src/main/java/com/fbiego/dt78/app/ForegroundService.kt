@@ -29,7 +29,6 @@ import android.annotation.TargetApi
 import android.app.*
 import android.app.admin.DevicePolicyManager
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothClass
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.*
@@ -56,6 +55,7 @@ import java.io.File
 import java.lang.reflect.Method
 import java.util.*
 import com.fbiego.dt78.app.SettingsActivity as ST
+
 
 /**
  *
@@ -124,6 +124,10 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
 
         var pendingMeasure = false
         var pendingId = -1
+
+        var f_prev = ""
+        var f_play = ""
+        var f_next = ""
 
 
     }
@@ -662,6 +666,11 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         hourly = setPref.getBoolean(ST.PREF_HOURLY, false)
         msIcon = setPref.getInt(ST.PREF_SEND_ICON, 0)
         sendWatch = setPref.getBoolean(ST.PREF_SEND_WATCH, false)
+
+        f_prev = setPref.getString(ST.PREF_FUNC_PREV, "")!!
+        f_play = setPref.getString(ST.PREF_FUNC_PLAY, "")!!
+        f_next = setPref.getString(ST.PREF_FUNC_NEXT, "")!!
+
 
 
         alarmManager()
@@ -1538,6 +1547,15 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         }
 
         MainActivity().onDataReceived(data, this, dbHandler.getUser().step)
+    }
+
+    fun launchApp(packageName: String){
+        val intent = Intent(packageName)
+        try {
+            startActivity(intent)
+        } catch (e: Exception){
+
+        }
     }
 
 

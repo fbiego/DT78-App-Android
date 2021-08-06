@@ -39,6 +39,7 @@ import kotlinx.android.synthetic.main.activity_battery.buttonNext
 import kotlinx.android.synthetic.main.activity_battery.buttonPrev
 import kotlinx.android.synthetic.main.activity_battery.textDate
 import kotlinx.android.synthetic.main.activity_steps.*
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -118,6 +119,7 @@ class BatteryActivity : AppCompatActivity() {
             val data = ArrayList<Pair<String, Float>>()
             graph.forEach {
                 data.add(Pair("", it.level.toFloat()))
+                //Timber.e("Battery Graph: ${it.day}, ${it.hour}, ${it.level}")
             }
 
             barChart.fillColor = this.getColorFromAttr(R.attr.colorIcons)
@@ -190,7 +192,7 @@ class BatteryActivity : AppCompatActivity() {
                 } else {
                     sorted.add(GraphData(x, y, level, state))
                 }
-                if (x > dy && y > hr && wk == week && yr == year){
+                if (x == dy && y > hr && wk == week && yr == year){
                     level = 0
                     state = 0
                 }

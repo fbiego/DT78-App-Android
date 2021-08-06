@@ -25,12 +25,22 @@
 
 package com.fbiego.dt78
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.DialogInterface
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.fbiego.dt78.app.CrashLogger
 import com.fbiego.dt78.app.SettingsActivity
+import com.fbiego.dt78.data.UserListAdapter
 import com.fbiego.dt78.data.myTheme
+import kotlinx.android.synthetic.main.activity_functions.*
+import com.fbiego.dt78.app.SettingsActivity as ST
+
 
 class FunctionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +53,75 @@ class FunctionsActivity : AppCompatActivity() {
 
         val actionbar = supportActionBar
         actionbar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val names = arrayListOf(pref.getString(ST.PREF_FUNC_PREV, "None")!!,
+            pref.getString(ST.PREF_FUNC_PLAY, "None")!!,
+            pref.getString(ST.PREF_FUNC_NEXT, "None")!!)
+        val states = arrayListOf<Boolean?>(null, null, null)
+        val icons = arrayListOf(R.drawable.ic_func_prev, R.drawable.ic_func_play, R.drawable.ic_func_next)
+
+        val appList = ArrayList<String>()
+        val apps: MutableList<ApplicationInfo> = ArrayList()
+
+        functionsList.visibility = View.GONE
+
+        Thread {
+            val installedApps =
+                this.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+
+            installedApps.sortWith { a, b ->
+                val nameA = this.packageManager.getApplicationLabel(a).toString()
+                val nameB = this.packageManager.getApplicationLabel(b).toString()
+                nameA.compareTo(nameB)
+            }
+
+            for (i in installedApps.indices) {
+                if (this.packageManager.getLaunchIntentForPackage(installedApps[i].packageName) != null) {
+                    //If you're here, then this is a launch-able app
+                    apps.add(installedApps[i])
+                    appList.add("${installedApps[i].loadLabel(packageManager)} (${installedApps[i].packageName})")
+                }
+            }
+            runOnUiThread {
+                progressBar3.visibility = View.GONE
+                functionsList.visibility = View.VISIBLE
+            }
+        }.start()
+
+
+        val list = UserListAdapter(this, icons, names, null, states)
+        functionsList.adapter = list
+        functionsList.setOnItemClickListener { adapterView, view, i, l ->
+            val builder =  AlertDialog.Builder(this)
+            builder.setTitle("Make a choice from the list:")
+            builder.setCancelable(false)
+            builder.setItems(appList.toTypedArray()) { dialog, item ->
+                Toast.makeText(
+                    applicationContext,
+                    "Selection: $item",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val x = when(i){
+                    0 -> ST.PREF_FUNC_PREV
+                    1 -> ST.PREF_FUNC_PLAY
+                    2 -> ST.PREF_FUNC_NEXT
+                    else -> "null"
+                }
+                pref.edit().putString(x, apps[item].packageName).apply()
+                names[i] = apps[item].packageName
+                list.notifyDataSetChanged()
+
+            }
+            val alert: AlertDialog = builder.create()
+            alert.show()
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
