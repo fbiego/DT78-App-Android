@@ -290,6 +290,10 @@
 	<string name="auto_backup">Automatycznego tworzenia kopii zapasowych</string>
 	<string name="last_backup">Ostatnia kopia zapasowa</string>
 	<string name="watch_battery">Oglądaj baterię</string>
+	<string name="functions">Funkcje</string>
+	<string name="none">Nic</string>
+	<string name="app_launch">Aplikacja Launcher.</string>
+	<string name="select_app">Wybierz aplikację</string>
 	<string-array name="alarm_options">
 		<item>Jeden raz</item>
 		<item>Codziennie</item>

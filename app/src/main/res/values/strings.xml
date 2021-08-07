@@ -289,7 +289,11 @@
 	<string name="watch_full_charge">Watch battery is fully charged</string>
 	<string name="auto_backup">Auto Backup</string>
 	<string name="last_backup">Last Backup</string>
-	<string name="watch_battery">Watch battery</string>
+	<string name="watch_battery">Watch Battery</string>
+	<string name="functions">Functions</string>
+	<string name="none">None</string>
+	<string name="app_launch">App launcher</string>
+	<string name="select_app">Choose an app</string>
 	<string-array name="alarm_options">
 		<item>Once</item>
 		<item>Everyday</item>

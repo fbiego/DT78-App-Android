@@ -290,6 +290,10 @@
 	<string name="auto_backup">Cadangan otomatis</string>
 	<string name="last_backup">Cadangan terakhir</string>
 	<string name="watch_battery">Tonton baterai</string>
+	<string name="functions">Fungsi.</string>
+	<string name="none">Tidak ada</string>
+	<string name="app_launch">Peluncur aplikasi</string>
+	<string name="select_app">Pilih aplikasi</string>
 	<string-array name="alarm_options">
 		<item>Sekali</item>
 		<item>Everyday</item>

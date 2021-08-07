@@ -290,6 +290,10 @@
 	<string name="auto_backup">Tự động sao lưu</string>
 	<string name="last_backup">Sao lưu cuối cùng</string>
 	<string name="watch_battery">Đồng hồ pin</string>
+	<string name="functions">Chức năng</string>
+	<string name="none">Không có</string>
+	<string name="app_launch">Trình khởi chạy ứng dụng</string>
+	<string name="select_app">Chọn một ứng dụng</string>
 	<string-array name="alarm_options">
 		<item>Một lần</item>
 		<item>Hằng ngày</item>

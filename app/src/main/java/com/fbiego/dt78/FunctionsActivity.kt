@@ -61,9 +61,9 @@ class FunctionsActivity : AppCompatActivity() {
 
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
 
-        val names = arrayListOf(pref.getString(ST.PREF_FUNC_PREV, "None")!!,
-            pref.getString(ST.PREF_FUNC_PLAY, "None")!!,
-            pref.getString(ST.PREF_FUNC_NEXT, "None")!!)
+        val names = arrayListOf(pref.getString(ST.PREF_FUNC_PREV, getString(R.string.none))!!,
+            pref.getString(ST.PREF_FUNC_PLAY, getString(R.string.none))!!,
+            pref.getString(ST.PREF_FUNC_NEXT, getString(R.string.none))!!)
         val states = arrayListOf<Boolean?>(null, null, null)
         val icons = arrayListOf(R.drawable.ic_func_prev, R.drawable.ic_func_play, R.drawable.ic_func_next)
 
@@ -71,7 +71,7 @@ class FunctionsActivity : AppCompatActivity() {
         val apps: MutableList<ApplicationInfo> = ArrayList()
 
         apps.add(ApplicationInfo())
-        appList.add("None")
+        appList.add(getString(R.string.none))
 
         functionsList.visibility = View.GONE
         progressBar3.visibility = View.VISIBLE
@@ -104,15 +104,11 @@ class FunctionsActivity : AppCompatActivity() {
         functionsList.adapter = list
         functionsList.setOnItemClickListener { adapterView, view, i, l ->
             val builder =  AlertDialog.Builder(this)
-            builder.setTitle("Make a choice from the list:")
+            builder.setTitle(getString(R.string.select_app))
             builder.setCancelable(false)
             builder.setItems(appList.toTypedArray()) { dialog, item ->
-                Toast.makeText(
-                    applicationContext,
-                    "Selection: $item",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val pack = if (item == 0) "None"  else apps[item].packageName
+                //Toast.makeText(applicationContext, "Selection: $item", Toast.LENGTH_SHORT).show()
+                val pack = if (item == 0) getString(R.string.none)  else apps[item].packageName
                 when(i){
                     0 -> {
                         pref.edit().putString(ST.PREF_FUNC_PREV, pack).apply()

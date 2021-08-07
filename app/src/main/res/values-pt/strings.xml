@@ -290,6 +290,10 @@
 	<string name="auto_backup">Backup automático</string>
 	<string name="last_backup">Ultimo Back up</string>
 	<string name="watch_battery">Assista a bateria</string>
+	<string name="functions">Funções</string>
+	<string name="none">Nenhum</string>
+	<string name="app_launch">Lançador de aplicativos</string>
+	<string name="select_app">Escolha um aplicativo</string>
 	<string-array name="alarm_options">
 		<item>Uma vez</item>
 		<item>Todo dia</item>

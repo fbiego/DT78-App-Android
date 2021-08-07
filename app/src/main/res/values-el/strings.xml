@@ -290,6 +290,10 @@
 	<string name="auto_backup">Αυτόματο αντίγραφο ασφαλείας</string>
 	<string name="last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
 	<string name="watch_battery">Παρακολουθήστε την μπαταρία</string>
+	<string name="functions">Λειτουργίες</string>
+	<string name="none">Κανένας</string>
+	<string name="app_launch">Εκκίνηση εφαρμογών</string>
+	<string name="select_app">Επιλέξτε μια εφαρμογή</string>
 	<string-array name="alarm_options">
 		<item>Μια φορά</item>
 		<item>Κάθε μέρα</item>

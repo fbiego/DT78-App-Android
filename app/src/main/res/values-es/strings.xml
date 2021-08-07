@@ -290,6 +290,10 @@
 	<string name="auto_backup">Copia de seguridad automática</string>
 	<string name="last_backup">Última copia de seguridad</string>
 	<string name="watch_battery">Batería de reloj</string>
+	<string name="functions">Funciones</string>
+	<string name="none">Ninguno</string>
+	<string name="app_launch">App lanzador</string>
+	<string name="select_app">Elige una aplicación</string>
 	<string-array name="alarm_options">
 		<item>Una vez</item>
 		<item>Todos los días</item>

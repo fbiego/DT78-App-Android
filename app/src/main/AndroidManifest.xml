@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".FunctionsActivity"></activity>
+        <activity android:name=".FunctionsActivity"
+            android:label="@string/functions"/>
         <activity
             android:name=".BatteryActivity"
             android:label="@string/watch_battery" />

@@ -290,6 +290,10 @@
 	<string name="auto_backup">Automatická záloha</string>
 	<string name="last_backup">Poslední zálohování</string>
 	<string name="watch_battery">Sledujte baterii</string>
+	<string name="functions">Funkce</string>
+	<string name="none">Žádný</string>
+	<string name="app_launch">App Launcher.</string>
+	<string name="select_app">Vyberte aplikaci</string>
 	<string-array name="alarm_options">
 		<item>Jednou</item>
 		<item>Každý den</item>

@@ -290,6 +290,10 @@
 	<string name="auto_backup">Автоматическое резервное копирование</string>
 	<string name="last_backup">Последнее резервное копирование</string>
 	<string name="watch_battery">Смотреть аккумулятор</string>
+	<string name="functions">Функции</string>
+	<string name="none">Никто</string>
+	<string name="app_launch">App Launcher.</string>
+	<string name="select_app">Выберите приложение</string>
 	<string-array name="alarm_options">
 		<item>Один раз</item>
 		<item>Каждый день</item>
