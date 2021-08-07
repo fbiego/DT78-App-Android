@@ -51,11 +51,19 @@ fun generate(strings: List<String>){
     var alarms = arrayListOf("", "", "", "")
 	
     println("Languages: $lang")
+    println("Checking...")
+    for (x in 0 until strings.size){
+        val l = strings[x].split(SEPARATOR).count()
+        if (l != lang+1){
+            println("Mismatch at line ${x+1}")
+        }
+    }
 	
 	val dir = File("../app/src/main/res")
-	if (!dir.exists())
+	if (!dir.exists()) {
         dir.mkdirs()
-		println("Created output folder")
+        println("Created output folder")
+    }
     
     for (x in 1..lang){
         var output = "$license\n\n"

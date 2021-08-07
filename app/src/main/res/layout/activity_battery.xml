@@ -118,7 +118,8 @@
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 app:chart_smoothLine="false"
-                app:chart_axis="none"
+                app:chart_axis="x"
+                app:chart_labelsSize="16sp"
                 app:chart_lineThickness="1dp"
                 app:chart_lineColor="?attr/colorIcons"
                 />

@@ -118,12 +118,20 @@ class BatteryActivity : AppCompatActivity() {
 
             val data = ArrayList<Pair<String, Float>>()
             graph.forEach {
-                data.add(Pair("", it.level.toFloat()))
-                //Timber.e("Battery Graph: ${it.day}, ${it.hour}, ${it.level}")
+                val txt = if (it.hour == 12 ){
+                    dayOfWk(it.day, this)
+                } else if (it.hour == 0 && it.day > 1){
+                    "|"
+                } else {
+                    ""
+                }
+                data.add(Pair(txt, it.level.toFloat()))
+                Timber.w("Battery Graph: ${it.day}, ${it.hour}, ${it.level}")
             }
 
             barChart.fillColor = this.getColorFromAttr(R.attr.colorIcons)
             barChart.scale = Scale(0f, 100f)
+            barChart.labelsColor = this.getColorFromAttr(R.attr.colorIcons)
             barChart.animate(data)
 
             val list = sortWeekList(thisWk)
@@ -156,12 +164,12 @@ class BatteryActivity : AppCompatActivity() {
         var state = 0
         var hour = 0
         var day = 0
-        data.sortByDescending { it.time }
+        //data.sortByDescending { it.time }
         data.forEach {
             if (it.level==level && it.type==state && it.hour()==hour && it.weekDay()==day){
 
             } else {
-                if (it.type > 0 && state > 0){
+                if (level == 100 && state == 2 && it.type != 0){
 
                 } else {
                     sorted.add(it)
@@ -172,6 +180,7 @@ class BatteryActivity : AppCompatActivity() {
                 }
             }
         }
+        sorted.sortByDescending { it.time }
         return sorted
     }
 

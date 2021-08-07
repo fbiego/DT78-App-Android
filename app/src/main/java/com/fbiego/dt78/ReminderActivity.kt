@@ -472,7 +472,7 @@ class ReminderActivity : AppCompatActivity() {
     }
 
     private fun setRemind(context: Context, time: Long?, rem: ReminderData){
-        Timber.e("Set reminder? $time")
+        Timber.w("Set reminder? $time")
         val intent = Intent(context, MeasureReceiver::class.java)
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
         if (time != null){

@@ -234,7 +234,7 @@ class LEManager(context: Context) : BleManager<LeManagerCallbacks>(context) {
             requestMtu(MTU).enqueue()
             val filter = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\s]"
             val msg = message.toByteArray()
-            Timber.e("Message size: ${msg.size}, Message : ${message.length}")
+            Timber.w("Message size: ${msg.size}, Message : ${message.length}")
             val msgByte = if (msg.size > 125){
                 msg[124] = 95
                 msg.slice(0 until 125)
