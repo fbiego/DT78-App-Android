@@ -50,8 +50,8 @@ android {
         applicationId "com.fbiego.dt78"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 36
-        versionName "3.4.1"
+        versionCode 37
+        versionName "3.5"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
