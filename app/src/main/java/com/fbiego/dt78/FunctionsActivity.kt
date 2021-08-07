@@ -40,6 +40,7 @@ import com.fbiego.dt78.data.UserListAdapter
 import com.fbiego.dt78.data.myTheme
 import kotlinx.android.synthetic.main.activity_functions.*
 import com.fbiego.dt78.app.SettingsActivity as ST
+import com.fbiego.dt78.app.ForegroundService as FG
 
 
 class FunctionsActivity : AppCompatActivity() {
@@ -69,7 +70,11 @@ class FunctionsActivity : AppCompatActivity() {
         val appList = ArrayList<String>()
         val apps: MutableList<ApplicationInfo> = ArrayList()
 
+        apps.add(ApplicationInfo())
+        appList.add("None")
+
         functionsList.visibility = View.GONE
+        progressBar3.visibility = View.VISIBLE
 
         Thread {
             val installedApps =
@@ -107,14 +112,22 @@ class FunctionsActivity : AppCompatActivity() {
                     "Selection: $item",
                     Toast.LENGTH_SHORT
                 ).show()
-                val x = when(i){
-                    0 -> ST.PREF_FUNC_PREV
-                    1 -> ST.PREF_FUNC_PLAY
-                    2 -> ST.PREF_FUNC_NEXT
-                    else -> "null"
+                val pack = if (item == 0) "None"  else apps[item].packageName
+                when(i){
+                    0 -> {
+                        pref.edit().putString(ST.PREF_FUNC_PREV, pack).apply()
+                        FG.f_prev = pack
+                    }
+                    1 ->  {
+                        pref.edit().putString(ST.PREF_FUNC_PLAY,pack).apply()
+                        FG.f_play = pack
+                    }
+                    2 -> {
+                        pref.edit().putString(ST.PREF_FUNC_NEXT, pack).apply()
+                        FG.f_next = pack
+                    }
                 }
-                pref.edit().putString(x, apps[item].packageName).apply()
-                names[i] = apps[item].packageName
+                names[i] = pack
                 list.notifyDataSetChanged()
 
             }

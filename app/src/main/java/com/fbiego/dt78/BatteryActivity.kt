@@ -161,11 +161,15 @@ class BatteryActivity : AppCompatActivity() {
             if (it.level==level && it.type==state && it.hour()==hour && it.weekDay()==day){
 
             } else {
-                sorted.add(it)
-                level = it.level
-                state = it.type
-                hour = it.hour()
-                day = it.weekDay()
+                if (it.type > 0 && state > 0){
+
+                } else {
+                    sorted.add(it)
+                    level = it.level
+                    state = it.type
+                    hour = it.hour()
+                    day = it.weekDay()
+                }
             }
         }
         return sorted

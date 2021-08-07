@@ -1211,7 +1211,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                     if (data.getByte(4) == (0x99).toByte()) {
                         when (data.getByte(6)) {
                             (0x00).toByte() -> {
-
+                                launchApp(f_play)
                                 try {
                                     Runtime.getRuntime().exec("su -c input keyevent 85")
 
@@ -1221,6 +1221,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
 
                             }
                             (0x01).toByte() -> {
+                                launchApp(f_prev)
                                 try {
                                     Runtime.getRuntime().exec("su -c input keyevent 87")
                                 } catch (e: Exception) {
@@ -1228,6 +1229,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
                                 }
                             }
                             (0x02).toByte() -> {
+                                launchApp(f_next)
                                 try {
                                     Runtime.getRuntime().exec("su -c input keyevent 88")
                                 } catch (e: Exception) {
@@ -1549,12 +1551,13 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         MainActivity().onDataReceived(data, this, dbHandler.getUser().step)
     }
 
-    fun launchApp(packageName: String){
-        val intent = Intent(packageName)
+    private fun launchApp(packageName: String){
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
         try {
             startActivity(intent)
+            writeMessage("Launched: $packageName", 0)
         } catch (e: Exception){
-
+            Timber.e("Launch Failed: $e")
         }
     }
 
