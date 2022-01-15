@@ -168,6 +168,7 @@
                     app:chart_axis="none"
                     app:chart_lineThickness="1dp"
                     app:chart_lineColor="?attr/colorIcons"
+                    android:clickable="true"
                     />
 
             </LinearLayout>

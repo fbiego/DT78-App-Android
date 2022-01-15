@@ -11,16 +11,12 @@
 
 ### App Install
 
-[`DT78-App-v3.5.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.5.apk)
+[`DT78-App-v3.6.apk`](https://github.com/fbiego/DT78-App-Android/raw/dev/app/release/DT78-App-v3.6.apk)
 
-Released on `07:30 Saturday, 7 August 2021 Greenwich Mean Time (GMT)`
+Released on `00:00 Saturday, 15 January 2022 Greenwich Mean Time (GMT)`
 
 [Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
->+ Added AutoBackup feature
->+ Added Watch Battery logging
->+ Added Crash Logger
->+ Added Function Remap (experimental)
->+ Updated translations
+>+ Fixed incorrect sort
 
 The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 

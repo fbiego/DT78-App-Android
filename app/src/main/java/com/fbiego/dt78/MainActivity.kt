@@ -222,6 +222,10 @@ class MainActivity : AppCompatActivity(), ConnectionListener {
 
         Timber.d("Main Activity onCreate ")
 
+//        barChart.setOnClickListener {
+//            Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show()
+//        }
+
 
 
     }

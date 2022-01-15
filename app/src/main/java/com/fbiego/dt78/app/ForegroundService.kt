@@ -528,7 +528,7 @@ class ForegroundService : Service(), MessageListener, PhonecallListener, DataLis
         }
         notBuild.setOnlyAlertOnce(true)
         val notification= notBuild.build()
-        if (id == -1) {
+        if (bat == -1) {
             notification.flags = Notification.FLAG_ONLY_ALERT_ONCE
         }
         notificationChannel(priority, context).notify(id, notification)

@@ -886,9 +886,11 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         cursor.close()
         db.close()
 
-        qr.sortByDescending {
-            it.id
-        }
+//        qr.sortByDescending {
+//            it.id
+//        }
+        qr.sortWith(compareBy({it.year}, {it.month}, {it.day}, {it.hour}, {it.minute}))
+        qr.reverse()
         return qr
     }
 
@@ -983,9 +985,11 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         }
         cursor.close()
         db.close()
-        qr.sortByDescending {
-            it.id
-        }
+//        qr.sortByDescending {
+//            it.id
+//        }
+        qr.sortWith(compareBy({it.year}, {it.month}, {it.day}, {it.hour}, {it.minute}))
+        qr.reverse()
 
         return qr
     }
@@ -1034,9 +1038,11 @@ class MyDBHandler(context: Context, name: String?, factory: SQLiteDatabase.Curso
         }
         cursor.close()
         db.close()
-        qr.sortByDescending {
-            it.id
-        }
+//        qr.sortByDescending {
+//            it.id
+//        }
+        qr.sortWith(compareBy({it.year}, {it.month}, {it.day}, {it.hour}, {it.minute}))
+        qr.reverse()
         return qr
     }
 

@@ -4,6 +4,9 @@ Find other version here [`dt78_apps`](https://drive.google.com/drive/folders/1TN
 
 [`Want to downgrade?`](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/downgrade.md)
 
+## 3.6
++ Fixed incorrect sort
+
 ## 3.5
 + Added AutoBackup feature
 + Added Watch Battery logging
