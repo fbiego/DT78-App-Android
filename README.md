@@ -18,7 +18,7 @@ Released on `00:00 Saturday, 15 January 2022 Greenwich Mean Time (GMT)`
 [Changelog](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/changeLog.md):
 >+ Fixed incorrect sort
 
-The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
+> The camera may not work on some devices and on others only the back camera may work. Rooted users can long press to switch between In-app or External camera.
 
 [`Want to downgrade?`](https://github.com/fbiego/DT78-App-Android/blob/dev/app/release/downgrade.md)
 
