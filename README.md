@@ -8,7 +8,10 @@
 + [`LCD Touch Test video`](https://youtu.be/1j1_iY0G4Cs)
 + [`DT78 with ESP32 PCB`](https://youtu.be/O0CNbZo6Kx4)
 
-[`Tested Watches`](https://github.com/fbiego/DT78-App-Android/blob/dev/resources/watches.md)
+[`ESP32 Firmware`](https://github.com/fbiego/dt78-esp32-firmware)
+
+![4](https://github.com/fbiego/dt78-esp32-firmware/raw/main/watchfaces.png?raw=true "4")
+
 
 ### App Install
 
