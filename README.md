@@ -1,5 +1,11 @@
 # DT78-App-Android
 
+### Chronos
+A new design for the DT78 app
+
+<a href='https://play.google.com/store/apps/details?id=com.fbiego.chronos&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="100px" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
+
+
 #### Videos
 
 + [`How to connect`](https://youtu.be/4o1O2qxbPlw)
