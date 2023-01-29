@@ -35,7 +35,7 @@ Released on `00:00 Saturday, 15 January 2022 Greenwich Mean Time (GMT)`
 
 ### Translate
 
-[`DT78 app translations`](https://docs.google.com/spreadsheets/d/1crHcLgeA30y7-kiXHY95TBrc7-_znlTKFR2QMc66zT4/edit?usp=sharing) on Google Sheets
+[`Chronos app translations`](https://docs.google.com/spreadsheets/d/1crHcLgeA30y7-kiXHY95TBrc7-_znlTKFR2QMc66zT4/edit?usp=sharing) on Google Sheets
 | |  | |
 | --- | --- | --- |
 | Czech | English | French |
