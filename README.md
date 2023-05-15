@@ -5,7 +5,7 @@ The DT78 app is no longer being maintained in favour of the new Chronos app. Cli
 <!--
 <a href='https://play.google.com/store/apps/details?id=com.fbiego.chronos&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="100px" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 -->
-[![chronos](resources/chronos_banner_gp.png?raw=true "chronos")](https://fbiego.com/chronos/app?id=dt78)
+[![chronos](resources/chronos_banner_gp.png?raw=true "chronos")](https://fbiego.com/chronos/)
 
 #### Videos
 
