@@ -43,9 +43,10 @@ Released on `00:00 Saturday, 15 January 2022 Greenwich Mean Time (GMT)`
 | Italian | Polish | Portuguese |
 | Russian | Spanish | Vietnamese |
 
-#### Telegram
+#### Forums
 
 [<img src="resources/telegram_.png?raw=true" width=100 align=left>](https://t.me/dt78app)
+[<img src="resources/4pda.png?raw=true" width=100 align=left>](https://4pda.to/forum/index.php?showtopic=1062628)
 
 <br><br><br><br>
 
